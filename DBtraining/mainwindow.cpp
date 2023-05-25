@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     server=new QTcpServer;
+
     server->listen(QHostAddress::AnyIPv4,PORT);
     connect(server,&QTcpServer::newConnection,this,&MainWindow::newClientHandle);
 
@@ -504,16 +505,4 @@ void MainWindow::reShowTable(QString data){
     resultFile.close();
     resultFile.remove();
     ui->view_->setModel(model_);
-}
-
-//                                   "qproperty-icon: url(:/Black/nscc);"
-//                                   "qproperty-iconSize: 32px 32px;"
-void MainWindow::setActionStyle(){
-    ui->mainToolBar->setStyleSheet("QToolButton#createAction{"
-                                   "border: none;"
-                                   "color: white;"
-                                   "background: transparent;"
-                                   "padding: 10px;"
-                                   "qproperty-toolButtonStyle: ToolButtonTextUnderIcon;"
-                                   );
 }

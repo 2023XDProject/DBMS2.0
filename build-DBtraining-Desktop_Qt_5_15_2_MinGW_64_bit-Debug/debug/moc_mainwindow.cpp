@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[19];
-    char stringdata0[387];
+    QByteArrayData data[28];
+    char stringdata0[500];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,9 +48,18 @@ QT_MOC_LITERAL(12, 295, 31), // "on_dropTable_pushButton_clicked"
 QT_MOC_LITERAL(13, 327, 13), // "updateToolBar"
 QT_MOC_LITERAL(14, 341, 11), // "reShowTable"
 QT_MOC_LITERAL(15, 353, 4), // "data"
-QT_MOC_LITERAL(16, 358, 6), // "reshow"
-QT_MOC_LITERAL(17, 365, 8), // "isFinish"
-QT_MOC_LITERAL(18, 374, 12) // "receiveTable"
+QT_MOC_LITERAL(16, 358, 9), // "on_select"
+QT_MOC_LITERAL(17, 368, 9), // "on_update"
+QT_MOC_LITERAL(18, 378, 9), // "on_delete"
+QT_MOC_LITERAL(19, 388, 9), // "on_insert"
+QT_MOC_LITERAL(20, 398, 13), // "on_alterTable"
+QT_MOC_LITERAL(21, 412, 13), // "on_createUser"
+QT_MOC_LITERAL(22, 426, 16), // "on_authorization"
+QT_MOC_LITERAL(23, 443, 14), // "on_createTable"
+QT_MOC_LITERAL(24, 458, 12), // "on_dropTable"
+QT_MOC_LITERAL(25, 471, 6), // "reshow"
+QT_MOC_LITERAL(26, 478, 8), // "isFinish"
+QT_MOC_LITERAL(27, 487, 12) // "receiveTable"
 
     },
     "MainWindow\0on_select_pushButton_clicked\0"
@@ -63,8 +72,11 @@ QT_MOC_LITERAL(18, 374, 12) // "receiveTable"
     "on_authorization_pushButton_clicked\0"
     "on_createTable_pushButton_clicked\0"
     "on_dropTable_pushButton_clicked\0"
-    "updateToolBar\0reShowTable\0data\0reshow\0"
-    "isFinish\0receiveTable"
+    "updateToolBar\0reShowTable\0data\0on_select\0"
+    "on_update\0on_delete\0on_insert\0"
+    "on_alterTable\0on_createUser\0"
+    "on_authorization\0on_createTable\0"
+    "on_dropTable\0reshow\0isFinish\0receiveTable"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +86,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -82,22 +94,31 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   94,    2, 0x08 /* Private */,
-       3,    0,   95,    2, 0x08 /* Private */,
-       4,    0,   96,    2, 0x08 /* Private */,
-       5,    0,   97,    2, 0x08 /* Private */,
-       6,    0,   98,    2, 0x08 /* Private */,
-       7,    0,   99,    2, 0x08 /* Private */,
-       8,    0,  100,    2, 0x08 /* Private */,
-       9,    0,  101,    2, 0x08 /* Private */,
-      10,    0,  102,    2, 0x08 /* Private */,
-      11,    0,  103,    2, 0x08 /* Private */,
-      12,    0,  104,    2, 0x08 /* Private */,
-      13,    0,  105,    2, 0x08 /* Private */,
-      14,    1,  106,    2, 0x08 /* Private */,
-      16,    0,  109,    2, 0x0a /* Public */,
-      17,    1,  110,    2, 0x0a /* Public */,
-      18,    1,  113,    2, 0x0a /* Public */,
+       1,    0,  139,    2, 0x08 /* Private */,
+       3,    0,  140,    2, 0x08 /* Private */,
+       4,    0,  141,    2, 0x08 /* Private */,
+       5,    0,  142,    2, 0x08 /* Private */,
+       6,    0,  143,    2, 0x08 /* Private */,
+       7,    0,  144,    2, 0x08 /* Private */,
+       8,    0,  145,    2, 0x08 /* Private */,
+       9,    0,  146,    2, 0x08 /* Private */,
+      10,    0,  147,    2, 0x08 /* Private */,
+      11,    0,  148,    2, 0x08 /* Private */,
+      12,    0,  149,    2, 0x08 /* Private */,
+      13,    0,  150,    2, 0x08 /* Private */,
+      14,    1,  151,    2, 0x08 /* Private */,
+      16,    0,  154,    2, 0x08 /* Private */,
+      17,    0,  155,    2, 0x08 /* Private */,
+      18,    0,  156,    2, 0x08 /* Private */,
+      19,    0,  157,    2, 0x08 /* Private */,
+      20,    0,  158,    2, 0x08 /* Private */,
+      21,    0,  159,    2, 0x08 /* Private */,
+      22,    0,  160,    2, 0x08 /* Private */,
+      23,    0,  161,    2, 0x08 /* Private */,
+      24,    0,  162,    2, 0x08 /* Private */,
+      25,    0,  163,    2, 0x0a /* Public */,
+      26,    1,  164,    2, 0x0a /* Public */,
+      27,    1,  167,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -113,6 +134,15 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   15,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   15,
     QMetaType::Void, QMetaType::QString,   15,
@@ -139,9 +169,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->on_dropTable_pushButton_clicked(); break;
         case 11: _t->updateToolBar(); break;
         case 12: _t->reShowTable((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 13: _t->reshow(); break;
-        case 14: _t->isFinish((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 15: _t->receiveTable((*reinterpret_cast< QString(*)>(_a[1]))); break;
+
+        case 22: _t->reshow(); break;
+        case 23: _t->isFinish((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 24: _t->receiveTable((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -176,13 +207,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 25)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 25;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 16)
+        if (_id < 25)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 16;
+        _id -= 25;
     }
     return _id;
 }

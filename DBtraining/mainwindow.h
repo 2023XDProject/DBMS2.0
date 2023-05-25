@@ -67,6 +67,26 @@ private slots:
 
     void reShowTable(QString data);//更新表格
 
+    //action
+    void on_select();
+
+    void on_update();
+
+    void on_delete();
+
+    void on_insert();
+
+    void on_alterTable();
+
+    void on_createUser();
+
+    void on_authorization();
+
+    void on_createTable();
+
+    void on_dropTable();
+
+
 public slots:
     void reshow();
     void isFinish(QString data);//接收传递过来的(操作是否完成)数据的槽

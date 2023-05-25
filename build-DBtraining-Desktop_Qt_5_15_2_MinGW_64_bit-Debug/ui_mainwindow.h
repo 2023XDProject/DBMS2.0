@@ -28,6 +28,14 @@ class Ui_MainWindow
 {
 public:
     QAction *createAction;
+    QAction *dropAction;
+    QAction *alterAction;
+    QAction *creatUserAction;
+    QAction *authorityAction;
+    QAction *deleteAction;
+    QAction *selectAction;
+    QAction *updateAction;
+    QAction *insertAction;
     QWidget *centralWidget;
     QPushButton *createUser_pushButton;
     QPushButton *authorization_pushButton;
@@ -56,6 +64,30 @@ public:
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
         font.setPointSize(16);
         createAction->setFont(font);
+        dropAction = new QAction(MainWindow);
+        dropAction->setObjectName(QString::fromUtf8("dropAction"));
+        dropAction->setFont(font);
+        alterAction = new QAction(MainWindow);
+        alterAction->setObjectName(QString::fromUtf8("alterAction"));
+        alterAction->setFont(font);
+        creatUserAction = new QAction(MainWindow);
+        creatUserAction->setObjectName(QString::fromUtf8("creatUserAction"));
+        creatUserAction->setFont(font);
+        authorityAction = new QAction(MainWindow);
+        authorityAction->setObjectName(QString::fromUtf8("authorityAction"));
+        authorityAction->setFont(font);
+        deleteAction = new QAction(MainWindow);
+        deleteAction->setObjectName(QString::fromUtf8("deleteAction"));
+        deleteAction->setFont(font);
+        selectAction = new QAction(MainWindow);
+        selectAction->setObjectName(QString::fromUtf8("selectAction"));
+        selectAction->setFont(font);
+        updateAction = new QAction(MainWindow);
+        updateAction->setObjectName(QString::fromUtf8("updateAction"));
+        updateAction->setFont(font);
+        insertAction = new QAction(MainWindow);
+        insertAction->setObjectName(QString::fromUtf8("insertAction"));
+        insertAction->setFont(font);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         createUser_pushButton = new QPushButton(centralWidget);
@@ -87,7 +119,7 @@ public:
         delete_pushButton->setGeometry(QRect(610, 510, 93, 28));
         textBrowser_2 = new QTextBrowser(centralWidget);
         textBrowser_2->setObjectName(QString::fromUtf8("textBrowser_2"));
-        textBrowser_2->setGeometry(QRect(0, 30, 311, 891));
+        textBrowser_2->setGeometry(QRect(0, 0, 311, 921));
         textBrowser_2->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -95,7 +127,7 @@ public:
         textBrowser_2->setReadOnly(false);
         view_ = new QTableView(centralWidget);
         view_->setObjectName(QString::fromUtf8("view_"));
-        view_->setGeometry(QRect(345, 31, 631, 381));
+        view_->setGeometry(QRect(315, 1, 1291, 411));
         view_->setStyleSheet(QString::fromUtf8("QTableView {\n"
 "        border: 1px solid rgb(45, 45, 45);\n"
 "        background: rgb(57, 58, 60);\n"
@@ -131,6 +163,10 @@ public:
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
         mainToolBar->setMinimumSize(QSize(1600, 70));
         mainToolBar->setMaximumSize(QSize(1600, 70));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
+        font1.setPointSize(14);
+        mainToolBar->setFont(font1);
         mainToolBar->setStyleSheet(QString::fromUtf8("QToolButton{\n"
 "                                   border: none;\n"
 "                                   color: white;\n"
@@ -144,8 +180,25 @@ public:
         MainWindow->setStatusBar(statusBar);
 
         mainToolBar->addAction(createAction);
+        mainToolBar->addAction(dropAction);
+        mainToolBar->addAction(alterAction);
+        mainToolBar->addAction(creatUserAction);
+        mainToolBar->addAction(authorityAction);
+        mainToolBar->addAction(deleteAction);
+        mainToolBar->addAction(selectAction);
+        mainToolBar->addAction(updateAction);
+        mainToolBar->addAction(insertAction);
 
         retranslateUi(MainWindow);
+        QObject::connect(creatUserAction, SIGNAL(triggered()), createUser_pushButton, SLOT(click()));
+        QObject::connect(alterAction, SIGNAL(triggered()), alterTable_pushButton, SLOT(click()));
+        QObject::connect(createAction, SIGNAL(triggered()), createTable_pushButton, SLOT(click()));
+        QObject::connect(dropAction, SIGNAL(triggered()), dropTable_pushButton, SLOT(click()));
+        QObject::connect(authorityAction, SIGNAL(triggered()), authorization_pushButton, SLOT(click()));
+        QObject::connect(deleteAction, SIGNAL(triggered()), delete_pushButton, SLOT(click()));
+        QObject::connect(selectAction, SIGNAL(triggered()), select_pushButton, SLOT(click()));
+        QObject::connect(updateAction, SIGNAL(triggered()), update_pushButton, SLOT(click()));
+        QObject::connect(insertAction, SIGNAL(triggered()), insert_pushButton, SLOT(click()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -157,6 +210,15 @@ public:
 #if QT_CONFIG(shortcut)
         createAction->setShortcut(QCoreApplication::translate("MainWindow", "Ctrl+C", nullptr));
 #endif // QT_CONFIG(shortcut)
+        dropAction->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244\350\241\250\n"
+"", nullptr));
+        alterAction->setText(QCoreApplication::translate("MainWindow", "\344\277\256\346\224\271\350\241\250", nullptr));
+        creatUserAction->setText(QCoreApplication::translate("MainWindow", "\346\226\260\345\273\272\347\224\250\346\210\267", nullptr));
+        authorityAction->setText(QCoreApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", nullptr));
+        deleteAction->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244\350\256\260\345\275\225", nullptr));
+        selectAction->setText(QCoreApplication::translate("MainWindow", "\346\237\245\350\257\242\350\256\260\345\275\225", nullptr));
+        updateAction->setText(QCoreApplication::translate("MainWindow", "\346\233\264\346\226\260\350\256\260\345\275\225", nullptr));
+        insertAction->setText(QCoreApplication::translate("MainWindow", "\346\217\222\345\205\245\350\256\260\345\275\225", nullptr));
         createUser_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\233\345\273\272\347\224\250\346\210\267", nullptr));
         authorization_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", nullptr));
         alterTable_pushButton->setText(QCoreApplication::translate("MainWindow", "\344\277\256\346\224\271\350\241\250\347\273\223\346\236\204", nullptr));

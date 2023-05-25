@@ -138,9 +138,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>30</y>
+      <y>0</y>
       <width>311</width>
-      <height>891</height>
+      <height>921</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -156,10 +156,10 @@ border:2px solid rgb(20, 128, 211);
    <widget class="QTableView" name="view_">
     <property name="geometry">
      <rect>
-      <x>345</x>
-      <y>31</y>
-      <width>631</width>
-      <height>381</height>
+      <x>315</x>
+      <y>1</y>
+      <width>1291</width>
+      <height>411</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -237,7 +237,14 @@ QTableView::indicator {
     <bool>false</bool>
    </attribute>
    <addaction name="createAction"/>
+   <addaction name="dropAction"/>
+   <addaction name="alterAction"/>
+   <addaction name="creatUserAction"/>
+   <addaction name="authorityAction"/>
    <addaction name="deleteAction"/>
+   <addaction name="selectAction"/>
+   <addaction name="updateAction"/>
+   <addaction name="insertAction"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="createAction">
@@ -254,7 +261,7 @@ QTableView::indicator {
     <string>Ctrl+C</string>
    </property>
   </action>
-  <action name="deleteAction">
+  <action name="dropAction">
    <property name="text">
     <string>删除表
 </string>
@@ -266,8 +273,230 @@ QTableView::indicator {
     </font>
    </property>
   </action>
+  <action name="alterAction">
+   <property name="text">
+    <string>修改表</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="creatUserAction">
+   <property name="text">
+    <string>新建用户</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="authorityAction">
+   <property name="text">
+    <string>权限管理</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="deleteAction">
+   <property name="text">
+    <string>删除记录</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="selectAction">
+   <property name="text">
+    <string>查询记录</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="updateAction">
+   <property name="text">
+    <string>更新记录</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="insertAction">
+   <property name="text">
+    <string>插入记录</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>幼圆</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>creatUserAction</sender>
+   <signal>triggered()</signal>
+   <receiver>createUser_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>856</x>
+     <y>786</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>alterAction</sender>
+   <signal>triggered()</signal>
+   <receiver>alterTable_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>956</x>
+     <y>636</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>createAction</sender>
+   <signal>triggered()</signal>
+   <receiver>createTable_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>736</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dropAction</sender>
+   <signal>triggered()</signal>
+   <receiver>dropTable_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>596</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>authorityAction</sender>
+   <signal>triggered()</signal>
+   <receiver>authorization_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>656</x>
+     <y>726</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteAction</sender>
+   <signal>triggered()</signal>
+   <receiver>delete_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>656</x>
+     <y>616</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectAction</sender>
+   <signal>triggered()</signal>
+   <receiver>select_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>746</x>
+     <y>536</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>updateAction</sender>
+   <signal>triggered()</signal>
+   <receiver>update_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>806</x>
+     <y>616</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>insertAction</sender>
+   <signal>triggered()</signal>
+   <receiver>insert_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>896</x>
+     <y>716</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
