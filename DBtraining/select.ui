@@ -175,6 +175,7 @@
     <string notr="true">background: rgb(68, 69, 73);
 border-radius:4px;
 border:2px solid rgb(20, 128, 211);
+color: white;
 </string>
    </property>
   </widget>
@@ -191,6 +192,7 @@ border:2px solid rgb(20, 128, 211);
     <string notr="true">background: rgb(68, 69, 73);
 border-radius:4px;
 border:2px solid rgb(20, 128, 211);
+color: white;
 </string>
    </property>
   </widget>
@@ -207,6 +209,7 @@ border:2px solid rgb(20, 128, 211);
     <string notr="true">background: rgb(68, 69, 73);
 border-radius:4px;
 border:2px solid rgb(20, 128, 211);
+color: white;
 </string>
    </property>
   </widget>
@@ -223,6 +226,7 @@ border:2px solid rgb(20, 128, 211);
     <string notr="true">background: rgb(68, 69, 73);
 border-radius:4px;
 border:2px solid rgb(20, 128, 211);
+color: white;
 </string>
    </property>
   </widget>

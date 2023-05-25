@@ -70,6 +70,7 @@ public:
         lineEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
 
         retranslateUi(DropTable);

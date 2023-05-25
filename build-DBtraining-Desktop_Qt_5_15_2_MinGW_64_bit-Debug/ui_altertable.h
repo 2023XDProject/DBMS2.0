@@ -71,6 +71,7 @@ public:
         line_operate->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         line_table = new QLineEdit(alterTable);
         line_table->setObjectName(QString::fromUtf8("line_table"));
@@ -78,6 +79,7 @@ public:
         line_table->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         line_column = new QLineEdit(alterTable);
         line_column->setObjectName(QString::fromUtf8("line_column"));
@@ -85,6 +87,7 @@ public:
         line_column->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         line_dataType = new QLineEdit(alterTable);
         line_dataType->setObjectName(QString::fromUtf8("line_dataType"));
@@ -92,6 +95,7 @@ public:
         line_dataType->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         label = new QLabel(alterTable);
         label->setObjectName(QString::fromUtf8("label"));

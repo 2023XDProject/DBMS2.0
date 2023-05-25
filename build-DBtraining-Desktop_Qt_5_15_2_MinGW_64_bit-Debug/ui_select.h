@@ -91,6 +91,7 @@ public:
         attribute_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         tablename_textEdit = new QTextEdit(Select);
         tablename_textEdit->setObjectName(QString::fromUtf8("tablename_textEdit"));
@@ -98,6 +99,7 @@ public:
         tablename_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         order__textEdit = new QTextEdit(Select);
         order__textEdit->setObjectName(QString::fromUtf8("order__textEdit"));
@@ -105,6 +107,7 @@ public:
         order__textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         condition_textEdit = new QTextEdit(Select);
         condition_textEdit->setObjectName(QString::fromUtf8("condition_textEdit"));
@@ -112,6 +115,7 @@ public:
         condition_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
 
         retranslateUi(Select);

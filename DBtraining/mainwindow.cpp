@@ -266,12 +266,10 @@ void MainWindow::on_dropTable_pushButton_clicked()
 }
 
 void MainWindow::isFinish(QString data){
-    if(!data.contains(".")){
-        //ui->textBrowser->setText(data);
+    if(!data.contains(".")&&!data.isEmpty()){
         QMessageBox tempBox(QMessageBox::Information,"消息","<font size='12' color='white'>"+data,QMessageBox::Ok);
 
-        tempBox.setStyleSheet("QMessageBox{background: rgb(50, 50, 50);\"}"
-                              );
+        tempBox.setStyleSheet("QMessageBox{background: rgb(50, 50, 50);}");
         tempBox.exec();
 
         QFile resultFile("D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms\\result.txt");

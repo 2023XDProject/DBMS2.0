@@ -60,6 +60,7 @@ public:
         update_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         set_textEdit = new QTextEdit(updateTable);
         set_textEdit->setObjectName(QString::fromUtf8("set_textEdit"));
@@ -67,6 +68,7 @@ public:
         set_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         where_textEdit = new QTextEdit(updateTable);
         where_textEdit->setObjectName(QString::fromUtf8("where_textEdit"));
@@ -74,6 +76,7 @@ public:
         where_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         update_pushButton = new QPushButton(updateTable);
         update_pushButton->setObjectName(QString::fromUtf8("update_pushButton"));

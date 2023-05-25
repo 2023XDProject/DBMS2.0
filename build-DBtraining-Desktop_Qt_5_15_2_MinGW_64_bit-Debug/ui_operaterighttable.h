@@ -44,6 +44,7 @@ public:
         operate->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         userName = new QLineEdit(OperateRightTable);
         userName->setObjectName(QString::fromUtf8("userName"));
@@ -55,6 +56,7 @@ public:
         userName->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         table = new QLineEdit(OperateRightTable);
         table->setObjectName(QString::fromUtf8("table"));
@@ -62,6 +64,7 @@ public:
         table->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         label = new QLabel(OperateRightTable);
         label->setObjectName(QString::fromUtf8("label"));
@@ -89,6 +92,7 @@ public:
         right->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         pushButton = new QPushButton(OperateRightTable);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));

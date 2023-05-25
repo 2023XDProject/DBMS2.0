@@ -53,6 +53,7 @@ public:
         delete_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         where_textEdit = new QTextEdit(deleteTable);
         where_textEdit->setObjectName(QString::fromUtf8("where_textEdit"));
@@ -60,6 +61,7 @@ public:
         where_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
 ""));
         delete_pushButton = new QPushButton(deleteTable);
         delete_pushButton->setObjectName(QString::fromUtf8("delete_pushButton"));
