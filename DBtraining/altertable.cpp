@@ -22,3 +22,8 @@ void alterTable::on_pushButton_clicked()
     sendData(AlterTable(operate,table,column,dataType));
     //OperateRights()
 }
+
+void alterTable::on_pushButton_2_clicked()
+{
+    this->close();
+}

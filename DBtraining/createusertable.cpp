@@ -20,3 +20,9 @@ void createUserTable::on_pushButton_clicked()
 
     sendData(CreateUsers(userName,pwd));
 }
+
+void createUserTable::on_pushButton_2_clicked()
+{
+    this->close();
+}
+

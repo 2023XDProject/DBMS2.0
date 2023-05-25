@@ -18,3 +18,9 @@ void DropTable::on_pushButton_clicked()
     QString table=ui->lineEdit->text();
     sendData(DropTables(table));
 }
+
+void DropTable::on_pushButton_2_clicked()
+{
+    this->close();
+}
+

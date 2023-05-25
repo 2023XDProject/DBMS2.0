@@ -19,3 +19,9 @@ void CreateTableW::on_pushButton_clicked()
     QString n = ui->textEdit->toPlainText();//获取文本编辑器内容
     sendData(CreateTables(m,n));
 }
+
+void CreateTableW::on_pushButton_2_clicked()
+{
+    this->close();
+}
+

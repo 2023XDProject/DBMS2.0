@@ -92,31 +92,31 @@ public:
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         createUser_pushButton = new QPushButton(centralWidget);
         createUser_pushButton->setObjectName(QString::fromUtf8("createUser_pushButton"));
-        createUser_pushButton->setGeometry(QRect(810, 680, 93, 28));
+        createUser_pushButton->setGeometry(QRect(1510, 830, 93, 28));
         authorization_pushButton = new QPushButton(centralWidget);
         authorization_pushButton->setObjectName(QString::fromUtf8("authorization_pushButton"));
-        authorization_pushButton->setGeometry(QRect(610, 620, 93, 28));
+        authorization_pushButton->setGeometry(QRect(1510, 800, 93, 28));
         alterTable_pushButton = new QPushButton(centralWidget);
         alterTable_pushButton->setObjectName(QString::fromUtf8("alterTable_pushButton"));
-        alterTable_pushButton->setGeometry(QRect(910, 530, 93, 28));
+        alterTable_pushButton->setGeometry(QRect(1510, 650, 93, 28));
         select_pushButton = new QPushButton(centralWidget);
         select_pushButton->setObjectName(QString::fromUtf8("select_pushButton"));
-        select_pushButton->setGeometry(QRect(700, 430, 93, 28));
+        select_pushButton->setGeometry(QRect(1510, 740, 93, 28));
         update_pushButton = new QPushButton(centralWidget);
         update_pushButton->setObjectName(QString::fromUtf8("update_pushButton"));
-        update_pushButton->setGeometry(QRect(760, 510, 93, 28));
+        update_pushButton->setGeometry(QRect(1510, 680, 93, 28));
         insert_pushButton = new QPushButton(centralWidget);
         insert_pushButton->setObjectName(QString::fromUtf8("insert_pushButton"));
-        insert_pushButton->setGeometry(QRect(850, 610, 93, 28));
+        insert_pushButton->setGeometry(QRect(1510, 770, 93, 28));
         createTable_pushButton = new QPushButton(centralWidget);
         createTable_pushButton->setObjectName(QString::fromUtf8("createTable_pushButton"));
-        createTable_pushButton->setGeometry(QRect(450, 630, 93, 28));
+        createTable_pushButton->setGeometry(QRect(1500, 810, 93, 28));
         dropTable_pushButton = new QPushButton(centralWidget);
         dropTable_pushButton->setObjectName(QString::fromUtf8("dropTable_pushButton"));
-        dropTable_pushButton->setGeometry(QRect(440, 490, 93, 28));
+        dropTable_pushButton->setGeometry(QRect(1510, 620, 93, 28));
         delete_pushButton = new QPushButton(centralWidget);
         delete_pushButton->setObjectName(QString::fromUtf8("delete_pushButton"));
-        delete_pushButton->setGeometry(QRect(610, 510, 93, 28));
+        delete_pushButton->setGeometry(QRect(1510, 710, 93, 28));
         textBrowser_2 = new QTextBrowser(centralWidget);
         textBrowser_2->setObjectName(QString::fromUtf8("textBrowser_2"));
         textBrowser_2->setGeometry(QRect(0, 0, 311, 921));
@@ -127,7 +127,7 @@ public:
         textBrowser_2->setReadOnly(false);
         view_ = new QTableView(centralWidget);
         view_->setObjectName(QString::fromUtf8("view_"));
-        view_->setGeometry(QRect(315, 1, 1291, 411));
+        view_->setGeometry(QRect(315, 1, 1291, 911));
         view_->setStyleSheet(QString::fromUtf8("QTableView {\n"
 "        border: 1px solid rgb(45, 45, 45);\n"
 "        background: rgb(57, 58, 60);\n"
@@ -155,6 +155,17 @@ public:
 "}\n"
 ""));
         MainWindow->setCentralWidget(centralWidget);
+        createTable_pushButton->raise();
+        createUser_pushButton->raise();
+        authorization_pushButton->raise();
+        alterTable_pushButton->raise();
+        select_pushButton->raise();
+        update_pushButton->raise();
+        insert_pushButton->raise();
+        dropTable_pushButton->raise();
+        delete_pushButton->raise();
+        textBrowser_2->raise();
+        view_->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1600, 23));
@@ -192,13 +203,13 @@ public:
         retranslateUi(MainWindow);
         QObject::connect(creatUserAction, SIGNAL(triggered()), createUser_pushButton, SLOT(click()));
         QObject::connect(alterAction, SIGNAL(triggered()), alterTable_pushButton, SLOT(click()));
-        QObject::connect(createAction, SIGNAL(triggered()), createTable_pushButton, SLOT(click()));
         QObject::connect(dropAction, SIGNAL(triggered()), dropTable_pushButton, SLOT(click()));
         QObject::connect(authorityAction, SIGNAL(triggered()), authorization_pushButton, SLOT(click()));
         QObject::connect(deleteAction, SIGNAL(triggered()), delete_pushButton, SLOT(click()));
         QObject::connect(selectAction, SIGNAL(triggered()), select_pushButton, SLOT(click()));
         QObject::connect(updateAction, SIGNAL(triggered()), update_pushButton, SLOT(click()));
         QObject::connect(insertAction, SIGNAL(triggered()), insert_pushButton, SLOT(click()));
+        QObject::connect(createAction, SIGNAL(triggered()), createTable_pushButton, SLOT(click()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

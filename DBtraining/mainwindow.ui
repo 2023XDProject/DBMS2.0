@@ -20,8 +20,8 @@
    <widget class="QPushButton" name="createUser_pushButton">
     <property name="geometry">
      <rect>
-      <x>810</x>
-      <y>680</y>
+      <x>1510</x>
+      <y>830</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -33,8 +33,8 @@
    <widget class="QPushButton" name="authorization_pushButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>620</y>
+      <x>1510</x>
+      <y>800</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -46,8 +46,8 @@
    <widget class="QPushButton" name="alterTable_pushButton">
     <property name="geometry">
      <rect>
-      <x>910</x>
-      <y>530</y>
+      <x>1510</x>
+      <y>650</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -59,8 +59,8 @@
    <widget class="QPushButton" name="select_pushButton">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>430</y>
+      <x>1510</x>
+      <y>740</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -72,8 +72,8 @@
    <widget class="QPushButton" name="update_pushButton">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>510</y>
+      <x>1510</x>
+      <y>680</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -85,8 +85,8 @@
    <widget class="QPushButton" name="insert_pushButton">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>610</y>
+      <x>1510</x>
+      <y>770</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -98,8 +98,8 @@
    <widget class="QPushButton" name="createTable_pushButton">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>630</y>
+      <x>1500</x>
+      <y>810</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -111,8 +111,8 @@
    <widget class="QPushButton" name="dropTable_pushButton">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>490</y>
+      <x>1510</x>
+      <y>620</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -124,8 +124,8 @@
    <widget class="QPushButton" name="delete_pushButton">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>510</y>
+      <x>1510</x>
+      <y>710</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -159,7 +159,7 @@ border:2px solid rgb(20, 128, 211);
       <x>315</x>
       <y>1</y>
       <width>1291</width>
-      <height>411</height>
+      <height>911</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -191,6 +191,17 @@ QTableView::indicator {
 </string>
     </property>
    </widget>
+   <zorder>createTable_pushButton</zorder>
+   <zorder>createUser_pushButton</zorder>
+   <zorder>authorization_pushButton</zorder>
+   <zorder>alterTable_pushButton</zorder>
+   <zorder>select_pushButton</zorder>
+   <zorder>update_pushButton</zorder>
+   <zorder>insert_pushButton</zorder>
+   <zorder>dropTable_pushButton</zorder>
+   <zorder>delete_pushButton</zorder>
+   <zorder>textBrowser_2</zorder>
+   <zorder>view_</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -387,22 +398,6 @@ QTableView::indicator {
    </hints>
   </connection>
   <connection>
-   <sender>createAction</sender>
-   <signal>triggered()</signal>
-   <receiver>createTable_pushButton</receiver>
-   <slot>click()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>496</x>
-     <y>736</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>dropAction</sender>
    <signal>triggered()</signal>
    <receiver>dropTable_pushButton</receiver>
@@ -495,6 +490,22 @@ QTableView::indicator {
     <hint type="destinationlabel">
      <x>896</x>
      <y>716</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>createAction</sender>
+   <signal>triggered()</signal>
+   <receiver>createTable_pushButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>736</y>
     </hint>
    </hints>
   </connection>

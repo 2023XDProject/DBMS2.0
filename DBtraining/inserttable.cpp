@@ -26,7 +26,7 @@ void insertTable::on_pushButton_clicked()
 
 void insertTable::on_pushButton_2_clicked()
 {
-    return;
+    this->close();
 }
 
 

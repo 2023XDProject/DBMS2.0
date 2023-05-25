@@ -22,3 +22,9 @@ void OperateRightTable::on_pushButton_clicked()
 
     sendData(OperateRights(operate,UserName,table,right));
 }
+
+void OperateRightTable::on_pushButton_2_clicked()
+{
+    this->close();
+}
+
