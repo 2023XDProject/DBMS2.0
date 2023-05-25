@@ -1,0 +1,15 @@
+release/main.o
+release/mainwindow.o
+release/fuctioncombining.o
+release/insettable.o
+release/updatetable.o
+release/deletetable.o
+release/selecttable.o
+release/altertable.o
+release/moc_mainwindow.o
+release/moc_fuctioncombining.o
+release/moc_insettable.o
+release/moc_updatetable.o
+release/moc_deletetable.o
+release/moc_selecttable.o
+release/moc_altertable.o

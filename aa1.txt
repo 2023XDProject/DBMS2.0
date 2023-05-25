@@ -1,0 +1,3 @@
+0|0|son|com%
+NP
+FP

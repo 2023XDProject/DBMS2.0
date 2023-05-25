@@ -1,0 +1,15 @@
+debug/main.o
+debug/mainwindow.o
+debug/fuctioncombining.o
+debug/insettable.o
+debug/updatetable.o
+debug/deletetable.o
+debug/selecttable.o
+debug/altertable.o
+debug/moc_mainwindow.o
+debug/moc_fuctioncombining.o
+debug/moc_insettable.o
+debug/moc_updatetable.o
+debug/moc_deletetable.o
+debug/moc_selecttable.o
+debug/moc_altertable.o
