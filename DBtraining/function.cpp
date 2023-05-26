@@ -1471,7 +1471,7 @@ QString CreateTables(QString tableName,QString content){
                     for(int n =0;n<strlist1.size();n++){
                         if(n==strlist1.size()-1&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
-                        }else if(n==strlist1.size()-2){
+                        }else if(n==strlist1.size()-1){
                             wstream<<'|'<<strlist1.at(n)<<'%';
                         }else{//如果此块儿信息是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
