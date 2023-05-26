@@ -1469,11 +1469,12 @@ QString CreateTables(QString tableName,QString content){
                     //0|0不是PK也不是FK
                     wstream<<p<<'|'<<u; //将信息填入进去
                     for(int n =0;n<strlist1.size();n++){
-                        if(n!=strlist1.size()-1 ){ //如果此块儿信息不是一行得最后一块儿信息
+                        if(n==strlist1.size()-1&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
-                        }
-                        if(n ==strlist1.size()-1){//如果此块儿信息是一行得最后一块儿信息
+                        }else if(n==strlist1.size()-2){
                             wstream<<'|'<<strlist1.at(n)<<'%';
+                        }else{//如果此块儿信息是一行得最后一块儿信息
+                            wstream<<'|'<<strlist1.at(n);
                         }
 
                     }
@@ -1483,14 +1484,15 @@ QString CreateTables(QString tableName,QString content){
                     //如果这一行的第一块儿信息是PK
                     w=1;
                     wstream<<p<<'|'<<u; //将信息填入进去
-                    //wstream<<'\n';
-                    for(int n = 0;n<strlist1.size()-1;n++){//不把PK写入
-                        if(n==strlist1.size()-2){
+                    for(int n =0;n<strlist1.size()-1;n++){
+                        if(n==strlist1.size()-2&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
+                            wstream<<'|'<<strlist1.at(n);
+                        }else if(n==strlist1.size()-2){
                             wstream<<'|'<<strlist1.at(n)<<'%';
-                        }
-                        else{
+                        }else{//如果此块儿信息是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
                         }
+
                     }
                 }
 
@@ -1503,12 +1505,13 @@ QString CreateTables(QString tableName,QString content){
                         QString sdd= "NP";
                         wstream<<sdd<<'\n';
                     }
-                    for(int n = 0;n<strlist1.size()-1;n++){ //不把FK写入，不同格式写入
-                        if(n!=strlist1.size()-2){
+                    for(int n =0;n<strlist1.size()-1;n++){
+                        if(n==strlist1.size()-2&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
-                        }
-                        else{
+                        }else if(n==strlist1.size()-2){
                             wstream<<'|'<<strlist1.at(n)<<'%';
+                        }else{//如果此块儿信息是一行得最后一块儿信息
+                            wstream<<'|'<<strlist1.at(n);
                         }
                     }
 
