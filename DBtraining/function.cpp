@@ -1328,15 +1328,18 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
         {
             QStringList tempList=s.split("|",QString::SkipEmptyParts);
             cnt+=1;
-            if(tempList[2]==columnname){dropNum=cnt;continue;}
-            else {line1+=s+"%";}
+            if(tempList[2]==columnname){
+                dropNum=cnt;continue;
+            }else{
+                line1+=s+"%";
+            }
         }
         QFile writeFile(rootAddress+"\\"+tableName+"1.txt");
         if(!writeFile.open(QIODevice::Append|QIODevice::Text))
             return"打开文件失败";
         QTextStream out(&writeFile);
 
-        out<<line1<<"\n";
+        out<<line1.left(line1.size()-1)<<"\n";
         out << line2 << endl;
         out<<line3<<"\n";
 
@@ -1346,6 +1349,9 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
             in>>line;
             valueList=line.split("%",QString::SkipEmptyParts);
             valueList.removeAt(dropNum-1);
+            if(valueList.size()==1){
+                out << valueList[0]<< endl;
+            }
             out << valueList.join("%")<< endl;
         }
 
