@@ -41,7 +41,6 @@ void MainWindow::newClientHandle()
 {
     socket=server->nextPendingConnection();
     connect(socket,&QTcpSocket::readyRead,this,&MainWindow::clientInfoSlot);
-
 }
 
 //客户端连接

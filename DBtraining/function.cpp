@@ -72,7 +72,7 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
     qDebug()<<"nowtheSimple";
 
     QStringList dataList=data.split("%",QString::SkipEmptyParts);
-    foreach(QString s,dataList)qDebug("%s",qPrintable(s));
+    //foreach(QString s,dataList)qDebug("%s",qPrintable(s));
     QChar compareOp;
     foreach(QChar c,condition)
     {
@@ -94,60 +94,85 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
     qDebug()<<projection[conditionList[0]];
     qDebug()<<projection[conditionList[1]];
 
-    //判断是int类型还是char类型
-    if(conditionList[0].contains("."))
-    {
-        if(dataTypeProjection[conditionList[0]].compare("int")==0)
-        {
-            compareInt1=dataList[projection[conditionList[0]]].toInt();
-            dataType=0;
-        }
-        else
-        {
-            compareString1=dataList[projection[conditionList[0]]];
-            dataType=1;
-        }
+    //    //判断是int类型还是char类型
+    //    if(conditionList[0].contains("."))
+    //    {
+    //        if(dataTypeProjection[conditionList[0]].compare("int")==0)
+    //        {
+    //            compareInt1=dataList[projection[conditionList[0]]].toInt();
+    //            dataType=0;
+    //        }
+    //        else
+    //        {
+    //            compareString1=dataList[projection[conditionList[0]]];
+    //            dataType=1;
+    //        }
 
-    }
-    if(conditionList[1].contains("."))
+    //    }
+    //    if(conditionList[1].contains("."))
+    //    {
+    //        if(dataTypeProjection[conditionList[1]].compare("int")==0)
+    //        {
+    //            compareInt2=dataList[projection[conditionList[1]]].toInt();
+    //            dataType=0;
+    //        }
+    //        else
+    //            compareString2=dataList[projection[conditionList[1]]];
+    //    }
+    //    if(!conditionList[0].contains("."))
+    //    {
+    //        if(dataType==1)
+    //            compareString1=conditionList[0];
+    //        else
+    //            compareInt1=conditionList[0].toInt();
+    //    }
+    //    if(!conditionList[1].contains("."))
+    //    {
+    //        if(dataType==1)
+    //            compareString2=conditionList[1];
+    //        else
+    //            compareInt2=conditionList[1].toInt();
+    //    }
+
+    //判断是int类型还是char类型
+
+    if(dataTypeProjection[conditionList[0]].compare("int")==0)
     {
-        if(dataTypeProjection[conditionList[1]].compare("int")==0)
-        {
-            compareInt2=dataList[projection[conditionList[1]]].toInt();
-            dataType=0;
-        }
-        else
-            compareString2=dataList[projection[conditionList[1]]];
+        compareInt1=dataList[projection[conditionList[0]]].toInt();
+        dataType=0;
+    }else{
+        compareString1=dataList[projection[conditionList[0]]];
+        dataType=1;
     }
-    if(!conditionList[0].contains("."))
-    {
-        if(dataType==1)
-            compareString1=conditionList[0];
-        else
-            compareInt1=conditionList[0].toInt();
-    }
-    if(!conditionList[1].contains("."))
-    {
-        if(dataType==1)
-            compareString2=conditionList[1];
-        else
-            compareInt2=conditionList[1].toInt();
+
+    if(dataType==1){
+        compareString1=conditionList[1];
+        compareString2=dataList[0];
+    }else{
+        compareInt1=conditionList[1].toInt();
+        compareInt2=dataList[0].toInt();
     }
 
     //如果是char类型
     if(dataType==1)
     {
-        if(compareOp=='=')res=(compareString1.compare(compareString2)==0);
-        else if(compareOp=='>')res=(compareString1.compare(compareString2)>0);
-        else res=(compareString1.compare(compareString2)<0);
+        if(compareOp=='=')
+            res=(compareString1.compare(compareString2)==0);
+        else if(compareOp=='>')
+            res=(compareString1.compare(compareString2)>0);
+        else
+            res=(compareString1.compare(compareString2)<0);
     }
 
     //如果是int类型
     if(dataType==0)
     {
-        if(compareOp=='=')res=(compareInt1==compareInt2);
-        else if(compareOp=='>')res=(compareInt1>compareInt2);
-        else res=(compareInt1<compareInt2);
+        if(compareOp=='=')
+            res=(compareInt1==compareInt2);
+        else if(compareOp=='>')
+            res=(compareInt1>compareInt2);
+        else
+            res=(compareInt1<compareInt2);
     }
 
     qDebug()<<res;
@@ -865,7 +890,7 @@ QString update_function(QString table,QString set,QString condition)
     set_KeyValue = set.split("=");
 
     QString decision = "null";
-
+    //判断是否为外键
     decision = foreignkey(set_KeyValue,table);
     if(decision == "no"){
         //创建一个中间缓存文件
@@ -904,9 +929,12 @@ QString update_function(QString table,QString set,QString condition)
             {
                 qDebug("%s",qPrintable(tmps));
                 QStringList attributeTmp=tmps.split('|',QString::SkipEmptyParts);
-                projection[s+"."+attributeTmp[2]]=columnNum++;
-                dataTypeProjection[s+"."+attributeTmp[2]]=attributeTmp[3];
-                QString newString=s+"."+attributeTmp[2]+"|"+attributeTmp[3]+"%";
+                //projection[s+"."+attributeTmp[2]]=columnNum++;
+                projection[attributeTmp[2]]=columnNum++;
+                //dataTypeProjection[s+"."+attributeTmp[2]]=attributeTmp[3];
+                dataTypeProjection[attributeTmp[2]]=attributeTmp[3];
+                QString newString=attributeTmp[2]+"|"+attributeTmp[3]+"%";
+                //QString newString=s+"."+attributeTmp[2]+"|"+attributeTmp[3]+"%";
                 newForm+=newString;
             }
             tmpFile.close();
@@ -965,6 +993,7 @@ QString update_function(QString table,QString set,QString condition)
 
         //QStringList conditionList=condition.split(" ",QString::SkipEmptyParts);
         int cnt=0;
+        //判断符合where条件的记录
         while(!in.atEnd())
         {
             in>>data;
@@ -1017,13 +1046,13 @@ QString update_function(QString table,QString set,QString condition)
                 qDebug("%s",qPrintable(s));
             }
         }
-
+        //更新数据
         while(!character_in.atEnd()){
             character_in >> data;
             if(data=="")break;
             if(update_row.contains(data)){
                 QString new_data;
-                qDebug("%s",qPrintable(set_KeyValue[0]));
+                //qDebug("%s",qPrintable(set_KeyValue[0]));
                 update_content = data.split("%");
                 it = projection.find(set_KeyValue[0]);
                 update_content[it.value()] = set_KeyValue[1];
@@ -1036,7 +1065,6 @@ QString update_function(QString table,QString set,QString condition)
                 resultOut << data << "\n";
             }
         }
-
 
         targetFile.close();
         tempToResult.close();
