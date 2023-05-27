@@ -33,6 +33,7 @@ MainWindow::~MainWindow()
     delete treeView_;
     delete dirinfo_;
     delete model_;
+    delete item_;
     //delete view_;
 }
 
@@ -473,6 +474,10 @@ void MainWindow::receiveTable(QString data){
 
 //更新表格
 void MainWindow::reShowTable(QString data){
+    //释放指针
+    model_=nullptr;
+    item_=nullptr;
+
     QString temp;
     QFile resultFile(data);
     if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
@@ -481,7 +486,6 @@ void MainWindow::reShowTable(QString data){
     //打开文件成功
     model_ = new QStandardItemModel(this);
     QStringList temp_column;
-    QStandardItem *item;
     QTextStream out(&resultFile);
     //QTextCursor tc = ui->textBrowser->textCursor();
     out >> temp;
@@ -493,10 +497,13 @@ void MainWindow::reShowTable(QString data){
     //从文件读取记录
     while(!out.atEnd()){
         out >> temp;
+        if(temp==""){
+            break;
+        }
         temp_column = temp.split("%");
         for(int i=0;i<temp_column.size()-1;++i){
-            item = new QStandardItem(temp_column.at(i));
-            model_->setItem(j,i,item);
+            item_ = new QStandardItem(temp_column.at(i));
+            model_->setItem(j,i,item_);
         }
         ++j;
     }

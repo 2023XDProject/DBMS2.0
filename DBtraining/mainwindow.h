@@ -86,6 +86,7 @@ private:
     QTreeView *treeView_;
     QDir* dirinfo_;
     QStandardItemModel *model_;
+    QStandardItem *item_;
     //QTableView  *view_;
 };
 

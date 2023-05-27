@@ -156,6 +156,7 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
     return res;
 }
 
+//where条件判断
 bool JudgeCondition(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
 {
     //" "分词
@@ -244,7 +245,7 @@ int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QStri
 //select功能实现
 QString select(QString attribute,QString table,QString condition,QString order)
 {
-
+    bool isSingalTable=false;//判断是否为单表查询
     //创建一个中间缓存文件
     QFile file(rootAddress+"\\temp.txt");
     if(!file.open(QIODevice::Append|QIODevice::Text)){
@@ -253,12 +254,16 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     //存储属性的集合
     QSet<QString> attributeSet;
+    //存储表名的列表
+    QStringList tableList=table.split(',',QString::SkipEmptyParts);
     QStringList attributeList=attribute.split(',',QString::SkipEmptyParts);
-
-    foreach(QString s,attributeList)
-    {
-        attributeSet.insert(s);
-        qDebug("%s",qPrintable(s));
+    if(tableList.size()==1){
+        isSingalTable=true;
+        foreach(QString s,attributeList)
+        {
+            attributeSet.insert(tableList[0]+"."+s);
+            //qDebug("%s",qPrintable(s));
+        }
     }
 
     QMap<QString,int>projection;//投影
@@ -268,12 +273,9 @@ QString select(QString attribute,QString table,QString condition,QString order)
     qDebug()<<"table";
     qDebug("%s",qPrintable(table));
 
-    //存储表名的列表
-    QStringList tableList=table.split(',',QString::SkipEmptyParts);
-
     QString newForm="";//新的头文件表头
     int columnNum=0;
-
+    //依次读取表文件，拼接成只有记录的
     foreach(QString s,tableList)
     {
         qDebug("%s",qPrintable(rootAddress+"\\"+s+".txt"));
@@ -314,7 +316,7 @@ QString select(QString attribute,QString table,QString condition,QString order)
         tmpFile.close();
     }
 
-
+    //将记录写入临时文件temp
     QTextStream out(&file);
     out<<newForm+"\n";
 
@@ -359,9 +361,15 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     QString Header="";
 
-    foreach(QString s,attributeList)
-        Header+=s+"%";
-    tempOut<<Header<<"\n";
+    if(isSingalTable==true){
+        foreach(QString s,attributeSet)
+            Header+=s+"%";
+        tempOut<<Header<<"\n";
+    }else{
+        foreach(QString s,attributeList)
+            Header+=s+"%";
+        tempOut<<Header<<"\n";
+    }
 
     QString data;
     in>>data;
@@ -369,6 +377,7 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     // QStringList conditionList=condition.split(" ",QString::SkipEmptyParts);
     int cnt=0;
+    //判断where条件
     while(!in.atEnd())
     {
         in>>data;
@@ -385,7 +394,6 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     temp2File.close();
     tempFile.close();
-
 
     QFile tempToResult(rootAddress+"\\"+"temp2.txt");
     if(!tempToResult.open(QIODevice::ReadOnly|QIODevice::Text)){
@@ -406,8 +414,14 @@ QString select(QString attribute,QString table,QString condition,QString order)
             if(data=="")break;
             QStringList dataList=data.split("%",QString::SkipEmptyParts);
             QString rowData;
-            foreach(QString s,attributeList)
-                rowData+=dataList[projection[s]]+"%";
+            //选取选出的行
+            if(isSingalTable==true){
+                foreach(QString s,attributeSet)
+                    rowData+=dataList[projection[s]]+"%";
+            }else{
+                foreach(QString s,attributeList)
+                    rowData+=dataList[projection[s]]+"%";
+            }
             resultOut<<rowData<<"\n";
         }
     }
