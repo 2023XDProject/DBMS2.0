@@ -1442,6 +1442,8 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
 
 QString CreateTables(QString tableName,QString content){
     QString k;
+    QStringList pKeyList;//存放主键
+    QStringList fKeyList;//存放外键
     QString fileName = rootAddress+"\\"+tableName+".txt";//创建表
     QFile file(fileName);
     QString fileName2 = rootAddress+"\\relation.txt";//创建relation表
@@ -1497,6 +1499,7 @@ QString CreateTables(QString tableName,QString content){
                 else if(p){
                     //如果这一行的第一块儿信息是PK
                     w=1;
+                    pKeyList.append(strlist1.at(0));
                     wstream<<p<<'|'<<u; //将信息填入进去
                     for(int n =0;n<strlist1.size()-1;n++){
                         if(n==strlist1.size()-2&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
@@ -1513,6 +1516,7 @@ QString CreateTables(QString tableName,QString content){
                 else if(u){
                     //如果这一行的第一块儿信息是FK
                     f=1;
+                    fKeyList.append(strlist1.at(0));
                     wstream<<p<<'|'<<u; //将信息填入进去
                     //wstream<<'\n';
                     if(w==0){
@@ -1538,26 +1542,40 @@ QString CreateTables(QString tableName,QString content){
                     wstream2<<strlist1.at(k)<<'\n';
 
                 }
-
-
             }
-            if(w==0 && f==0){ //没有主键和外键，第二行添NP
+            //没有主键和外键，第二行添NP，第三行添NF
+            if(w==0 && f==0){
                 wstream<<'\n';
                 QString sdd= "NP";
                 wstream<<sdd<<'\n';
                 sdd= "NF";
                 wstream<<sdd<<'\n';
             }
-
+            //有外键没有主键
             if(w==0 && f==1){
                 wstream<<'\n';
-                QString sdd= "FK";
+                QString sdd= "NP";
                 wstream<<sdd<<'\n';
-            }
+                for(int i=0;i<fKeyList.size();++i){
+                    if(i==fKeyList.size()-1){
+                        wstream<<fKeyList[i]<<'\n';
+                    }else{
+                        wstream<<fKeyList[i]<<"%";
+                    }
+                }
 
+            }
+            //有主键没有外键
             if(w==1 && f==0){
                 wstream<<'\n';
-                QString sdd= "PK";
+                for(int i=0;i<pKeyList.size();++i){
+                    if(i==pKeyList.size()-1){
+                        wstream<<pKeyList[i]<<'\n';
+                    }else{
+                        wstream<<pKeyList[i]<<"%";
+                    }
+                }
+                QString sdd= "NF";
                 wstream<<sdd<<'\n';
             }
             k="CreateOK";
