@@ -1638,7 +1638,7 @@ QString Function::DropTables(QString tableName){
 
     for(int k=0;k<strlist3.size();k++){
         //循环尝试打开创建好的表
-        QString fileName = rootAddress+"\\"+strlist3.at(k)+".txt";
+        QString fileName = rootAddress_+"\\"+strlist3.at(k)+".txt";
         QFile file(fileName);
         if(!file.exists()){
             //打不开就报错
@@ -1647,7 +1647,7 @@ QString Function::DropTables(QString tableName){
             break;
         }
         else{//能打开，就再打开relation表
-            QString fileName2 = rootAddress+"\\relation.txt";
+            QString fileName2 = rootAddress_+"\\relation.txt";
             QFile file2(fileName2);
             file2.open(QIODevice::ReadWrite| QIODevice::Text);
 

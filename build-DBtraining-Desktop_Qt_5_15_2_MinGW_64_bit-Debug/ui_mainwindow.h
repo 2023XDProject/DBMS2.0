@@ -191,7 +191,7 @@ public:
         mainToolBar->setMaximumSize(QSize(1600, 70));
         QFont font2;
         font2.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font2.setPointSize(14);
+        font2.setPointSize(10);
         mainToolBar->setFont(font2);
         mainToolBar->setStyleSheet(QString::fromUtf8("QToolButton{\n"
 "                                   border: none;\n"
