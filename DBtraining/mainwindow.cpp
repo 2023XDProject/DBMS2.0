@@ -13,6 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //获取绝对路径
+    QDir *dir =new QDir(QDir::currentPath());
+    dir->cdUp();
+    rootAddress_=dir->path().replace(QString("/"),QString("\\"));
+
     server=new QTcpServer;
     server->listen(QHostAddress::AnyIPv4,PORT);
     connect(server,&QTcpServer::newConnection,this,&MainWindow::newClientHandle);
@@ -49,7 +54,7 @@ void MainWindow::clientInfoSlot()
     if(Info[0]=="L")
     {
         InfoList=Info.split("%",QString::SkipEmptyParts);
-        QFile userFile(rootAddress+"\\user.txt");
+        QFile userFile(rootAddress_+"\\user.txt");
         if(!userFile.open(QIODevice::ReadOnly|QIODevice::Text))
             qDebug()<<"文件打开失败";
         qDebug(qPrintable(InfoList[1]));
@@ -83,7 +88,7 @@ void MainWindow::clientInfoSlot()
         QStringList secondInfoList=secondInfo.split("%",QString::SkipEmptyParts);
         QString table=secondInfoList[1];
         QStringList tableList=table.split(",",QString::SkipEmptyParts);
-        QFile rightfile(rootAddress+"//right.txt");
+        QFile rightfile(rootAddress_+"//right.txt");
         if(!rightfile.open(QIODevice::ReadOnly|QIODevice::Text))
             qDebug()<<"open failed";
         QTextStream in(&rightfile);
@@ -244,7 +249,7 @@ void MainWindow::isFinish(QString data){
         tempBox.setStyleSheet("QMessageBox{background: rgb(50, 50, 50);}");
         tempBox.exec();
 
-        QFile resultFile("D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms\\result.txt");
+        QFile resultFile(rootAddress_+"\\result.txt");
         if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
@@ -253,125 +258,7 @@ void MainWindow::isFinish(QString data){
     }
 }
 
-//更新工具栏
-void MainWindow::updateToolBar(){
-    //工具栏（只可上方停靠，不可移动）
-    toolbar = new QToolBar(this);
-    toolbar->setIconSize(QSize(100,100));
-    toolbar->setAllowedAreas(Qt::TopToolBarArea);
-    toolbar->setFixedHeight(80);
-    toolbar->setMovable(false);
 
-    //新建表
-    //QIcon CreateDBIcon=QIcon("../untitled/Icon/createDB_icon.jpg");
-    btn1= new QToolButton(toolbar);
-    btn1->setIconSize(QSize(20,20));//为什么没用呢
-    //btn1->setIcon(CreateDBIcon);
-    btn1->setFixedSize(70,70);
-    btn1->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn1->setText(QString::fromLocal8Bit("新建表"));
-    toolbar->addWidget(btn1);
-    toolbar->addSeparator();
-    //connect(btn1, SIGNAL(clicked(bool)), this, SLOT(createDB()));
-
-    //删除表
-    //QIcon enquiryIcon=QIcon("../untitled/Icon/enquiry_icon.jpg");
-    btn2= new QToolButton(toolbar);
-    btn2->setIconSize(QSize(20,20));
-    //btn2->setIcon(enquiryIcon);
-    btn2->setFixedSize(70,70);
-    btn2->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn2->setText(QString::fromLocal8Bit("删除表"));
-    toolbar->addWidget(btn2);
-    toolbar->addSeparator();
-    //connect(btn2, SIGNAL(clicked(bool)), this, SLOT(createEnquiry()));
-
-    //修改表
-    //QIcon enquiryIcon=QIcon("../untitled/Icon/enquiry_icon.jpg");
-    btn9= new QToolButton(toolbar);
-    btn9->setIconSize(QSize(20,20));
-    //btn2->setIcon(enquiryIcon);
-    btn9->setFixedSize(70,70);
-    btn9->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn9->setText(QString::fromLocal8Bit("修改表"));
-    toolbar->addWidget(btn9);
-    toolbar->addSeparator();
-    //connect(btn2, SIGNAL(clicked(bool)), this, SLOT(createEnquiry()));
-
-    //新建用户
-    //QIcon createUserIcon=QIcon("../untitled/Icon/createUser_icon.jpg");
-    btn3= new QToolButton(toolbar);
-    btn3->setIconSize(QSize(20,20));
-    //btn3->setIcon(createUserIcon);
-    btn3->setFixedSize(70,70);
-    btn3->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn3->setText(QString::fromLocal8Bit("新建用户" ));
-    toolbar->addWidget(btn3);
-    toolbar->addSeparator();
-    //connect(btn3, SIGNAL(clicked(bool)), this, SLOT(createUser()));
-
-    //权限管理
-    //QIcon loginIcon=QIcon("../untitled/Icon/login_icon.jpg");
-    btn4= new QToolButton(toolbar);
-    btn4->setIconSize(QSize(20,20));
-    //btn4->setIcon(loginIcon);
-    btn4->setFixedSize(70,70);
-    btn4->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn4->setText(QString::fromLocal8Bit("权限管理" ));
-    toolbar->addWidget(btn4);
-    toolbar->addSeparator();
-    //connect(btn4, SIGNAL(clicked(bool)), this, SLOT(login()));
-
-    //删除记录
-    //QIcon runIcon=QIcon("../untitled/Icon/run_icon.jpg");
-    btn5= new QToolButton(toolbar);
-    btn5->setIconSize(QSize(20,20));
-    //btn5->setIcon(runIcon);
-    btn5->setFixedSize(70,70);
-    btn5->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn5->setText(QString::fromLocal8Bit("删除记录" ));
-    toolbar->addWidget(btn5);
-    toolbar->addSeparator();
-    //connect(btn5, SIGNAL(clicked(bool)), this, SLOT(run()));
-
-    //查询记录
-    //QIcon runIcon=QIcon("../untitled/Icon/run_icon.jpg");
-    btn6= new QToolButton(toolbar);
-    btn6->setIconSize(QSize(20,20));
-    //btn5->setIcon(runIcon);
-    btn6->setFixedSize(70,70);
-    btn6->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn6->setText(QString::fromLocal8Bit("查询记录" ));
-    toolbar->addWidget(btn6);
-    toolbar->addSeparator();
-    //connect(btn5, SIGNAL(clicked(bool)), this, SLOT(run()));
-
-    //更新记录
-    //QIcon runIcon=QIcon("../untitled/Icon/run_icon.jpg");
-    btn7= new QToolButton(toolbar);
-    btn7->setIconSize(QSize(20,20));
-    //btn5->setIcon(runIcon);
-    btn7->setFixedSize(70,70);
-    btn7->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn7->setText(QString::fromLocal8Bit("更新记录" ));
-    toolbar->addWidget(btn7);
-    toolbar->addSeparator();
-    //connect(btn5, SIGNAL(clicked(bool)), this, SLOT(run()));
-
-    //插入记录
-    //QIcon runIcon=QIcon("../untitled/Icon/run_icon.jpg");
-    btn8= new QToolButton(toolbar);
-    btn8->setIconSize(QSize(20,20));
-    //btn5->setIcon(runIcon);
-    btn8->setFixedSize(70,70);
-    btn8->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-    btn8->setText(QString::fromLocal8Bit("插入记录" ));
-    toolbar->addWidget(btn8);
-    toolbar->addSeparator();
-    //connect(btn5, SIGNAL(clicked(bool)), this, SLOT(run()));
-
-    this->addToolBar(toolbar);
-}
 
 //接收传递过来的数据的槽
 void MainWindow::receiveTable(QString data){
