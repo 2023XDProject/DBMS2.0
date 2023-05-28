@@ -8,11 +8,12 @@
 
 using namespace std;
 
-updateTable::updateTable(QWidget *parent) :
+updateTable::updateTable(Function* fun,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::updateTable)
 {
     ui->setupUi(this);
+    fun_=fun;
 }
 
 updateTable::~updateTable()
@@ -32,5 +33,5 @@ void updateTable::on_update_pushButton_clicked()
     set = ui->set_textEdit->toPlainText();
     where = ui->where_textEdit->toPlainText();
 
-    sendData(qPrintable(update_function(table_name,set,where)));
+    sendData(qPrintable(fun_->update_function(table_name,set,where)));
 }

@@ -1,10 +1,11 @@
 #include "operaterighttable.h"
 #include "ui_operaterighttable.h"
 
-OperateRightTable::OperateRightTable(QWidget *parent) :
+OperateRightTable::OperateRightTable(Function* fun,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::OperateRightTable)
 {
+    fun_=fun;
     ui->setupUi(this);
 }
 
@@ -20,7 +21,7 @@ void OperateRightTable::on_pushButton_clicked()
     QString table=ui->table->text();
     QString right=ui->right->text();
 
-    sendData(OperateRights(operate,UserName,table,right));
+    sendData(fun_->OperateRights(operate,UserName,table,right));
 }
 
 void OperateRightTable::on_pushButton_2_clicked()

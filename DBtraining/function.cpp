@@ -1,27 +1,18 @@
 #include "function.h"
-#include <QCoreApplication>
-#include<QDebug>
-#include <QFile>
-#include <QTextStream>
-#include <QString>
-#include <QSet>
-#include<QList>
-#include<QMap>
-#include<QStack>
-#include<QDir>
 
-QString rootAddress = LOCAL_ADDR;
+//QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
 
-/*
- * 将一个包含表格数据的列表写入一个文本文件中。
- * 在写入文件之前，它将表格数据按行存储在一个 QStringList 对象中，
- * 然后将其写入文件。
- */
-QStringList WriteContent(QStringList tableList)
+Function::Function(){
+    QDir *dir =new QDir(QDir::currentPath());
+    dir->cdUp();
+    rootAddress_=dir->path().replace(QString("/"),QString("\\"));
+}
+
+QStringList Function::WriteContent(QStringList tableList)
 {
     //创建并打开表文件
     QString s=tableList[0];
-    QFile tmpFile(rootAddress+"\\"+s+".txt");
+    QFile tmpFile(rootAddress_+"\\"+s+".txt");
     if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -37,9 +28,9 @@ QStringList WriteContent(QStringList tableList)
 
     QStringList content;
 
-    //读记录，加进content
+    //读记录
     if(tableList.size()==1)
-    {//tableList不为空
+    {//不为空
         while(!in.atEnd()){
             in >> str;
             if(str=="")break;
@@ -47,20 +38,15 @@ QStringList WriteContent(QStringList tableList)
             content.append(str);
         }
         tmpFile.close();
-        //出递归条件
         return content;
     }
 
     QStringList content2;
     QStringList tableList_1;
-    //将所有表名加进tableList_1
     for(int i=1;i<tableList.size();i++)
         tableList_1.append(tableList[i]);
 
-    //将 tableList_1 列表中的每一项添加到 content 列表中
     content=WriteContent(tableList_1);
-
-    //将 tableList_1 列表中的每一项添加到 content 列表中
     while(!in.atEnd())
     {
         in>>str;
@@ -77,18 +63,12 @@ QStringList WriteContent(QStringList tableList)
 }
 
 
-bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
+bool Function::simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
 {
     qDebug()<<"nowtheSimple";
 
-    //"%"分词
     QStringList dataList=data.split("%",QString::SkipEmptyParts);
-
-
-    //foreach(QString s,dataList) qDebug("%s",qPrintable(s));
-
-    //找到比大小符号
-
+    //foreach(QString s,dataList)qDebug("%s",qPrintable(s));
     QChar compareOp;
     foreach(QChar c,condition)
     {
@@ -98,7 +78,6 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
             break;
         }
     }
-
     QStringList conditionList=condition.split(QRegExp("[!<>=]"),QString::SkipEmptyParts);
     foreach(QString s,conditionList)qDebug("%s",qPrintable(s));
 
@@ -199,7 +178,8 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
 }
 
 //where条件判断
-bool JudgeCondition(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
+
+bool Function::JudgeCondition(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
 {
     //" "分词
     QStringList conditionList=condition.split(" ",QString::SkipEmptyParts);
@@ -254,7 +234,7 @@ bool JudgeCondition(QString condition,QString data,QMap<QString,int>projection,Q
     return opn.pop();
 }
 
-int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
+int Function::Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
 {
     qDebug()<<"here cmp";
 
@@ -285,11 +265,11 @@ int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QStri
 }
 
 //select功能实现
-QString select(QString attribute,QString table,QString condition,QString order)
+QString Function::select(QString attribute,QString table,QString condition,QString order)
 {
     bool isSingalTable=false;//判断是否为单表查询
     //创建一个中间缓存文件
-    QFile file(rootAddress+"\\temp.txt");
+    QFile file(rootAddress_+"\\temp.txt");
     if(!file.open(QIODevice::Append|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -299,7 +279,11 @@ QString select(QString attribute,QString table,QString condition,QString order)
     //存储要查询的表名的列表
     QStringList tableList=table.split(',',QString::SkipEmptyParts);
     //存储要查询的属性的列表
+<<<<<<< HEAD
 //若为*？
+=======
+    //若为*？
+>>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
     QStringList attributeList=attribute.split(',',QString::SkipEmptyParts);
 
     //要查询的表名只有1个-单表查询
@@ -307,7 +291,11 @@ QString select(QString attribute,QString table,QString condition,QString order)
         isSingalTable=true;
         foreach(QString s,attributeList){
             //将要查询的表名.字段名全部加入属性集合
+<<<<<<< HEAD
 //若为*？
+=======
+            //若为*？
+>>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
             attributeSet.insert(tableList[0]+"."+s);
             //qDebug("%s",qPrintable(s));
         }
@@ -322,6 +310,7 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     QString newForm="";//新的头文件表头
     int columnNum=0;
+<<<<<<< HEAD
 
     //读取要查询的表文件，拼接成只有记录的
     foreach(QString s,tableList){
@@ -329,6 +318,15 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
         //打开要查询的表文件
         QFile tmpFile(rootAddress+"\\"+s+".txt");
+=======
+
+    //读取要查询的表文件，拼接成只有记录的
+    foreach(QString s,tableList){
+        qDebug("%s",qPrintable(rootAddress_+"\\"+s+".txt"));
+
+        //打开要查询的表文件
+        QFile tmpFile(rootAddress_+"\\"+s+".txt");
+>>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
         if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
@@ -393,17 +391,17 @@ QString select(QString attribute,QString table,QString condition,QString order)
     file.close();
 
     //写结果文件
-    QFile ResultFile(rootAddress+"\\result.txt");
+    QFile ResultFile(rootAddress_+"\\result.txt");
     if(!ResultFile.open(QIODevice::Append|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
 
-    QFile tempFile(rootAddress+"\\"+"temp.txt");
+    QFile tempFile(rootAddress_+"\\"+"temp.txt");
     if(!tempFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
 
-    QFile temp2File(rootAddress+"\\"+"temp2.txt");
+    QFile temp2File(rootAddress_+"\\"+"temp2.txt");
     if(!temp2File.open(QIODevice::Append|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -416,14 +414,22 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     //是单表查询
     if(isSingalTable==true){
+<<<<<<< HEAD
         //attributeSet存储 表名.字段名
+=======
+        //表名.字段名
+>>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
         foreach(QString s,attributeSet)
             Header+=s+"%";
         //Header存储 "s.sno%s.sname%"
         tempOut<<Header<<"\n";
     }else{
+<<<<<<< HEAD
         //是多表查询
         //attributeList存储 字段名
+=======
+        //字段名
+>>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
         foreach(QString s,attributeList)
             Header+=s+"%";
         //Header存储
@@ -456,7 +462,7 @@ QString select(QString attribute,QString table,QString condition,QString order)
     temp2File.close();
     tempFile.close();
 
-    QFile tempToResult(rootAddress+"\\"+"temp2.txt");
+    QFile tempToResult(rootAddress_+"\\"+"temp2.txt");
     if(!tempToResult.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -554,17 +560,17 @@ QString select(QString attribute,QString table,QString condition,QString order)
     tempFile.remove();
     ResultFile.close();
 
-    return rootAddress+"\\result.txt";
+    return rootAddress_+"\\result.txt";
 
 }
 
-QString rewriteFile(QString file_addr,QString target_tableName){
+QString Function::rewriteFile(QString file_addr,QString target_tableName){
     QFile resultFile(file_addr);
     if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
 
-    QFile targetFile(rootAddress+"\\"+target_tableName+".txt");
+    QFile targetFile(rootAddress_+"\\"+target_tableName+".txt");
     if(!targetFile.open(QIODevice::WriteOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -584,10 +590,10 @@ QString rewriteFile(QString file_addr,QString target_tableName){
     resultFile.close();
     targetFile.close();
 
-    return rootAddress + "\\" + target_tableName + ".txt";
+    return rootAddress_ + "\\" + target_tableName + ".txt";
 }
 
-QString delete_function(QString table,QString condition)
+QString Function::delete_function(QString table,QString condition)
 {
     QString decision;
 
@@ -596,7 +602,7 @@ QString delete_function(QString table,QString condition)
         return  "DeleteWrong";
     }
     //创建一个中间缓存文件
-    QFile file(rootAddress+"\\temp.txt");
+    QFile file(rootAddress_+"\\temp.txt");
     if(!file.open(QIODevice::Append|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -613,8 +619,8 @@ QString delete_function(QString table,QString condition)
 
     foreach(QString s,tableList)
     {
-        qDebug("%s",qPrintable(rootAddress+"\\"+s+".txt"));
-        QFile tmpFile(rootAddress+"\\"+s+".txt");
+        qDebug("%s",qPrintable(rootAddress_+"\\"+s+".txt"));
+        QFile tmpFile(rootAddress_+"\\"+s+".txt");
         if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
@@ -659,22 +665,22 @@ QString delete_function(QString table,QString condition)
     file.close();
     //写结果文件
 
-    QFile ResultFile(rootAddress+"\\result.txt");
+    QFile ResultFile(rootAddress_+"\\result.txt");
     if(!ResultFile.open(QIODevice::Append|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
 
-    QFile tempFile(rootAddress+"\\"+"temp.txt");
+    QFile tempFile(rootAddress_+"\\"+"temp.txt");
     if(!tempFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
 
-    QFile temp2File(rootAddress+"\\"+"temp2.txt");
+    QFile temp2File(rootAddress_+"\\"+"temp2.txt");
     if(!temp2File.open(QIODevice::Append|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
 
-    QFile targetFile(rootAddress+"\\"+table+".txt");
+    QFile targetFile(rootAddress_+"\\"+table+".txt");
     if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -711,7 +717,7 @@ QString delete_function(QString table,QString condition)
     tempFile.close();
 
 
-    QFile tempToResult(rootAddress+"\\"+"temp2.txt");
+    QFile tempToResult(rootAddress_+"\\"+"temp2.txt");
     if(!tempToResult.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -757,13 +763,13 @@ QString delete_function(QString table,QString condition)
     tempFile.remove();
     ResultFile.close();
 
-    rewriteFile(rootAddress+"\\result.txt",table);
+    rewriteFile(rootAddress_+"\\result.txt",table);
 
     return "DeleteOk";
 }
 
-QString primarykey(QMap<QString,int> projection,QString table,QString file_addr){
-    QFile targetFile(rootAddress + "\\" + table + ".txt");
+QString Function::primarykey(QMap<QString,int> projection,QString table,QString file_addr){
+    QFile targetFile(rootAddress_ + "\\" + table + ".txt");
     if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -839,8 +845,8 @@ QString primarykey(QMap<QString,int> projection,QString table,QString file_addr)
     }
 }
 
-QString foreignkey(QStringList set_KeyValue,QString table){
-    QFile targetFile(rootAddress + "\\" + table + ".txt");
+QString Function::foreignkey(QStringList set_KeyValue,QString table){
+    QFile targetFile(rootAddress_ + "\\" + table + ".txt");
     if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -889,7 +895,7 @@ QString foreignkey(QStringList set_KeyValue,QString table){
                 foreign_column = foreignkey[i+1] + "." + foreignkey[i+2];
 
                 select("",foreign_table,foreign_column + "=" + set_KeyValue[1],"");
-                QFile ResultFile(rootAddress+"\\result.txt");
+                QFile ResultFile(rootAddress_+"\\result.txt");
                 if(!ResultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
                     qDebug()<<"文件打开失败";
                 }
@@ -917,7 +923,7 @@ QString foreignkey(QStringList set_KeyValue,QString table){
     }
 }
 
-QString update_function(QString table,QString set,QString condition)
+QString Function::update_function(QString table,QString set,QString condition)
 {
     QStringList set_KeyValue;
 
@@ -929,7 +935,7 @@ QString update_function(QString table,QString set,QString condition)
     decision = foreignkey(set_KeyValue,table);
     if(decision == "no"){
         //创建一个中间缓存文件
-        QFile file(rootAddress+"\\temp.txt");
+        QFile file(rootAddress_+"\\temp.txt");
         if(!file.open(QIODevice::Append|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
@@ -946,8 +952,8 @@ QString update_function(QString table,QString set,QString condition)
         //QList<QFile> tableFileSet;
         foreach(QString s,tableList)
         {
-            qDebug("%s",qPrintable(rootAddress+"\\"+s+".txt"));
-            QFile tmpFile(rootAddress+"\\"+s+".txt");
+            qDebug("%s",qPrintable(rootAddress_+"\\"+s+".txt"));
+            QFile tmpFile(rootAddress_+"\\"+s+".txt");
             if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text)){
                 qDebug()<<"文件打开失败";
             }
@@ -995,22 +1001,22 @@ QString update_function(QString table,QString set,QString condition)
         file.close();
         //写结果文件
 
-        QFile ResultFile(rootAddress+"\\result.txt");
+        QFile ResultFile(rootAddress_+"\\result.txt");
         if(!ResultFile.open(QIODevice::Append|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
 
-        QFile tempFile(rootAddress+"\\"+"temp.txt");
+        QFile tempFile(rootAddress_+"\\"+"temp.txt");
         if(!tempFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
 
-        QFile temp2File(rootAddress+"\\"+"temp2.txt");
+        QFile temp2File(rootAddress_+"\\"+"temp2.txt");
         if(!temp2File.open(QIODevice::Append|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
 
-        QFile targetFile(rootAddress+"\\"+table+".txt");
+        QFile targetFile(rootAddress_+"\\"+table+".txt");
         if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
@@ -1048,7 +1054,7 @@ QString update_function(QString table,QString set,QString condition)
         tempFile.close();
 
 
-        QFile tempToResult(rootAddress+"\\"+"temp2.txt");
+        QFile tempToResult(rootAddress_+"\\"+"temp2.txt");
         if(!tempToResult.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
@@ -1108,7 +1114,7 @@ QString update_function(QString table,QString set,QString condition)
         ResultFile.close();
 
 
-        decision = primarykey(projection,table,rootAddress+"\\result.txt");
+        decision = primarykey(projection,table,rootAddress_+"\\result.txt");
         qDebug("%s",qPrintable(decision));
 
         if(decision == "yes"){
@@ -1116,7 +1122,7 @@ QString update_function(QString table,QString set,QString condition)
             return "UpdateWrong";
         }
         else{
-            rewriteFile(rootAddress+"\\result.txt",table);
+            rewriteFile(rootAddress_+"\\result.txt",table);
             return "UpdateOk";
         }
 
@@ -1126,9 +1132,9 @@ QString update_function(QString table,QString set,QString condition)
     }
 }
 
-QString referenceConstraints(QString table)
+QString Function::referenceConstraints(QString table)
 {
-    QFile relationFile(rootAddress + "\\relation.txt");
+    QFile relationFile(rootAddress_ + "\\relation.txt");
     if(!relationFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
     }
@@ -1166,12 +1172,12 @@ QString referenceConstraints(QString table)
     }
 }
 
-QString insert(QString tableName,QString value)
+QString Function::insert(QString tableName,QString value)
 {
     QStringList valueList=value.split(",",QString::SkipEmptyParts);
     QMap<QString,int>projection;
     QString tableForm;
-    QFile readFile(rootAddress+"\\"+tableName+".txt");
+    QFile readFile(rootAddress_+"\\"+tableName+".txt");
     if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text))
         qDebug()<<"打开文件失败";
     //qDebug("%s",qPrintable(rootAddress+tableName+".txt"));
@@ -1233,7 +1239,7 @@ QString insert(QString tableName,QString value)
         if(referenceData.size()==1){
             break;
         }
-        QFile tmpFile(rootAddress+"\\"+referenceData[1]+".txt");
+        QFile tmpFile(rootAddress_+"\\"+referenceData[1]+".txt");
         if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text))
             qDebug()<<"打开文件失败";
         QTextStream tmpIn(&tmpFile);
@@ -1269,7 +1275,7 @@ QString insert(QString tableName,QString value)
     }
     qDebug()<<"wtf!!";
 
-    QFile writeFile(rootAddress+"\\"+tableName+".txt");
+    QFile writeFile(rootAddress_+"\\"+tableName+".txt");
     if(!writeFile.open(QIODevice::Append|QIODevice::Text))
         qDebug()<<"打开文件失败";
     QTextStream out(&writeFile);
@@ -1283,12 +1289,12 @@ QString insert(QString tableName,QString value)
 
 }
 
-QString AlterTable(QString operate,QString tableName,QString columnname,QString Datatype)
+QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype)
 {
 
     QString tableForm;
-    qDebug("%s",qPrintable(rootAddress+"\\"+tableName+".txt"));
-    QFile readFile(rootAddress+"\\"+tableName+".txt");
+    qDebug("%s",qPrintable(rootAddress_+"\\"+tableName+".txt"));
+    QFile readFile(rootAddress_+"\\"+tableName+".txt");
     if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text))
     {return "打开文件失败";}
     QTextStream in(&readFile);
@@ -1312,7 +1318,7 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
             tableForm+=columnname;
             tableForm+="|";
             tableForm+=Datatype;
-            QFile writeFile(rootAddress+"\\"+tableName+"1.txt");
+            QFile writeFile(rootAddress_+"\\"+tableName+"1.txt");
             if(!writeFile.open(QIODevice::Append|QIODevice::Text))
                 return"打开文件失败";
             QTextStream out(&writeFile);
@@ -1330,7 +1336,7 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
             writeFile.close();
             readFile.close();
             readFile.remove();
-            writeFile.rename(rootAddress+"\\"+tableName+".txt");
+            writeFile.rename(rootAddress_+"\\"+tableName+".txt");
             return "ADDOK";
         }
     }
@@ -1341,7 +1347,7 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
         if(attributeSet.contains(columnname)!=true){return "DropWrong";}
 
         QString FKReference=tableName+"."+columnname;
-        QFile relationFile(rootAddress+"\\relation.txt");
+        QFile relationFile(rootAddress_+"\\relation.txt");
         if(!relationFile.open(QIODevice::ReadOnly|QIODevice::Text))
             return"打开文件失败";
         QTextStream relationIn(&relationFile);
@@ -1369,7 +1375,7 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
                 line1+=s+"%";
             }
         }
-        QFile writeFile(rootAddress+"\\"+tableName+"1.txt");
+        QFile writeFile(rootAddress_+"\\"+tableName+"1.txt");
         if(!writeFile.open(QIODevice::Append|QIODevice::Text))
             return"打开文件失败";
         QTextStream out(&writeFile);
@@ -1393,15 +1399,19 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
         writeFile.close();
         readFile.close();
         readFile.remove();
-        writeFile.rename(rootAddress+"\\"+tableName+".txt");
+        writeFile.rename(rootAddress_+"\\"+tableName+".txt");
         return "DROPOK";
     }
 }
 
+<<<<<<< HEAD
 QString CreateUsers(QString userName,QString password)
+=======
+QString Function::CreateUsers(QString userName,QString password)
+>>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
 {
     QString k;
-    QString filename = rootAddress+"\\user.txt";  //以只读方式打开文件
+    QString filename = rootAddress_+"\\user.txt";  //以只读方式打开文件
     QFile file(filename);
     file.open(QIODevice::ReadOnly| QIODevice::Text);
     QString a=file.readAll();            //从文件中读取数据
@@ -1437,11 +1447,11 @@ QString CreateUsers(QString userName,QString password)
     return k;
 }
 
-QString OperateRights(QString operate,QString userName,QString tableName,QString right){
+QString Function::OperateRights(QString operate,QString userName,QString tableName,QString right){
 
     QString opp;
     if(operate.toLower() == "grant"){   //如果是授权
-        QFile file (rootAddress+"\\right.txt");  //以读写方式打开文件
+        QFile file (rootAddress_+"\\right.txt");  //以读写方式打开文件
         file.open(QIODevice::ReadWrite| QIODevice::Text);
         QTextStream wstream(&file);   //创建数据输入流
         QByteArray array=file.readAll();
@@ -1467,7 +1477,7 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
 
     }
     else if(operate.toLower() == "revoke"){ //如果是回收权限
-        QFile file (rootAddress+"\\right.txt");
+        QFile file (rootAddress_+"\\right.txt");
         file.open(QIODevice::ReadOnly| QIODevice::Text); //以只读方式打开文件
         qint8 h = 0; //用来判断是否出错
         QString strall=file.readAll();
@@ -1481,6 +1491,8 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
                     h=1;
                 }
             }
+
+
         }
         if(h==0){         //没有就报错
             opp="RevokeFail";
@@ -1488,7 +1500,7 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
         else{   //有就先显示回收权限成功
             opp="RevokeOK";
         }
-        QFile file2(rootAddress+"\\right.txt"); //以只写方式打开文件
+        QFile file2(rootAddress_+"\\right.txt"); //以只写方式打开文件
         file2.open(QIODevice::WriteOnly| QIODevice::Text);
         QTextStream edit(&file2);
         file2.resize(0); //清空文件内容
@@ -1500,20 +1512,20 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
     }
     else{
         //不是授权也不是回收权限就报错
-        opp="Authorization error";
+        opp="Authorization erroes";
 
     }
 
     return opp;
 }
 
-QString CreateTables(QString tableName,QString content){
+QString Function::CreateTables(QString tableName,QString content){
     QString k;
     QStringList pKeyList;//存放主键
     QStringList fKeyList;//存放外键
-    QString fileName = rootAddress+"\\"+tableName+".txt";//创建表
+    QString fileName = rootAddress_+"\\"+tableName+".txt";//创建表
     QFile file(fileName);
-    QString fileName2 = rootAddress+"\\relation.txt";//创建relation表
+    QString fileName2 = rootAddress_+"\\relation.txt";//创建relation表
     QFile fileR(fileName2);
     fileR.open(QIODevice::ReadWrite| QIODevice::Text);
     QByteArray array=fileR.readAll();
@@ -1652,13 +1664,7 @@ QString CreateTables(QString tableName,QString content){
     return k;
 }
 
-/*
- * 删除表
- * 若不存在依赖则直接删除
- * 存在依赖则不允许删除
- */
-QString DropTables(QString tableName){
-
+QString Function::DropTables(QString tableName){
     QString krr;
     int h=0;
 
@@ -1667,7 +1673,7 @@ QString DropTables(QString tableName){
 
     for(int k=0;k<strlist3.size();k++){
         //循环尝试打开创建好的表
-        QString fileName = rootAddress+"\\"+strlist3.at(k)+".txt";
+        QString fileName = rootAddress_+"\\"+strlist3.at(k)+".txt";
         QFile file(fileName);
         if(!file.exists()){
             //打不开就报错
@@ -1676,7 +1682,7 @@ QString DropTables(QString tableName){
             break;
         }
         else{//能打开，就再打开relation表
-            QString fileName2 = rootAddress+"\\relation.txt";
+            QString fileName2 = rootAddress_+"\\relation.txt";
             QFile file2(fileName2);
             file2.open(QIODevice::ReadWrite| QIODevice::Text);
 

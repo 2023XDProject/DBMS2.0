@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1600</width>
-    <height>1015</height>
+    <height>1000</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,26 +17,130 @@
    <string notr="true">background: rgb(50, 50, 50);</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="createUser_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>820</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>创建用户</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="authorization_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>790</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>权限管理</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="alterTable_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>640</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>修改表结构</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="select_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>730</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查询</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="update_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>670</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>更新</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="insert_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>760</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>插入</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="createTable_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>810</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>创建表</string>
+    </property>
+   </widget>
    <widget class="QPushButton" name="dropTable_pushButton">
     <property name="geometry">
      <rect>
-      <x>1511</x>
-      <y>873</y>
-      <width>80</width>
-      <height>20</height>
+      <x>1430</x>
+      <y>610</y>
+      <width>93</width>
+      <height>28</height>
      </rect>
     </property>
     <property name="text">
      <string>删除表</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="delete_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>700</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>删除</string>
+    </property>
+   </widget>
    <widget class="QTextBrowser" name="textBrowser_2">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>341</width>
-      <height>891</height>
+      <x>10</x>
+      <y>0</y>
+      <width>301</width>
+      <height>881</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -52,17 +156,17 @@ border:2px solid rgb(20, 128, 211);
    <widget class="QTableView" name="view_">
     <property name="geometry">
      <rect>
-      <x>359</x>
-      <y>9</y>
-      <width>1241</width>
-      <height>891</height>
+      <x>320</x>
+      <y>550</y>
+      <width>1271</width>
+      <height>331</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QTableView {
-        border: 1px solid rgb(45, 45, 45);
+     <string notr="true">QTableView {  
         background: rgb(57, 58, 60);
         gridline-color: rgb(60, 60, 60);
+        border:2px solid rgb(20, 128, 211);
 }
 QTableView::item {
         padding-left: 5px;
@@ -87,124 +191,41 @@ QTableView::indicator {
 </string>
     </property>
    </widget>
-   <widget class="QPushButton" name="authorization_pushButton">
+   <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>1511</x>
-      <y>847</y>
-      <width>80</width>
-      <height>20</height>
+      <x>323</x>
+      <y>3</y>
+      <width>1271</width>
+      <height>541</height>
      </rect>
     </property>
-    <property name="text">
-     <string>权限管理</string>
+    <property name="font">
+     <font>
+      <family>等线</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgb(68, 69, 73);
+border-radius:4px;
+color: white;
+
+</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="createUser_pushButton">
-    <property name="geometry">
-     <rect>
-      <x>1511</x>
-      <y>821</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>创建用户</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="insert_pushButton">
-    <property name="geometry">
-     <rect>
-      <x>1511</x>
-      <y>795</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>插入</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="select_pushButton">
-    <property name="geometry">
-     <rect>
-      <x>1511</x>
-      <y>769</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>查询</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="delete_pushButton">
-    <property name="geometry">
-     <rect>
-      <x>1511</x>
-      <y>743</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>删除</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="update_pushButton">
-    <property name="geometry">
-     <rect>
-      <x>1511</x>
-      <y>717</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>更新</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="alterTable_pushButton">
-    <property name="geometry">
-     <rect>
-      <x>1511</x>
-      <y>691</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="text">
-     <string>修改表结构</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="createTable_pushButton">
-    <property name="geometry">
-     <rect>
-      <x>1511</x>
-      <y>665</y>
-      <width>80</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>创建表</string>
-    </property>
-   </widget>
-   <zorder>select_pushButton</zorder>
    <zorder>createTable_pushButton</zorder>
+   <zorder>createUser_pushButton</zorder>
    <zorder>authorization_pushButton</zorder>
    <zorder>alterTable_pushButton</zorder>
-   <zorder>dropTable_pushButton</zorder>
-   <zorder>insert_pushButton</zorder>
-   <zorder>createUser_pushButton</zorder>
-   <zorder>delete_pushButton</zorder>
+   <zorder>select_pushButton</zorder>
    <zorder>update_pushButton</zorder>
+   <zorder>insert_pushButton</zorder>
+   <zorder>dropTable_pushButton</zorder>
+   <zorder>delete_pushButton</zorder>
    <zorder>textBrowser_2</zorder>
    <zorder>view_</zorder>
+   <zorder>textEdit</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -212,7 +233,7 @@ QTableView::indicator {
      <x>0</x>
      <y>0</y>
      <width>1600</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
@@ -232,7 +253,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>14</pointsize>
+     <pointsize>10</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -268,7 +289,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
    <property name="shortcut">
@@ -283,7 +304,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </action>
@@ -294,7 +315,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </action>
@@ -305,7 +326,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </action>
@@ -316,7 +337,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </action>
@@ -327,7 +348,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </action>
@@ -338,14 +359,8 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
-   </property>
-   <property name="visible">
-    <bool>true</bool>
-   </property>
-   <property name="iconVisibleInMenu">
-    <bool>true</bool>
    </property>
   </action>
   <action name="updateAction">
@@ -355,7 +370,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </action>
@@ -366,7 +381,7 @@ QTableView::indicator {
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </action>

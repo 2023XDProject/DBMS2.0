@@ -13,7 +13,7 @@ class DropTable : public QWidget
     Q_OBJECT
 
 public:
-    explicit DropTable(QWidget *parent = 0);
+    explicit DropTable(Function* fun_,QWidget *parent = 0);
     ~DropTable();
 
 private slots:
@@ -23,6 +23,7 @@ private slots:
 
 private:
     Ui::DropTable *ui;
+    Function* fun_;
 signals:
     void sendData(QString);
 };

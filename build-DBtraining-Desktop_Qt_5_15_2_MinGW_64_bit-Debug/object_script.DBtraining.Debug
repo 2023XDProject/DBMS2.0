@@ -14,6 +14,7 @@ debug/moc_mainwindow.o
 debug/moc_select.o
 debug/moc_deletetable.o
 debug/moc_updatetable.o
+debug/moc_function.o
 debug/moc_inserttable.o
 debug/moc_altertable.o
 debug/moc_createusertable.o

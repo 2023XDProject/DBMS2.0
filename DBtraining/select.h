@@ -14,7 +14,7 @@ class Select : public QWidget
     Q_OBJECT
 
 public:
-    explicit Select(QWidget *parent = nullptr);
+    explicit Select(Function* fun,QWidget *parent = nullptr);
     ~Select();
 
 //路径
@@ -28,7 +28,7 @@ public:
     QString where;
 //排序
     QString order;
-
+    Function* fun_;
 
 private slots:
     void on_back_pushButton_clicked();

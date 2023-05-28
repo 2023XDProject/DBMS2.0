@@ -14,6 +14,7 @@ release/moc_mainwindow.o
 release/moc_select.o
 release/moc_deletetable.o
 release/moc_updatetable.o
+release/moc_function.o
 release/moc_inserttable.o
 release/moc_altertable.o
 release/moc_createusertable.o

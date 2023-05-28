@@ -13,6 +13,7 @@
 #include"inserttable.h"
 #include"function.h"
 #include"altertable.h"
+#include "updatetable.h"
 #include"createusertable.h"
 #include"operaterighttable.h"
 #include"createtablew.h"
@@ -34,7 +35,8 @@ public:
     ~MainWindow();
 private:
     QTcpServer *server;
-    QString rootAddress=LOCAL_ADDR;
+    //QString rootAddress="D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
+    QString rootAddress_;
     QTcpSocket *socket;
 
     void sendStringData();
@@ -63,8 +65,6 @@ private slots:
 
     void on_dropTable_pushButton_clicked();
 
-    void updateToolBar();//更新工具栏
-
     void reShowTable(QString data);//更新表格
 
 
@@ -87,6 +87,19 @@ private:
     QDir* dirinfo_;
     QStandardItemModel *model_;
     QStandardItem *item_;
+
+    Function *fun_;
+
+    //其他窗口
+    Select *selectWindow_;
+    updateTable *updateWindow_;
+    deleteTable *deleteWindow_;
+    insertTable *insertTable_;
+    alterTable *alterTable_;
+    createUserTable *createUserTable_;
+    OperateRightTable *opereteRightTable_;
+        CreateTableW *createTableW_;
+            DropTable *dropTable_;
     //QTableView  *view_;
 };
 

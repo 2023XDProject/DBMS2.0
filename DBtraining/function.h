@@ -1,41 +1,64 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 #include"QString"
+#include "qwidget.h"
+#include <QCoreApplication>
 #include<QDebug>
-#define LOCAL_ADDR "C:\\Users\\84579\\Desktop\\dbms2.0\\DBMS2.0"
+#include <QFile>
+#include <QFileDialog>
+#include <QTextStream>
+#include <QString>
+#include <QSet>
+#include<QList>
+#include<QMap>
+#include<QStack>
+#include<QDir>
 
-QStringList WriteContent(QStringList tableList);
 
-bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
+class Function: public QObject
+{
+    Q_OBJECT
+private:
+    //QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
+    QString rootAddress_;
 
-bool JudgeCondition(QStringList conditionList,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
+public:
+    Function();
 
-int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
+    QStringList WriteContent(QStringList tableList);
 
-QString select(QString attribute,QString table,QString condition,QString order);
+    bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
 
-QString rewriteFile(QString file_addr,QString target_tableName);
+    bool JudgeCondition(QString conditionList,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
 
-QString delete_function(QString table,QString condition);
+    int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
 
-QString update_function(QString table,QString set,QString condition);
+    QString select(QString attribute,QString table,QString condition,QString order);
 
-QString primarykey(QStringList set_KeyValue,QString table);
+    QString rewriteFile(QString file_addr,QString target_tableName);
 
-QString foreignkey(QStringList set_KeyValue,QString table);
+    QString delete_function(QString table,QString condition);
 
-QString referenceConstraints(QString table);
+    QString update_function(QString table,QString set,QString condition);
 
-QString insert(QString tableName,QString value);
+    //QString primarykey(QStringList set_KeyValue,QString table);
+    QString primarykey(QMap<QString,int> projection,QString table,QString file_addr);
 
-QString AlterTable(QString operate,QString tableName,QString columnname,QString Datatype);
+    QString foreignkey(QStringList set_KeyValue,QString table);
 
-QString CreateUsers(QString userName,QString password);
+    QString referenceConstraints(QString table);
 
- QString OperateRights(QString operate,QString userName,QString tableName,QString right);
+    QString insert(QString tableName,QString value);
 
-QString CreateTables(QString tableName,QString content);
+    QString AlterTable(QString operate,QString tableName,QString columnname,QString Datatype);
 
-QString DropTables(QString tableName);
+    QString CreateUsers(QString userName,QString password);
+
+    QString OperateRights(QString operate,QString userName,QString tableName,QString right);
+
+    QString CreateTables(QString tableName,QString content);
+
+    QString DropTables(QString tableName);
+};
 
 #endif // FUNCTION_H

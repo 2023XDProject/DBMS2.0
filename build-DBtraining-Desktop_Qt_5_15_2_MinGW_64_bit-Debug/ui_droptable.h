@@ -37,7 +37,7 @@ public:
         pushButton->setGeometry(QRect(40, 210, 121, 51));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font.setPointSize(16);
+        font.setPointSize(12);
         pushButton->setFont(font);
         pushButton->setStyleSheet(QString::fromUtf8("border: none;\n"
 "        color: rgb(175, 175, 175);\n"

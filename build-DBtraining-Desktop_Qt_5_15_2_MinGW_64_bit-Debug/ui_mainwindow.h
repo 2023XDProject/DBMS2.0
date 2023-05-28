@@ -19,6 +19,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -48,6 +49,7 @@ public:
     QPushButton *delete_pushButton;
     QTextBrowser *textBrowser_2;
     QTableView *view_;
+    QTextEdit *textEdit;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -92,34 +94,34 @@ public:
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         createUser_pushButton = new QPushButton(centralWidget);
         createUser_pushButton->setObjectName(QString::fromUtf8("createUser_pushButton"));
-        createUser_pushButton->setGeometry(QRect(1510, 830, 93, 28));
+        createUser_pushButton->setGeometry(QRect(1430, 820, 93, 28));
         authorization_pushButton = new QPushButton(centralWidget);
         authorization_pushButton->setObjectName(QString::fromUtf8("authorization_pushButton"));
-        authorization_pushButton->setGeometry(QRect(1510, 800, 93, 28));
+        authorization_pushButton->setGeometry(QRect(1430, 790, 93, 28));
         alterTable_pushButton = new QPushButton(centralWidget);
         alterTable_pushButton->setObjectName(QString::fromUtf8("alterTable_pushButton"));
-        alterTable_pushButton->setGeometry(QRect(1510, 650, 93, 28));
+        alterTable_pushButton->setGeometry(QRect(1430, 640, 93, 28));
         select_pushButton = new QPushButton(centralWidget);
         select_pushButton->setObjectName(QString::fromUtf8("select_pushButton"));
-        select_pushButton->setGeometry(QRect(1510, 740, 93, 28));
+        select_pushButton->setGeometry(QRect(1430, 730, 93, 28));
         update_pushButton = new QPushButton(centralWidget);
         update_pushButton->setObjectName(QString::fromUtf8("update_pushButton"));
-        update_pushButton->setGeometry(QRect(1510, 680, 93, 28));
+        update_pushButton->setGeometry(QRect(1430, 670, 93, 28));
         insert_pushButton = new QPushButton(centralWidget);
         insert_pushButton->setObjectName(QString::fromUtf8("insert_pushButton"));
-        insert_pushButton->setGeometry(QRect(1510, 770, 93, 28));
+        insert_pushButton->setGeometry(QRect(1430, 760, 93, 28));
         createTable_pushButton = new QPushButton(centralWidget);
         createTable_pushButton->setObjectName(QString::fromUtf8("createTable_pushButton"));
-        createTable_pushButton->setGeometry(QRect(1500, 810, 93, 28));
+        createTable_pushButton->setGeometry(QRect(1430, 810, 93, 28));
         dropTable_pushButton = new QPushButton(centralWidget);
         dropTable_pushButton->setObjectName(QString::fromUtf8("dropTable_pushButton"));
-        dropTable_pushButton->setGeometry(QRect(1510, 620, 93, 28));
+        dropTable_pushButton->setGeometry(QRect(1430, 610, 93, 28));
         delete_pushButton = new QPushButton(centralWidget);
         delete_pushButton->setObjectName(QString::fromUtf8("delete_pushButton"));
-        delete_pushButton->setGeometry(QRect(1510, 710, 93, 28));
+        delete_pushButton->setGeometry(QRect(1430, 700, 93, 28));
         textBrowser_2 = new QTextBrowser(centralWidget);
         textBrowser_2->setObjectName(QString::fromUtf8("textBrowser_2"));
-        textBrowser_2->setGeometry(QRect(0, 0, 311, 921));
+        textBrowser_2->setGeometry(QRect(10, 0, 301, 881));
         textBrowser_2->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -127,11 +129,11 @@ public:
         textBrowser_2->setReadOnly(false);
         view_ = new QTableView(centralWidget);
         view_->setObjectName(QString::fromUtf8("view_"));
-        view_->setGeometry(QRect(315, 1, 1291, 911));
-        view_->setStyleSheet(QString::fromUtf8("QTableView {\n"
-"        border: 1px solid rgb(45, 45, 45);\n"
+        view_->setGeometry(QRect(320, 550, 1271, 331));
+        view_->setStyleSheet(QString::fromUtf8("QTableView {  \n"
 "        background: rgb(57, 58, 60);\n"
 "        gridline-color: rgb(60, 60, 60);\n"
+"        border:2px solid rgb(20, 128, 211);\n"
 "}\n"
 "QTableView::item {\n"
 "        padding-left: 5px;\n"
@@ -154,6 +156,18 @@ public:
 "        height: 20px;\n"
 "}\n"
 ""));
+        textEdit = new QTextEdit(centralWidget);
+        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        textEdit->setGeometry(QRect(323, 3, 1271, 541));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("\347\255\211\347\272\277"));
+        font1.setPointSize(16);
+        textEdit->setFont(font1);
+        textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
+"border-radius:4px;\n"
+"color: white;\n"
+"\n"
+""));
         MainWindow->setCentralWidget(centralWidget);
         createTable_pushButton->raise();
         createUser_pushButton->raise();
@@ -166,6 +180,7 @@ public:
         delete_pushButton->raise();
         textBrowser_2->raise();
         view_->raise();
+        textEdit->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1600, 23));
@@ -174,10 +189,10 @@ public:
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
         mainToolBar->setMinimumSize(QSize(1600, 70));
         mainToolBar->setMaximumSize(QSize(1600, 70));
-        QFont font1;
-        font1.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font1.setPointSize(14);
-        mainToolBar->setFont(font1);
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
+        font2.setPointSize(10);
+        mainToolBar->setFont(font2);
         mainToolBar->setStyleSheet(QString::fromUtf8("QToolButton{\n"
 "                                   border: none;\n"
 "                                   color: white;\n"

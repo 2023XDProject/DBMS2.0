@@ -8,11 +8,12 @@
 
 using namespace std;
 
-deleteTable::deleteTable(QWidget *parent) :
+deleteTable::deleteTable(Function* fun,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::deleteTable)
 {
     ui->setupUi(this);
+    fun_=fun;
     folderPath = QDir::cleanPath(QDir::currentPath() + QDir::separator());
 }
 
@@ -34,5 +35,5 @@ void deleteTable::on_delete_pushButton_clicked()
 
    filePath = folderPath + "/"  + table_name + ".txt";
 
-   sendData(qPrintable(delete_function(table_name,where)));
+   sendData(qPrintable(fun_->delete_function(table_name,where)));
 }

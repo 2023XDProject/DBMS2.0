@@ -69,22 +69,25 @@ public:
         label = new QLabel(OperateRightTable);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(110, 30, 121, 51));
-        label->setFont(font);
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
+        font1.setPointSize(12);
+        label->setFont(font1);
         label->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         label_2 = new QLabel(OperateRightTable);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(100, 100, 131, 61));
-        label_2->setFont(font);
+        label_2->setFont(font1);
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         label_3 = new QLabel(OperateRightTable);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setGeometry(QRect(100, 180, 91, 61));
-        label_3->setFont(font);
+        label_3->setFont(font1);
         label_3->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         label_4 = new QLabel(OperateRightTable);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(100, 260, 101, 61));
-        label_4->setFont(font);
+        label_4->setFont(font1);
         label_4->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         right = new QLineEdit(OperateRightTable);
         right->setObjectName(QString::fromUtf8("right"));
@@ -97,7 +100,7 @@ public:
         pushButton = new QPushButton(OperateRightTable);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(80, 350, 111, 61));
-        pushButton->setFont(font);
+        pushButton->setFont(font1);
         pushButton->setStyleSheet(QString::fromUtf8("border: none;\n"
 "        color: rgb(175, 175, 175);\n"
 "        background: transparent;\n"
@@ -109,7 +112,7 @@ public:
         pushButton_2 = new QPushButton(OperateRightTable);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
         pushButton_2->setGeometry(QRect(370, 360, 111, 51));
-        pushButton_2->setFont(font);
+        pushButton_2->setFont(font1);
         pushButton_2->setStyleSheet(QString::fromUtf8("border: none;\n"
 "        color: rgb(175, 175, 175);\n"
 "        background: transparent;\n"
