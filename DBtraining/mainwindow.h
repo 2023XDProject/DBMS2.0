@@ -34,7 +34,7 @@ public:
     ~MainWindow();
 private:
     QTcpServer *server;
-    QString rootAddress="D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
+    QString rootAddress=LOCAL_ADDR;
     QTcpSocket *socket;
 
     void sendStringData();

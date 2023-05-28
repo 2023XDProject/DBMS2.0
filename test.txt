@@ -1,0 +1,2 @@
+1|0|tno|int%0|0|tname|char8%0|0|age|int
+PK

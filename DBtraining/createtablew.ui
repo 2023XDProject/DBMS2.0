@@ -62,7 +62,8 @@ color: white;
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
      <bold>false</bold>
     </font>
    </property>

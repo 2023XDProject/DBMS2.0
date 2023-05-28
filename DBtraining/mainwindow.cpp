@@ -272,7 +272,7 @@ void MainWindow::isFinish(QString data){
         tempBox.setStyleSheet("QMessageBox{background: rgb(50, 50, 50);}");
         tempBox.exec();
 
-        QFile resultFile("D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms\\result.txt");
+        QFile resultFile(LOCAL_ADDR"\\result.txt");
         if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }

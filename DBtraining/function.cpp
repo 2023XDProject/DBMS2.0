@@ -10,8 +10,13 @@
 #include<QStack>
 #include<QDir>
 
-QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
+QString rootAddress = LOCAL_ADDR;
 
+/*
+ * 将一个包含表格数据的列表写入一个文本文件中。
+ * 在写入文件之前，它将表格数据按行存储在一个 QStringList 对象中，
+ * 然后将其写入文件。
+ */
 QStringList WriteContent(QStringList tableList)
 {
     //创建并打开表文件
@@ -32,9 +37,9 @@ QStringList WriteContent(QStringList tableList)
 
     QStringList content;
 
-    //读记录
+    //读记录，加进content
     if(tableList.size()==1)
-    {//不为空
+    {//tableList不为空
         while(!in.atEnd()){
             in >> str;
             if(str=="")break;
@@ -42,15 +47,20 @@ QStringList WriteContent(QStringList tableList)
             content.append(str);
         }
         tmpFile.close();
+        //出递归条件
         return content;
     }
 
     QStringList content2;
     QStringList tableList_1;
+    //将所有表名加进tableList_1
     for(int i=1;i<tableList.size();i++)
         tableList_1.append(tableList[i]);
 
+    //将 tableList_1 列表中的每一项添加到 content 列表中
     content=WriteContent(tableList_1);
+
+    //将 tableList_1 列表中的每一项添加到 content 列表中
     while(!in.atEnd())
     {
         in>>str;
@@ -71,8 +81,14 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
 {
     qDebug()<<"nowtheSimple";
 
+    //"%"分词
     QStringList dataList=data.split("%",QString::SkipEmptyParts);
-    //foreach(QString s,dataList)qDebug("%s",qPrintable(s));
+
+
+    //foreach(QString s,dataList) qDebug("%s",qPrintable(s));
+
+    //找到比大小符号
+
     QChar compareOp;
     foreach(QChar c,condition)
     {
@@ -82,6 +98,7 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
             break;
         }
     }
+
     QStringList conditionList=condition.split(QRegExp("[!<>=]"),QString::SkipEmptyParts);
     foreach(QString s,conditionList)qDebug("%s",qPrintable(s));
 
@@ -1268,7 +1285,7 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
         attributeSet.insert(tempList[2]);
     }
     in>>line3;
-    if(operate=="ADD")
+    if(operate.toUpper()=="ADD")
     {
         if(tableFormList.contains(columnname)==true){return "ADDWrong";}
         else
@@ -1300,7 +1317,7 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
         }
     }
 
-    if(operate=="DROP"){
+    if(operate.toUpper()=="DROP"){
         QStringList primeKeyList=line2.split("%",QString::SkipEmptyParts);
         if(primeKeyList.contains(columnname)==true){return "DropWrong";}
         if(attributeSet.contains(columnname)!=true){return "DropWrong";}
@@ -1446,8 +1463,6 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
                     h=1;
                 }
             }
-
-
         }
         if(h==0){         //没有就报错
             opp="RevokeFail";
@@ -1467,7 +1482,7 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
     }
     else{
         //不是授权也不是回收权限就报错
-        opp="Authorization erroes";
+        opp="Authorization error";
 
     }
 
@@ -1619,33 +1634,56 @@ QString CreateTables(QString tableName,QString content){
     return k;
 }
 
+/*
+ * 删除表
+ * 若不存在依赖则直接删除
+ * 存在依赖则不允许删除
+ */
 QString DropTables(QString tableName){
 
     QString krr;
     int h=0;
+
+    //","分词分出表名
     QStringList strlist3 = tableName.split(",");
-    for(int k=0;k<strlist3.size();k++){ //循环尝试打开创建好的表
+
+    for(int k=0;k<strlist3.size();k++){
+        //循环尝试打开创建好的表
         QString fileName = rootAddress+"\\"+strlist3.at(k)+".txt";
         QFile file(fileName);
-        if(!file.exists()){ //打不开就报错
+        if(!file.exists()){
+            //打不开就报错
+            h=3;
             qDebug()<<"DropTableWrong";
             break;
         }
-        else{
-
-            QString fileName2 = rootAddress+"\\relation.txt";//能打开，就在打开relation表
+        else{//能打开，就再打开relation表
+            QString fileName2 = rootAddress+"\\relation.txt";
             QFile file2(fileName2);
             file2.open(QIODevice::ReadWrite| QIODevice::Text);
+
+            //接收relation.txt中的所有信息
             QString a=file2.readAll();
             QByteArray array=file2.readAll();
-            QStringList strlist = a.split("\n");//以转行符分割信息
+
+            //以转行符分割relation.txt的每行信息
+            QStringList strlist = a.split("\n");
             file2.close();
+
             for(int i=0;i<strlist.size();i++){
+                //取出relation.txt中一行
                 QString b= strlist.at(i);
-                QStringList strlist2 = b.split("-");//再以‘-’分割信息
+
+                //"-"分割有依赖的两个字段
+                QStringList strlist2 = b.split("-");
+
+                //接收表1.字段
                 QString eeer= strlist2.at(0);
-                QStringList strlist7 = eeer.split(".");//再以‘.’分割信息
-                if(strlist7.at(0).compare(strlist3.at(k),Qt::CaseSensitive)==0){//查询是否有要删除的信息，有就删除
+                //"."分割表名和字段名
+                QStringList strlist7 = eeer.split(".");
+
+                //如果要删除的表是表1，不允许删除
+                if(strlist7.at(0).compare(strlist3.at(k),Qt::CaseSensitive)==0){
                     h=2;
                     file.close();
                     krr="DropTableFail";
@@ -1653,27 +1691,43 @@ QString DropTables(QString tableName){
                 }
             }
             for(int i=0;i<strlist.size();i++){
+                //取出其中一行
                 QString b= strlist.at(i);
-                QStringList strlist2 = b.split("-");//再以‘-’分割信息
-                QString eeer= strlist2.at(0);
-                QStringList strlist7 = eeer.split(".");//再以‘.’分割信息
-                QString c= strlist2.at(strlist2.size()-1);
-                QStringList strlist4 = c.split(".");//再以‘.’分割信息
 
-                if(strlist4.at(0).compare(strlist3.at(k),Qt::CaseSensitive)==0 && strlist7.at(0).compare(strlist3.at(k),Qt::CaseSensitive)!=0){//查询是否有要删除的信息，有就删除
-                    QFile::remove(fileName);
-                    strlist.removeAt(i);
+                //"-"分割有依赖的两个字段
+                QStringList strlist2 = b.split("-");
+
+                //接收有依赖的表1.字段
+                QString eeer= strlist2.at(0);
+                //"."分割表名和字段名
+                QStringList strlist7 = eeer.split(".");
+
+                //接收有依赖的表2.字段
+                QString c= strlist2.at(strlist2.size()-1);
+                //"."分割表名和字段名
+                QStringList strlist4 = c.split(".");
+
+                //要删除的表不是表1，但是表2，就可以删除
+                if(strlist7.at(0).compare(strlist3.at(k),Qt::CaseSensitive)!=0 && strlist4.at(0).compare(strlist3.at(k),Qt::CaseSensitive)==0){
+                    QFile::remove(fileName);//删除表
+                    strlist.removeAt(i);//删除依赖
+                    h=1;
+                }else if(strlist7.at(0).compare(strlist3.at(k),Qt::CaseSensitive)!=0 && strlist4.at(0).compare(strlist3.at(k),Qt::CaseSensitive)!=0){
+                    //要删除的表不是表1，也不是表2，就可以删除
+                    QFile::remove(fileName);//删除表
                     h=1;
                 }
-
             }
 
-
+            //打开relation.txt
             QFile file3(fileName2);
             file3.open(QIODevice::ReadWrite| QIODevice::Text);
+
             QTextStream edit(&file3);
-            QByteArray array2=file3.readAll();//将修改后的内容重新写入文件
+            //取出relation.txt原来的信息
+            QByteArray array2=file3.readAll();
             file3.resize(0);
+            //将修改后的内容重新写入文件
             for(int i=0;i<strlist.size();i++){
                 edit<<strlist.at(i)<<endl;
             }
@@ -1685,12 +1739,14 @@ QString DropTables(QString tableName){
         }
         file.close();
     }
+
     if(h==1){
         krr="DropTableOK";
-    }
-
-    if(h==2) { //没有就返回删除失败
+    }else if(h==2) {
+        //没有就返回删除失败
         krr="DropTableFail";
+    }else if(h==3){
+        krr="TableNotExist";
     }
 
     return krr;

@@ -2,6 +2,7 @@
 #define FUNCTION_H
 #include"QString"
 #include<QDebug>
+#define LOCAL_ADDR "C:\\Users\\84579\\Desktop\\dbms2.0\\DBMS2.0"
 
 QStringList WriteContent(QStringList tableList);
 
