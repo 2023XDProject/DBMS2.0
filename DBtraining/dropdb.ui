@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CreateTableW</class>
- <widget class="QWidget" name="CreateTableW">
+ <class>dropDB</class>
+ <widget class="QWidget" name="dropDB">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>640</height>
+    <width>536</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,69 +16,51 @@
   <property name="styleSheet">
    <string notr="true">background: rgb(50, 50, 50);</string>
   </property>
-  <widget class="QTextEdit" name="textEdit">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>130</y>
-     <width>321</width>
-     <height>351</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: rgb(68, 69, 73);
-border-radius:4px;
-border:2px solid rgb(20, 128, 211);
-color: white;
-</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>50</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background: rgb(68, 69, 73);
-border-radius:4px;
-border:2px solid rgb(20, 128, 211);
-color: white;
-</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>40</y>
-     <width>131</width>
-     <height>61</height>
+     <x>40</x>
+     <y>100</y>
+     <width>211</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>12</pointsize>
-     <bold>false</bold>
+     <pointsize>16</pointsize>
     </font>
    </property>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>表名：</string>
+    <string>数据库名：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>120</y>
+     <width>281</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: rgb(68, 69, 73);
+border-radius:4px;
+border:2px solid rgb(20, 128, 211);
+color: white;
+</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>530</y>
-     <width>111</width>
+     <x>40</x>
+     <y>270</y>
+     <width>131</width>
      <height>61</height>
     </rect>
    </property>
@@ -105,9 +87,9 @@ color: white;
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>530</y>
-     <width>101</width>
+     <x>350</x>
+     <y>270</y>
+     <width>131</width>
      <height>61</height>
     </rect>
    </property>
@@ -128,7 +110,7 @@ color: white;
 </string>
    </property>
    <property name="text">
-    <string>返回</string>
+    <string>取消</string>
    </property>
   </widget>
  </widget>

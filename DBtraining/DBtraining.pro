@@ -25,6 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    createdb.cpp \
+    dropdb.cpp \
         main.cpp \
         mainwindow.cpp \
     select.cpp \
@@ -39,6 +41,8 @@ SOURCES += \
     droptable.cpp
 
 HEADERS += \
+    createdb.h \
+    dropdb.h \
         mainwindow.h \
     select.h \
     deletetable.h \
@@ -52,6 +56,8 @@ HEADERS += \
     droptable.h
 
 FORMS += \
+    createdb.ui \
+    dropdb.ui \
         mainwindow.ui \
     select.ui \
     deletetable.ui \

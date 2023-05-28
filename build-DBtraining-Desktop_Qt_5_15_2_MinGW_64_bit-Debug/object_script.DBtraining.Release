@@ -1,3 +1,5 @@
+release/createdb.o
+release/dropdb.o
 release/main.o
 release/mainwindow.o
 release/select.o
@@ -10,6 +12,8 @@ release/createusertable.o
 release/operaterighttable.o
 release/createtablew.o
 release/droptable.o
+release/moc_createdb.o
+release/moc_dropdb.o
 release/moc_mainwindow.o
 release/moc_select.o
 release/moc_deletetable.o

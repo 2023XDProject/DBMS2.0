@@ -13,6 +13,7 @@
 #include<QMap>
 #include<QStack>
 #include<QDir>
+#include <QDataStream>
 
 
 class Function: public QObject
@@ -21,6 +22,7 @@ class Function: public QObject
 private:
     //QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
     QString rootAddress_;
+    QString DBName_="Ruanko";
 
 public:
     Function();
@@ -59,6 +61,13 @@ public:
     QString CreateTables(QString tableName,QString content);
 
     QString DropTables(QString tableName);
+
+    QString CreateDB(QString DBName);
+
+    QString DropDB(QString DBName);
+
+    //删除文件夹
+    bool dropFloder(const QString strFilePath);
 };
 
 #endif // FUNCTION_H

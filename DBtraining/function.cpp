@@ -1740,3 +1740,62 @@ QString Function::DropTables(QString tableName){
 
     return krr;
 }
+
+//新建数据库
+QString Function::CreateDB(QString DBName){
+    //判断该文件夹存不存在
+
+    QString temp=rootAddress_+"\\"+DBName;
+    QFileInfo fileInfo(temp);
+    if(fileInfo.exists())
+    {
+        return "数据库已存在";
+    }
+
+
+    QDir dir(temp);
+    if(!dir.exists()){
+        dir.mkdir(temp);
+        DBName_=DBName;
+        return "CreateDBOK";
+    }else{
+        return "CreateDBWrong";
+    }
+}
+
+//删除数据库
+QString Function::DropDB(QString DBName){
+    //判断该文件夹存不存在
+    QString temp=rootAddress_+"\\"+DBName;
+    bool isFinish=dropFloder(temp);
+    if(isFinish==true){
+        return "DropDBOK";
+    }else{
+        return "DRopDbWrong";
+    }
+}
+
+//删除文件夹
+bool Function::dropFloder(const QString strFilePath){
+    if (strFilePath.isEmpty()){
+        return false;
+    }
+    QDir dir(strFilePath);
+    if(!dir.exists())
+    {
+        return true;
+    }
+    dir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot); //设置过滤
+    QFileInfoList fileList = dir.entryInfoList(); // 获取所有的文件信息
+    foreach (QFileInfo file, fileList)
+    { //遍历文件信息
+        if (file.isFile())
+        { // 是文件，删除
+            file.dir().remove(file.fileName());
+        }else
+        { // 递归调用函数，删除子文件夹
+            dropFloder(file.absoluteFilePath());
+        }
+    }
+    return dir.rmpath(dir.absolutePath()); // 这时候文件夹已经空了，再删除文件夹本身
+}

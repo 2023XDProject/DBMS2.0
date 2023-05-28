@@ -1,3 +1,5 @@
+debug/createdb.o
+debug/dropdb.o
 debug/main.o
 debug/mainwindow.o
 debug/select.o
@@ -10,6 +12,8 @@ debug/createusertable.o
 debug/operaterighttable.o
 debug/createtablew.o
 debug/droptable.o
+debug/moc_createdb.o
+debug/moc_dropdb.o
 debug/moc_mainwindow.o
 debug/moc_select.o
 debug/moc_deletetable.o
