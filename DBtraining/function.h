@@ -18,7 +18,6 @@
 class Function: public QObject
 {
     Q_OBJECT
-
 private:
     //QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
     QString rootAddress_;
