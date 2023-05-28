@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     insertTable_(new insertTable(fun_)),alterTable_(new alterTable(fun_)),
     createUserTable_(new createUserTable(fun_)),opereteRightTable_(new OperateRightTable(fun_)),
     createTableW_(new CreateTableW(fun_)),dropTable_(new DropTable(fun_)),
+    createDB_(new CreateDB(fun_)),dropDB_(new dropDB(fun_)),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -38,6 +39,7 @@ MainWindow::~MainWindow()
     delete selectWindow_,updateWindow_,deleteWindow_;
     delete insertTable_,alterTable_,createUserTable_;
     delete opereteRightTable_,createTableW_,dropTable_;
+    delete createDB_,dropDB_;
 }
 
 void MainWindow::newClientHandle()
@@ -241,6 +243,23 @@ void MainWindow::on_dropTable_pushButton_clicked()
     dropTable_->show();
     connect(dropTable_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
+
+//新建数据库
+void MainWindow::on_pushButton_clicked()
+{
+    createDB_->show();
+    connect(createDB_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    qDebug()<<"新建数据库";
+}
+
+//删除数据库
+void MainWindow::on_pushButton_2_clicked()
+{
+    dropDB_->show();
+    connect(dropDB_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    qDebug()<<"删除数据库";
+}
+
 
 void MainWindow::isFinish(QString data){
     if(!data.contains(".")&&!data.isEmpty()){

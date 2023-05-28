@@ -18,6 +18,8 @@
 #include"operaterighttable.h"
 #include"createtablew.h"
 #include"droptable.h"
+#include "createdb.h"
+#include "dropdb.h"
 #include<QTcpServer>
 #include<QTcpSocket>
 #define PORT 8000
@@ -67,7 +69,9 @@ private slots:
 
     void reShowTable(QString data);//更新表格
 
+    void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
 
 public slots:
     void reshow();
@@ -98,8 +102,11 @@ private:
     alterTable *alterTable_;
     createUserTable *createUserTable_;
     OperateRightTable *opereteRightTable_;
-        CreateTableW *createTableW_;
-            DropTable *dropTable_;
+    CreateTableW *createTableW_;
+    DropTable *dropTable_;
+    CreateDB *createDB_;
+    dropDB *dropDB_;
+
     //QTableView  *view_;
 };
 

@@ -57,7 +57,6 @@ public:
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
         font.setPointSize(12);
         font.setBold(false);
-        font.setWeight(50);
         label->setFont(font);
         label->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         pushButton = new QPushButton(CreateTableW);
