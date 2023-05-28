@@ -20,8 +20,8 @@
    <widget class="QPushButton" name="createUser_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>830</y>
+      <x>1430</x>
+      <y>820</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -33,8 +33,8 @@
    <widget class="QPushButton" name="authorization_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>800</y>
+      <x>1430</x>
+      <y>790</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -46,8 +46,8 @@
    <widget class="QPushButton" name="alterTable_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>650</y>
+      <x>1430</x>
+      <y>640</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -59,8 +59,8 @@
    <widget class="QPushButton" name="select_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>740</y>
+      <x>1430</x>
+      <y>730</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -72,8 +72,8 @@
    <widget class="QPushButton" name="update_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>680</y>
+      <x>1430</x>
+      <y>670</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -85,8 +85,8 @@
    <widget class="QPushButton" name="insert_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>770</y>
+      <x>1430</x>
+      <y>760</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -98,7 +98,7 @@
    <widget class="QPushButton" name="createTable_pushButton">
     <property name="geometry">
      <rect>
-      <x>1500</x>
+      <x>1430</x>
       <y>810</y>
       <width>93</width>
       <height>28</height>
@@ -111,8 +111,8 @@
    <widget class="QPushButton" name="dropTable_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>620</y>
+      <x>1430</x>
+      <y>610</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -124,8 +124,8 @@
    <widget class="QPushButton" name="delete_pushButton">
     <property name="geometry">
      <rect>
-      <x>1510</x>
-      <y>710</y>
+      <x>1430</x>
+      <y>700</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -137,10 +137,10 @@
    <widget class="QTextBrowser" name="textBrowser_2">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>0</y>
-      <width>311</width>
-      <height>921</height>
+      <width>301</width>
+      <height>881</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -156,17 +156,17 @@ border:2px solid rgb(20, 128, 211);
    <widget class="QTableView" name="view_">
     <property name="geometry">
      <rect>
-      <x>315</x>
-      <y>1</y>
-      <width>1291</width>
-      <height>911</height>
+      <x>320</x>
+      <y>550</y>
+      <width>1271</width>
+      <height>331</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QTableView {
-        border: 1px solid rgb(45, 45, 45);
+     <string notr="true">QTableView {  
         background: rgb(57, 58, 60);
         gridline-color: rgb(60, 60, 60);
+        border:2px solid rgb(20, 128, 211);
 }
 QTableView::item {
         padding-left: 5px;
@@ -191,6 +191,29 @@ QTableView::indicator {
 </string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>323</x>
+      <y>3</y>
+      <width>1271</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>等线</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background: rgb(68, 69, 73);
+border-radius:4px;
+color: white;
+
+</string>
+    </property>
+   </widget>
    <zorder>createTable_pushButton</zorder>
    <zorder>createUser_pushButton</zorder>
    <zorder>authorization_pushButton</zorder>
@@ -202,6 +225,7 @@ QTableView::indicator {
    <zorder>delete_pushButton</zorder>
    <zorder>textBrowser_2</zorder>
    <zorder>view_</zorder>
+   <zorder>textEdit</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

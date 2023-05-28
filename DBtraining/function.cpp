@@ -10,7 +10,8 @@
 #include<QStack>
 #include<QDir>
 
-QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
+//QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
+QString rootAddress =QCoreApplication::applicationDirPath();
 
 QStringList WriteContent(QStringList tableList)
 {
