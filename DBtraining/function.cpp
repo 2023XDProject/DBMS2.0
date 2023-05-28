@@ -1256,9 +1256,8 @@ QString Function::insert(QString tableName,QString value)
 
 }
 
-QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype)
+QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype,QString newColumnName)
 {
-
     QString tableForm;
     qDebug("%s",qPrintable(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt"));
     QFile readFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");

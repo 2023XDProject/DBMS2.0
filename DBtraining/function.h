@@ -52,7 +52,7 @@ public:
 
     QString insert(QString tableName,QString value);
 
-    QString AlterTable(QString operate,QString tableName,QString columnname,QString Datatype);
+    QString AlterTable(QString operate,QString tableName,QString columnname,QString Datatype,QString newColumnName);
 
     QString CreateUsers(QString userName,QString password);
 
