@@ -1,11 +1,12 @@
 #include "droptable.h"
 #include "ui_droptable.h"
 
-DropTable::DropTable(QWidget *parent) :
+DropTable::DropTable(Function* fun,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DropTable)
 {
     ui->setupUi(this);
+    fun_=fun;
 }
 
 DropTable::~DropTable()
@@ -16,7 +17,7 @@ DropTable::~DropTable()
 void DropTable::on_pushButton_clicked()
 {
     QString table=ui->lineEdit->text();
-    sendData(DropTables(table));
+    sendData(fun_->DropTables(table));
 }
 
 void DropTable::on_pushButton_2_clicked()

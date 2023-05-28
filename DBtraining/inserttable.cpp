@@ -1,11 +1,12 @@
 #include "inserttable.h"
 #include "ui_inserttable.h"
 
-insertTable::insertTable(QWidget *parent) :
+insertTable::insertTable(Function* fun,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::insertTable)
 {
     ui->setupUi(this);
+    fun_=fun;
 }
 
 insertTable::~insertTable()
@@ -18,9 +19,9 @@ void insertTable::on_pushButton_clicked()
     QString tableName=ui->lineEdit->text();
     QString value=ui->lineEdit_2->text();
     qDebug(qPrintable(tableName+"|"+value+"|"));
-    QString status=insert(tableName,value);
+    QString status=fun_->insert(tableName,value);
     qDebug()<<"hello";
-    qDebug(qPrintable(status));
+    //qDebug(qPrintable(status));
     sendData(status);
 }
 

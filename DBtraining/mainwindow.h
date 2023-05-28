@@ -13,6 +13,7 @@
 #include"inserttable.h"
 #include"function.h"
 #include"altertable.h"
+#include "updatetable.h"
 #include"createusertable.h"
 #include"operaterighttable.h"
 #include"createtablew.h"
@@ -87,6 +88,19 @@ private:
     QDir* dirinfo_;
     QStandardItemModel *model_;
     QStandardItem *item_;
+
+    Function *fun_;
+
+    //其他窗口
+    Select *selectWindow_;
+    updateTable *updateWindow_;
+    deleteTable *deleteWindow_;
+    insertTable *insertTable_;
+    alterTable *alterTable_;
+    createUserTable *createUserTable_;
+    OperateRightTable *opereteRightTable_;
+        CreateTableW *createTableW_;
+            DropTable *dropTable_;
     //QTableView  *view_;
 };
 

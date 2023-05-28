@@ -129,8 +129,6 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->on_select_pushButton_clicked(); break;
         case 1: _t->on_update_pushButton_clicked(); break;
         case 2: _t->on_delete_pushButton_clicked(); break;
-        case 3: _t->newClientHandle(); break;
-        case 4: _t->clientInfoSlot(); break;
         case 5: _t->on_insert_pushButton_clicked(); break;
         case 6: _t->on_alterTable_pushButton_clicked(); break;
         case 7: _t->on_createUser_pushButton_clicked(); break;

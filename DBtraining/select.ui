@@ -28,7 +28,7 @@
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -50,7 +50,7 @@
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -72,7 +72,7 @@
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -94,7 +94,7 @@
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -116,7 +116,7 @@
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -145,7 +145,7 @@
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">

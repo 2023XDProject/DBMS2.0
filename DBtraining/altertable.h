@@ -13,7 +13,7 @@ class alterTable : public QWidget
     Q_OBJECT
 
 public:
-    explicit alterTable(QWidget *parent = 0);
+    explicit alterTable(Function* fun,QWidget *parent = 0);
     ~alterTable();
 
 private slots:
@@ -23,6 +23,7 @@ private slots:
 
 private:
     Ui::alterTable *ui;
+    Function* fun_;
 
 signals:
     void sendData(QString);

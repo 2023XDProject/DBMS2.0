@@ -14,7 +14,7 @@ class insertTable : public QWidget
     Q_OBJECT
 
 public:
-    explicit insertTable(QWidget *parent = 0);
+    explicit insertTable(Function *fun,QWidget *parent = 0);
     ~insertTable();
 
 private slots:
@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::insertTable *ui;
-
+    Function *fun_;
 signals:
     void sendData(QString);   //用来传递数据的信号
 

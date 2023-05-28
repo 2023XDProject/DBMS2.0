@@ -39,7 +39,7 @@ public:
         delete_Lable->setGeometry(QRect(150, 95, 131, 41));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font.setPointSize(16);
+        font.setPointSize(12);
         delete_Lable->setFont(font);
         delete_Lable->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         label_2 = new QLabel(deleteTable);

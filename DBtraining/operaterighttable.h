@@ -13,11 +13,12 @@ class OperateRightTable : public QWidget
     Q_OBJECT
 
 public:
-    explicit OperateRightTable(QWidget *parent = 0);
+    explicit OperateRightTable(Function* fun,QWidget *parent = 0);
     ~OperateRightTable();
 
 private:
     Ui::OperateRightTable *ui;
+    Function* fun_;
 signals:
     void sendData(QString);
 private slots:

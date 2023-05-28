@@ -13,7 +13,7 @@ class CreateTableW : public QWidget
     Q_OBJECT
 
 public:
-    explicit CreateTableW(QWidget *parent = 0);
+    explicit CreateTableW(Function* fun,QWidget *parent = 0);
     ~CreateTableW();
 
 private slots:
@@ -23,6 +23,7 @@ private slots:
 
 private:
     Ui::CreateTableW *ui;
+    Function* fun_;
 
 signals:
     void sendData(QString);

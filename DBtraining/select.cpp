@@ -11,11 +11,12 @@
 
 using namespace std;
 
-Select::Select(QWidget *parent) :
+Select::Select(Function* fun,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Select)
 {
     ui->setupUi(this);
+    fun_=fun;
 }
 
 Select::~Select()
@@ -38,5 +39,5 @@ void Select::on_confirm_pushButton_clicked()
     where = ui->condition_textEdit->toPlainText();
     order = ui->order__textEdit->toPlainText();
 
-    sendData(select(colunm_name,table_name,where,order));
+    sendData(fun_->select(colunm_name,table_name,where,order));
 }

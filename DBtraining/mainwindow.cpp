@@ -1,25 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include"select.h"
-#include"updatetable.h"
-#include"deleteTable.h"
-
-#include"iostream"
-#include"qdebug.h"
-#include"qdir.h"
+#include <QDebug>
 
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
+    QMainWindow(parent),fun_(new Function()),selectWindow_(new Select(fun_)),
+    updateWindow_(new updateTable(fun_)),deleteWindow_(new deleteTable(fun_)),
+    insertTable_(new insertTable(fun_)),alterTable_(new alterTable(fun_)),
+    createUserTable_(new createUserTable(fun_)),opereteRightTable_(new OperateRightTable(fun_)),
+    createTableW_(new CreateTableW(fun_)),dropTable_(new DropTable(fun_)),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     server=new QTcpServer;
-
     server->listen(QHostAddress::AnyIPv4,PORT);
     connect(server,&QTcpServer::newConnection,this,&MainWindow::newClientHandle);
-
 }
 
 MainWindow::~MainWindow()
@@ -28,13 +24,15 @@ MainWindow::~MainWindow()
     delete toolbar;
     delete btn1,btn2,btn3,btn4,btn5;
     delete btn6,btn7,btn8,btn9,btn10;
-
     delete Dock1_;
     delete treeView_;
     delete dirinfo_;
     delete model_;
     delete item_;
-    //delete view_;
+    delete fun_;
+    delete selectWindow_,updateWindow_,deleteWindow_;
+    delete insertTable_,alterTable_,createUserTable_;
+    delete opereteRightTable_,createTableW_,dropTable_;
 }
 
 void MainWindow::newClientHandle()
@@ -120,28 +118,28 @@ void MainWindow::clientInfoSlot()
                 qDebug()<<"insert";
                 QByteArray ba;
                 QStringList valueList=InfoList[1].split("%",QString::SkipEmptyParts);
-                socket->write(ba.append(insert(valueList[0],valueList[1])));
+                socket->write(ba.append(fun_->insert(valueList[0],valueList[1])));
             }
             else if(secondInfoList[2]=="update")
             {
                 qDebug()<<"update";
                 QByteArray ba;
                 QStringList valueList=InfoList[1].split("%",QString::SkipEmptyParts);
-                socket->write(ba.append(update_function(valueList[0],valueList[1],valueList[2])));
+                socket->write(ba.append(fun_->update_function(valueList[0],valueList[1],valueList[2])));
             }
             else if(secondInfoList[2]=="delete")
             {
                 qDebug()<<"delete";
                 QByteArray ba;
                 QStringList valueList=InfoList[1].split("%",QString::SkipEmptyParts);
-                socket->write(ba.append(delete_function(valueList[0],valueList[1])));
+                socket->write(ba.append(fun_->delete_function(valueList[0],valueList[1])));
             }
             else if(secondInfoList[2]=="select")
             {
                 qDebug()<<"select";
                 QByteArray ba;
                 QStringList valueList=InfoList[1].split("%");
-                QString result=select(valueList[0],valueList[1],valueList[2],valueList[3]);
+                QString result=fun_->select(valueList[0],valueList[1],valueList[2],valueList[3]);
                 QString returnResult="";
                 QFile resultFile(result);
                 qDebug("%s",qPrintable(result));
@@ -165,7 +163,7 @@ void MainWindow::clientInfoSlot()
                 qDebug()<<"alter";
                 QByteArray ba;
                 QStringList valueList=InfoList[1].split("%",QString::SkipEmptyParts);
-                socket->write(ba.append(AlterTable(valueList[0],valueList[1],valueList[2],valueList[3])));
+                socket->write(ba.append(fun_->AlterTable(valueList[0],valueList[1],valueList[2],valueList[3])));
             }
         }
     }
@@ -176,93 +174,67 @@ void MainWindow::reshow(){
     this->show();
 }
 
-
-
 //查询数据
 void MainWindow::on_select_pushButton_clicked()
 {
-    //    this->hide();
-    Select *selectWindow = new Select;
-    selectWindow->show();//updateItemInfo()
-    //    connect(selectWindow,SIGNAL(sendsignal()), this,SLOT(reshow()));
-    //connect(selectWindow, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(selectWindow, SIGNAL(sendData(QString)), this, SLOT(receiveTable(QString)));
+    selectWindow_->show();//updateItemInfo()
+    connect(selectWindow_, SIGNAL(sendData(QString)), this, SLOT(receiveTable(QString)));
 }
 
 //更新记录
 void MainWindow::on_update_pushButton_clicked()
 {
-    //    this->hide();
-    updateTable *updateWindow = new updateTable;
-    updateWindow->show();
-    //    connect(updateWindow,SIGNAL(sendsignal()), this,SLOT(reshow()));
-    //connect(updateWindow, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(updateWindow, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    updateWindow_->show();
+    connect(updateWindow_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 //删除数据
 void MainWindow::on_delete_pushButton_clicked()
 {
-    //    this->hide();
-    deleteTable *deleteWindow = new deleteTable;
-    deleteWindow->show();
-    //    connect(deleteWindow,SIGNAL(sendsignal()), this,SLOT(reshow()));
-    //connect(deleteWindow, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(deleteWindow, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    deleteWindow_->show();
+    connect(deleteWindow_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 //插入数据
 void MainWindow::on_insert_pushButton_clicked()
 {
-    insertTable *i=new insertTable;
-    i->show();
-    //connect(i, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(i, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    insertTable_->show();
+    connect(insertTable_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 //修改表
 void MainWindow::on_alterTable_pushButton_clicked()
 {
-    alterTable *a=new alterTable;
-    a->show();
-    //connect(a, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(a, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    alterTable_->show();
+    connect(alterTable_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 //创建用户
 void MainWindow::on_createUser_pushButton_clicked()
 {
-    createUserTable *c=new createUserTable;
-    c->show();
-    //connect(c, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(c, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    createUserTable_->show();
+    connect(createUserTable_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 //用户权限
 void MainWindow::on_authorization_pushButton_clicked()
 {
-    OperateRightTable *o=new OperateRightTable;
-    o->show();
-    //connect(o, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(o, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    opereteRightTable_->show();
+    connect(opereteRightTable_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 //建表
 void MainWindow::on_createTable_pushButton_clicked()
 {
-    CreateTableW *c=new CreateTableW;
-    c->show();
-    // connect(c, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(c, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    createTableW_->show();
+    connect(createTableW_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 //删除表
 void MainWindow::on_dropTable_pushButton_clicked()
 {
-    DropTable *d=new DropTable;
-    d->show();
-    //connect(d, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
-    connect(d, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
+    dropTable_->show();
+    connect(dropTable_, SIGNAL(sendData(QString)), this, SLOT(isFinish(QString)));
 }
 
 void MainWindow::isFinish(QString data){

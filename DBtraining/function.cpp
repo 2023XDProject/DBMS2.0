@@ -2,6 +2,7 @@
 #include <QCoreApplication>
 #include<QDebug>
 #include <QFile>
+#include <QFileDialog>
 #include <QTextStream>
 #include <QString>
 #include <QSet>
@@ -10,10 +11,9 @@
 #include<QStack>
 #include<QDir>
 
-//QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
-QString rootAddress =QCoreApplication::applicationDirPath();
+QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
 
-QStringList WriteContent(QStringList tableList)
+QStringList Function::WriteContent(QStringList tableList)
 {
     //创建并打开表文件
     QString s=tableList[0];
@@ -68,7 +68,7 @@ QStringList WriteContent(QStringList tableList)
 }
 
 
-bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
+bool Function::simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
 {
     qDebug()<<"nowtheSimple";
 
@@ -183,7 +183,8 @@ bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projec
 }
 
 //where条件判断
-bool JudgeCondition(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
+
+bool Function::JudgeCondition(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
 {
     //" "分词
     QStringList conditionList=condition.split(" ",QString::SkipEmptyParts);
@@ -238,7 +239,7 @@ bool JudgeCondition(QString condition,QString data,QMap<QString,int>projection,Q
     return opn.pop();
 }
 
-int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
+int Function::Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection)
 {
     qDebug()<<"here cmp";
 
@@ -269,7 +270,7 @@ int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QStri
 }
 
 //select功能实现
-QString select(QString attribute,QString table,QString condition,QString order)
+QString Function::select(QString attribute,QString table,QString condition,QString order)
 {
     bool isSingalTable=false;//判断是否为单表查询
     //创建一个中间缓存文件
@@ -524,7 +525,7 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
 }
 
-QString rewriteFile(QString file_addr,QString target_tableName){
+QString Function::rewriteFile(QString file_addr,QString target_tableName){
     QFile resultFile(file_addr);
     if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
@@ -553,7 +554,7 @@ QString rewriteFile(QString file_addr,QString target_tableName){
     return rootAddress + "\\" + target_tableName + ".txt";
 }
 
-QString delete_function(QString table,QString condition)
+QString Function::delete_function(QString table,QString condition)
 {
     QString decision;
 
@@ -728,7 +729,7 @@ QString delete_function(QString table,QString condition)
     return "DeleteOk";
 }
 
-QString primarykey(QMap<QString,int> projection,QString table,QString file_addr){
+QString Function::primarykey(QMap<QString,int> projection,QString table,QString file_addr){
     QFile targetFile(rootAddress + "\\" + table + ".txt");
     if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
@@ -805,7 +806,7 @@ QString primarykey(QMap<QString,int> projection,QString table,QString file_addr)
     }
 }
 
-QString foreignkey(QStringList set_KeyValue,QString table){
+QString Function::foreignkey(QStringList set_KeyValue,QString table){
     QFile targetFile(rootAddress + "\\" + table + ".txt");
     if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
         qDebug()<<"文件打开失败";
@@ -883,7 +884,7 @@ QString foreignkey(QStringList set_KeyValue,QString table){
     }
 }
 
-QString update_function(QString table,QString set,QString condition)
+QString Function::update_function(QString table,QString set,QString condition)
 {
     QStringList set_KeyValue;
 
@@ -1092,7 +1093,7 @@ QString update_function(QString table,QString set,QString condition)
     }
 }
 
-QString referenceConstraints(QString table)
+QString Function::referenceConstraints(QString table)
 {
     QFile relationFile(rootAddress + "\\relation.txt");
     if(!relationFile.open(QIODevice::ReadOnly|QIODevice::Text)){
@@ -1132,7 +1133,7 @@ QString referenceConstraints(QString table)
     }
 }
 
-QString insert(QString tableName,QString value)
+QString Function::insert(QString tableName,QString value)
 {
     QStringList valueList=value.split(",",QString::SkipEmptyParts);
     QMap<QString,int>projection;
@@ -1249,7 +1250,7 @@ QString insert(QString tableName,QString value)
 
 }
 
-QString AlterTable(QString operate,QString tableName,QString columnname,QString Datatype)
+QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype)
 {
 
     QString tableForm;
@@ -1364,7 +1365,7 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
 
     }}
 
-QString CreateUsers(QString userName,QString password)
+QString Function::CreateUsers(QString userName,QString password)
 {
     QString k;
     QString filename = rootAddress+"\\user.txt";  //以只读方式打开文件
@@ -1403,7 +1404,7 @@ QString CreateUsers(QString userName,QString password)
     return k;
 }
 
-QString OperateRights(QString operate,QString userName,QString tableName,QString right){
+QString Function::OperateRights(QString operate,QString userName,QString tableName,QString right){
 
     QString opp;
     if(operate.toLower() == "grant"){   //如果是授权
@@ -1475,7 +1476,7 @@ QString OperateRights(QString operate,QString userName,QString tableName,QString
     return opp;
 }
 
-QString CreateTables(QString tableName,QString content){
+QString Function::CreateTables(QString tableName,QString content){
     QString k;
     QStringList pKeyList;//存放主键
     QStringList fKeyList;//存放外键
@@ -1620,7 +1621,7 @@ QString CreateTables(QString tableName,QString content){
     return k;
 }
 
-QString DropTables(QString tableName){
+QString Function::DropTables(QString tableName){
 
     QString krr;
     int h=0;

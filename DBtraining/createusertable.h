@@ -13,7 +13,7 @@ class createUserTable : public QWidget
     Q_OBJECT
 
 public:
-    explicit createUserTable(QWidget *parent = 0);
+    explicit createUserTable(Function* fun,QWidget *parent = 0);
     ~createUserTable();
 
 private slots:
@@ -23,7 +23,7 @@ private slots:
 
 private:
     Ui::createUserTable *ui;
-
+    Function* fun_;
 
 signals:
     void sendData(QString);

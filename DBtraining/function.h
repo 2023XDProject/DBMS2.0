@@ -1,13 +1,20 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 #include"QString"
+#include "qwidget.h"
 #include<QDebug>
 
+
+class Function: public QObject
+{
+    Q_OBJECT
+
+public:
 QStringList WriteContent(QStringList tableList);
 
 bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
 
-bool JudgeCondition(QStringList conditionList,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
+bool JudgeCondition(QString conditionList,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
 
 int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
 
@@ -19,7 +26,8 @@ QString delete_function(QString table,QString condition);
 
 QString update_function(QString table,QString set,QString condition);
 
-QString primarykey(QStringList set_KeyValue,QString table);
+//QString primarykey(QStringList set_KeyValue,QString table);
+QString primarykey(QMap<QString,int> projection,QString table,QString file_addr);
 
 QString foreignkey(QStringList set_KeyValue,QString table);
 
@@ -36,5 +44,6 @@ QString CreateUsers(QString userName,QString password);
 QString CreateTables(QString tableName,QString content);
 
 QString DropTables(QString tableName);
+};
 
 #endif // FUNCTION_H

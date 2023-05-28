@@ -2,6 +2,7 @@
 #define DELETETABLE_H
 
 #include <QWidget>
+#include"function.h"
 
 namespace Ui {
 class deleteTable;
@@ -12,7 +13,7 @@ class deleteTable : public QWidget
     Q_OBJECT
 
 public:
-    explicit deleteTable(QWidget *parent = nullptr);
+    explicit deleteTable(Function* fun,QWidget *parent = nullptr);
     ~deleteTable();
 
     QString folderPath;
@@ -27,7 +28,7 @@ private slots:
 
 private:
     Ui::deleteTable *ui;
-
+    Function* fun_;
 signals:
     void sendsignal();
            //这个函数用户向主界面通知关闭的消息
