@@ -294,21 +294,26 @@ QString select(QString attribute,QString table,QString condition,QString order)
         qDebug()<<"文件打开失败";
     }
 
-    //存储属性的集合
+    //存储表名.字段名的集合
     QSet<QString> attributeSet;
-    //存储表名的列表
+    //存储要查询的表名的列表
     QStringList tableList=table.split(',',QString::SkipEmptyParts);
+    //存储要查询的属性的列表
+//若为*？
     QStringList attributeList=attribute.split(',',QString::SkipEmptyParts);
+
+    //要查询的表名只有1个-单表查询
     if(tableList.size()==1){
         isSingalTable=true;
-        foreach(QString s,attributeList)
-        {
+        foreach(QString s,attributeList){
+            //将要查询的表名.字段名全部加入属性集合
+//若为*？
             attributeSet.insert(tableList[0]+"."+s);
             //qDebug("%s",qPrintable(s));
         }
     }
 
-    QMap<QString,int>projection;//投影
+    QMap<QString,int> projection;//投影
     QMap<QString,QString> dataTypeProjection;//数据类型投影
 
     //根据选中表建立中间文件表头
@@ -317,12 +322,12 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     QString newForm="";//新的头文件表头
     int columnNum=0;
-    //依次读取表文件，拼接成只有记录的
-    foreach(QString s,tableList)
-    {
+
+    //读取要查询的表文件，拼接成只有记录的
+    foreach(QString s,tableList){
         qDebug("%s",qPrintable(rootAddress+"\\"+s+".txt"));
 
-        //打开表文件
+        //打开要查询的表文件
         QFile tmpFile(rootAddress+"\\"+s+".txt");
         if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
@@ -331,48 +336,54 @@ QString select(QString attribute,QString table,QString condition,QString order)
         QTextStream in(&tmpFile);
         QString tmpString;
 
-        //输入表的记录数据
+        //tmpString存取要查询的表的字段信息
+        //"1|0|sno|char8%0|0|sname|char10%0|0|sex|char1%0|1|classno|char8%0|0|totalCredit|int"
         in>>tmpString;
 
         qDebug("%s",qPrintable(tmpString));
 
-        //记录用"%"分词
+        //tmpList存取"%"分出的每个字段信息
+        //"1|0|sno|char8"
         QStringList tmpList=tmpString.split('%',QString::SkipEmptyParts);
 
-        foreach(QString tmps,tmpList)
-        {
+        foreach(QString tmps,tmpList){
             qDebug("%s",qPrintable(tmps));
 
-            //字段用"|"分词
+            //attributeTmp存储"|"分出字段的每个信息
+            //[0]=PK,[1]=FK,[2]=NAME,[3]=TYPE
             QStringList attributeTmp=tmps.split('|',QString::SkipEmptyParts);
 
-            //记录字段的数量
+            //columnNum记录字段的个数
+            //映射[表名.字段名]=字段位置号
             projection[s+"."+attributeTmp[2]]=columnNum++;
-
+            //类型映射[表名.字段名]=字段类型
             dataTypeProjection[s+"."+attributeTmp[2]]=attributeTmp[3];
 
             //一个char()类型的字段
             QString newString=s+"."+attributeTmp[2]+"|"+attributeTmp[3]+"%";
+            //newForm="s.sno|char8%s.sname|char10%s.sex|char1%s.classno|char8%s.totalCredit|int%"
             newForm+=newString;
         }
+        //关闭要查询的表文件
         tmpFile.close();
     }
 
-    //将记录写入临时文件temp
+    //将记录写入临时文件temp.txt
     QTextStream out(&file);
     out<<newForm+"\n";
 
+    //调试用的
     QMap<QString,int>::iterator iter=projection.begin();
-    while(iter!=projection.end())
-    {
+    while(iter!=projection.end()){
         qDebug()<<iter.key()<<":"<<iter.value();
         iter++;
     }
 
-    //把所有数据写进temp文件
+    //tableList_1存储表内每条记录
+    //"08300010%s1%m%Rj801%0"
     QStringList tableList_1;
     foreach(QString s,tableList)
-        tableList_1.append(s);//不确定是值传递还是引用传递
+        tableList_1.append(s);
 
     qDebug()<<"abab";
 
@@ -403,16 +414,24 @@ QString select(QString attribute,QString table,QString condition,QString order)
 
     QString Header="";
 
+    //是单表查询
     if(isSingalTable==true){
+        //attributeSet存储 表名.字段名
         foreach(QString s,attributeSet)
             Header+=s+"%";
+        //Header存储 "s.sno%s.sname%"
         tempOut<<Header<<"\n";
     }else{
+        //是多表查询
+        //attributeList存储 字段名
         foreach(QString s,attributeList)
             Header+=s+"%";
+        //Header存储
         tempOut<<Header<<"\n";
     }
 
+    //data临时存储一条记录
+    //"08300010%s1%m%Rj801%0"
     QString data;
     in>>data;
     qDebug("%s",qPrintable(data));
@@ -489,7 +508,7 @@ QString select(QString attribute,QString table,QString condition,QString order)
             {
                 foreach(QString s,resultInOrder)
                 {
-                    if(direct[0]=='D')
+                    if(direct[0].toLower()=='dec')
                     {
                         int CmpNum=Cmp(data,s,key,projection,dataTypeProjection);
                         qDebug()<<"the cmpNum";
@@ -504,8 +523,7 @@ QString select(QString attribute,QString table,QString condition,QString order)
                         }
                         place+=1;
                     }
-                    else
-                    {
+                    else if(direct[0].toLower()=='asc'){
 
                         if(Cmp(data,s,key,projection,dataTypeProjection)<0)
                         {
@@ -1377,8 +1395,8 @@ QString AlterTable(QString operate,QString tableName,QString columnname,QString 
         readFile.remove();
         writeFile.rename(rootAddress+"\\"+tableName+".txt");
         return "DROPOK";
-
-    }}
+    }
+}
 
 QString CreateUsers(QString userName,QString password)
 {
