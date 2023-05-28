@@ -31,16 +31,18 @@ public:
     QLabel *label_2;
     QLabel *label_3;
     QLabel *label_4;
+    QLineEdit *line_newColumn;
+    QLabel *label_5;
 
     void setupUi(QWidget *alterTable)
     {
         if (alterTable->objectName().isEmpty())
             alterTable->setObjectName(QString::fromUtf8("alterTable"));
-        alterTable->resize(536, 390);
+        alterTable->resize(544, 417);
         alterTable->setStyleSheet(QString::fromUtf8("background: rgb(50, 50, 50);"));
         pushButton = new QPushButton(alterTable);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(40, 300, 121, 71));
+        pushButton->setGeometry(QRect(50, 330, 121, 71));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
         font.setPointSize(12);
@@ -55,7 +57,7 @@ public:
 ""));
         pushButton_2 = new QPushButton(alterTable);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(330, 300, 121, 71));
+        pushButton_2->setGeometry(QRect(340, 330, 121, 71));
         pushButton_2->setFont(font);
         pushButton_2->setStyleSheet(QString::fromUtf8("border: none;\n"
 "        color: rgb(175, 175, 175);\n"
@@ -117,6 +119,19 @@ public:
         label_4->setGeometry(QRect(70, 200, 201, 71));
         label_4->setFont(font);
         label_4->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        line_newColumn = new QLineEdit(alterTable);
+        line_newColumn->setObjectName(QString::fromUtf8("line_newColumn"));
+        line_newColumn->setGeometry(QRect(220, 280, 241, 31));
+        line_newColumn->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
+"border-radius:4px;\n"
+"border:2px solid rgb(20, 128, 211);\n"
+"color: white;\n"
+""));
+        label_5 = new QLabel(alterTable);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setGeometry(QRect(70, 260, 201, 71));
+        label_5->setFont(font);
+        label_5->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         pushButton->raise();
         pushButton_2->raise();
         line_operate->raise();
@@ -126,6 +141,8 @@ public:
         label_2->raise();
         label_3->raise();
         label_4->raise();
+        label_5->raise();
+        line_newColumn->raise();
         line_dataType->raise();
 
         retranslateUi(alterTable);
@@ -142,6 +159,7 @@ public:
         label_2->setText(QCoreApplication::translate("alterTable", "\350\241\250\345\220\215", nullptr));
         label_3->setText(QCoreApplication::translate("alterTable", "\345\210\227\345\220\215", nullptr));
         label_4->setText(QCoreApplication::translate("alterTable", "\346\225\260\346\215\256\347\261\273\345\236\213", nullptr));
+        label_5->setText(QCoreApplication::translate("alterTable", "\346\226\260\345\210\227\345\220\215\357\274\232", nullptr));
     } // retranslateUi
 
 };

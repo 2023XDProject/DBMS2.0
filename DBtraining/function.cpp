@@ -277,11 +277,7 @@ QString Function::select(QString attribute,QString table,QString condition,QStri
     //存储要查询的表名的列表
     QStringList tableList=table.split(',',QString::SkipEmptyParts);
     //存储要查询的属性的列表
-<<<<<<< HEAD
-//若为*？
-=======
-    //若为*？
->>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
+
     QStringList attributeList=attribute.split(',',QString::SkipEmptyParts);
 
     //要查询的表名只有1个-单表查询
@@ -289,11 +285,6 @@ QString Function::select(QString attribute,QString table,QString condition,QStri
         isSingalTable=true;
         foreach(QString s,attributeList){
             //将要查询的表名.字段名全部加入属性集合
-<<<<<<< HEAD
-//若为*？
-=======
-            //若为*？
->>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
             attributeSet.insert(tableList[0]+"."+s);
             //qDebug("%s",qPrintable(s));
         }
@@ -308,27 +299,13 @@ QString Function::select(QString attribute,QString table,QString condition,QStri
 
     QString newForm="";//新的头文件表头
     int columnNum=0;
-<<<<<<< HEAD
-
-    //读取要查询的表文件，拼接成只有记录的
-    foreach(QString s,tableList){
-        qDebug("%s",qPrintable(rootAddress+"\\"+s+".txt"));
-
-        //打开要查询的表文件
-        QFile tmpFile(rootAddress+"\\"+s+".txt");
-=======
 
     //读取要查询的表文件，拼接成只有记录的
     foreach(QString s,tableList){
         qDebug("%s",qPrintable(rootAddress_+"\\"+DBName_+"\\"+s+".txt"));
 
         //打开要查询的表文件
-<<<<<<< HEAD
-        QFile tmpFile(rootAddress_+"\\"+s+".txt");
->>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
-=======
         QFile tmpFile(rootAddress_+"\\"+DBName_+"\\"+s+".txt");
->>>>>>> 0c055b6664095ba61826504f1d9b47f7f1f72e87
         if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
@@ -416,22 +393,14 @@ QString Function::select(QString attribute,QString table,QString condition,QStri
 
     //是单表查询
     if(isSingalTable==true){
-<<<<<<< HEAD
         //attributeSet存储 表名.字段名
-=======
-        //表名.字段名
->>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
         foreach(QString s,attributeSet)
             Header+=s+"%";
         //Header存储 "s.sno%s.sname%"
         tempOut<<Header<<"\n";
     }else{
-<<<<<<< HEAD
         //是多表查询
         //attributeList存储 字段名
-=======
-        //字段名
->>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
         foreach(QString s,attributeList)
             Header+=s+"%";
         //Header存储
@@ -1405,11 +1374,8 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
     }
 }
 
-<<<<<<< HEAD
-QString CreateUsers(QString userName,QString password)
-=======
+
 QString Function::CreateUsers(QString userName,QString password)
->>>>>>> d0cbb5bcb698bd74785736a87020cceef6cc87bc
 {
     QString k;
     QString filename = rootAddress_+"\\user.txt";  //以只读方式打开文件

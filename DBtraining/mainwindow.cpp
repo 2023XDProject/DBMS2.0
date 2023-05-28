@@ -170,7 +170,7 @@ void MainWindow::clientInfoSlot()
                 qDebug()<<"alter";
                 QByteArray ba;
                 QStringList valueList=InfoList[1].split("%",QString::SkipEmptyParts);
-                socket->write(ba.append(fun_->AlterTable(valueList[0],valueList[1],valueList[2],valueList[3])));
+                socket->write(ba.append(fun_->AlterTable(valueList[0],valueList[1],valueList[2],valueList[3],"")));
             }
         }
     }
