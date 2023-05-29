@@ -1310,7 +1310,68 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
         }
     }
 
-    if(operate.toUpper()=="DROP"){
+    else if(operate.toUpper()=="DROP"){
+        QStringList primeKeyList=line2.split("%",QString::SkipEmptyParts);
+        if(primeKeyList.contains(columnname)==true){return "DropWrong";}
+        if(attributeSet.contains(columnname)!=true){return "DropWrong";}
+
+        QString FKReference=tableName+"."+columnname;
+        QFile relationFile(rootAddress_+"\\relation.txt");
+        if(!relationFile.open(QIODevice::ReadOnly|QIODevice::Text))
+            return"打开文件失败";
+        QTextStream relationIn(&relationFile);
+        while(!relationIn.atEnd())
+        {
+            relationIn>>line;
+            QStringList tempList=line.split("-");
+            if(tempList[0]==FKReference)
+            {
+                relationFile.close();
+                return "DropWrong";
+            }
+        }
+        relationFile.close();
+
+        int dropNum=0,cnt=0;
+        QString line1="";
+        foreach(QString s,tableFormList)
+        {
+            QStringList tempList=s.split("|",QString::SkipEmptyParts);
+            cnt+=1;
+            if(tempList[2]==columnname){
+                dropNum=cnt;continue;
+            }else{
+                line1+=s+"%";
+            }
+        }
+        QFile writeFile(rootAddress_+"\\"+DBName_+"\\"+tableName+"1.txt");
+        if(!writeFile.open(QIODevice::Append|QIODevice::Text))
+            return"打开文件失败";
+        QTextStream out(&writeFile);
+
+        out<<line1.left(line1.size()-1)<<"\n";
+        out << line2 << endl;
+        out<<line3<<"\n";
+
+        QStringList valueList;
+        while(in.atEnd() == false)
+        {
+            in>>line;
+            valueList=line.split("%",QString::SkipEmptyParts);
+            valueList.removeAt(dropNum-1);
+            if(valueList.size()==1){
+                out << valueList[0]<< endl;
+            }
+            out << valueList.join("%")<< endl;
+        }
+
+        writeFile.close();
+        readFile.close();
+        readFile.remove();
+        writeFile.rename(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
+        return "DROPOK";
+    }
+    else if(operate.toUpper()=="RENAME"){
         QStringList primeKeyList=line2.split("%",QString::SkipEmptyParts);
         if(primeKeyList.contains(columnname)==true){return "DropWrong";}
         if(attributeSet.contains(columnname)!=true){return "DropWrong";}
@@ -1766,8 +1827,12 @@ QString Function::CreateDB(QString DBName){
 
 //删除数据库
 QString Function::DropDB(QString DBName){
-    //判断该文件夹存不存在
+
     QString temp=rootAddress_+"\\"+DBName;
+    QFile file(temp);
+    if(!file.exists()){
+        return "数据库不存在";
+    }
     bool isFinish=dropFloder(temp);
     if(isFinish==true){
         return "DropDBOK";
