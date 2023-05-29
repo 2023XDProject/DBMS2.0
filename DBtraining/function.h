@@ -27,28 +27,27 @@ private:
 public:
     Function();
 
-    QStringList WriteContent(QStringList tableList);
+    QStringList WriteContent(QStringList tableList);//
 
-    bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
+    bool simplyConditionJudge(QString condition,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);//
 
-    bool JudgeCondition(QString conditionList,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
+    bool JudgeCondition(QString conditionList,QString data,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);//
 
-    int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);
+    int Cmp(QString s1,QString s2,QString key,QMap<QString,int>projection,QMap<QString,QString>dataTypeProjection);//
 
     QString select(QString attribute,QString table,QString condition,QString order);
 
-    QString rewriteFile(QString file_addr,QString target_tableName);
+    QString rewriteFile(QString file_addr,QString target_tableName);//
 
     QString delete_function(QString table,QString condition);
 
     QString update_function(QString table,QString set,QString condition);
 
-    //QString primarykey(QStringList set_KeyValue,QString table);
-    QString primarykey(QMap<QString,int> projection,QString table,QString file_addr);
+    QString primarykey(QMap<QString,int> projection,QString table,QString file_addr);//
 
-    QString foreignkey(QStringList set_KeyValue,QString table);
+    QString foreignkey(QStringList set_KeyValue,QString table);//
 
-    QString referenceConstraints(QString table);
+    QString referenceConstraints(QString table);//
 
     QString insert(QString tableName,QString value);
 

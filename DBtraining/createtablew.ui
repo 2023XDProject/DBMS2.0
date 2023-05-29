@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>640</height>
+    <height>604</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,6 +25,12 @@
      <height>351</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
 border-radius:4px;
@@ -36,11 +42,17 @@ color: white;
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>160</x>
      <y>50</y>
-     <width>161</width>
-     <height>31</height>
+     <width>231</width>
+     <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
@@ -55,7 +67,7 @@ color: white;
     <rect>
      <x>70</x>
      <y>40</y>
-     <width>131</width>
+     <width>71</width>
      <height>61</height>
     </rect>
    </property>
@@ -63,6 +75,7 @@ color: white;
     <font>
      <family>幼圆</family>
      <pointsize>12</pointsize>
+     <weight>50</weight>
      <bold>false</bold>
     </font>
    </property>
@@ -70,7 +83,7 @@ color: white;
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>表名：</string>
+    <string>表名</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
@@ -85,7 +98,7 @@ color: white;
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">
@@ -114,7 +127,7 @@ color: white;
    <property name="font">
     <font>
      <family>幼圆</family>
-     <pointsize>16</pointsize>
+     <pointsize>12</pointsize>
     </font>
    </property>
    <property name="styleSheet">

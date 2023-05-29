@@ -32,11 +32,11 @@ public:
     {
         if (deleteTable->objectName().isEmpty())
             deleteTable->setObjectName(QString::fromUtf8("deleteTable"));
-        deleteTable->resize(854, 555);
+        deleteTable->resize(586, 378);
         deleteTable->setStyleSheet(QString::fromUtf8("background: rgb(50, 50, 50);"));
         delete_Lable = new QLabel(deleteTable);
         delete_Lable->setObjectName(QString::fromUtf8("delete_Lable"));
-        delete_Lable->setGeometry(QRect(150, 95, 131, 41));
+        delete_Lable->setGeometry(QRect(80, 65, 131, 41));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
         font.setPointSize(12);
@@ -44,12 +44,16 @@ public:
         delete_Lable->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         label_2 = new QLabel(deleteTable);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(140, 200, 151, 51));
+        label_2->setGeometry(QRect(70, 170, 151, 51));
         label_2->setFont(font);
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         delete_textEdit = new QTextEdit(deleteTable);
         delete_textEdit->setObjectName(QString::fromUtf8("delete_textEdit"));
-        delete_textEdit->setGeometry(QRect(300, 80, 271, 61));
+        delete_textEdit->setGeometry(QRect(230, 50, 271, 61));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
+        delete_textEdit->setFont(font1);
         delete_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -57,7 +61,8 @@ public:
 ""));
         where_textEdit = new QTextEdit(deleteTable);
         where_textEdit->setObjectName(QString::fromUtf8("where_textEdit"));
-        where_textEdit->setGeometry(QRect(300, 190, 271, 61));
+        where_textEdit->setGeometry(QRect(230, 160, 271, 61));
+        where_textEdit->setFont(font1);
         where_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -65,7 +70,7 @@ public:
 ""));
         delete_pushButton = new QPushButton(deleteTable);
         delete_pushButton->setObjectName(QString::fromUtf8("delete_pushButton"));
-        delete_pushButton->setGeometry(QRect(170, 370, 151, 51));
+        delete_pushButton->setGeometry(QRect(50, 280, 151, 51));
         delete_pushButton->setFont(font);
         delete_pushButton->setStyleSheet(QString::fromUtf8("border: none;\n"
 "        color: rgb(175, 175, 175);\n"
@@ -77,7 +82,7 @@ public:
 ""));
         back_pushButton = new QPushButton(deleteTable);
         back_pushButton->setObjectName(QString::fromUtf8("back_pushButton"));
-        back_pushButton->setGeometry(QRect(520, 370, 121, 51));
+        back_pushButton->setGeometry(QRect(400, 280, 121, 51));
         back_pushButton->setFont(font);
         back_pushButton->setStyleSheet(QString::fromUtf8("border: none;\n"
 "        color: rgb(175, 175, 175);\n"

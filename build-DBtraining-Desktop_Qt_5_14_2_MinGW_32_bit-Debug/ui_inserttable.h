@@ -64,6 +64,10 @@ public:
         lineEdit = new QLineEdit(insertTable);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setGeometry(QRect(170, 60, 161, 41));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
+        lineEdit->setFont(font1);
         lineEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -72,6 +76,7 @@ public:
         lineEdit_2 = new QLineEdit(insertTable);
         lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
         lineEdit_2->setGeometry(QRect(170, 130, 161, 41));
+        lineEdit_2->setFont(font1);
         lineEdit_2->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"

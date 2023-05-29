@@ -41,6 +41,10 @@ public:
         operate = new QLineEdit(OperateRightTable);
         operate->setObjectName(QString::fromUtf8("operate"));
         operate->setGeometry(QRect(240, 30, 241, 51));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Arial"));
+        font.setPointSize(10);
+        operate->setFont(font);
         operate->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -49,9 +53,6 @@ public:
         userName = new QLineEdit(OperateRightTable);
         userName->setObjectName(QString::fromUtf8("userName"));
         userName->setGeometry(QRect(240, 110, 241, 51));
-        QFont font;
-        font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font.setPointSize(16);
         userName->setFont(font);
         userName->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
@@ -61,6 +62,7 @@ public:
         table = new QLineEdit(OperateRightTable);
         table->setObjectName(QString::fromUtf8("table"));
         table->setGeometry(QRect(240, 190, 241, 51));
+        table->setFont(font);
         table->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -68,7 +70,7 @@ public:
 ""));
         label = new QLabel(OperateRightTable);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(110, 30, 121, 51));
+        label->setGeometry(QRect(100, 30, 121, 51));
         QFont font1;
         font1.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
         font1.setPointSize(12);
@@ -92,6 +94,7 @@ public:
         right = new QLineEdit(OperateRightTable);
         right->setObjectName(QString::fromUtf8("right"));
         right->setGeometry(QRect(240, 270, 241, 51));
+        right->setFont(font);
         right->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"

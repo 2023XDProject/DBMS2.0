@@ -67,6 +67,10 @@ public:
         lineEdit = new QLineEdit(DropTable);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setGeometry(QRect(160, 100, 171, 51));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
+        lineEdit->setFont(font1);
         lineEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -83,7 +87,7 @@ public:
         DropTable->setWindowTitle(QCoreApplication::translate("DropTable", "Form", nullptr));
         pushButton->setText(QCoreApplication::translate("DropTable", "\347\241\256\345\256\232", nullptr));
         pushButton_2->setText(QCoreApplication::translate("DropTable", "\350\277\224\345\233\236", nullptr));
-        label->setText(QCoreApplication::translate("DropTable", "\350\241\250\345\220\215\357\274\232", nullptr));
+        label->setText(QCoreApplication::translate("DropTable", "\350\241\250\345\220\215", nullptr));
     } // retranslateUi
 
 };

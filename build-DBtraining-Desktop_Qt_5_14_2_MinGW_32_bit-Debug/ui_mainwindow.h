@@ -19,6 +19,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -36,18 +37,23 @@ public:
     QAction *selectAction;
     QAction *updateAction;
     QAction *insertAction;
+    QAction *createBDAction;
+    QAction *DropDBAction;
     QWidget *centralWidget;
+    QPushButton *createUser_pushButton;
+    QPushButton *authorization_pushButton;
+    QPushButton *alterTable_pushButton;
+    QPushButton *select_pushButton;
+    QPushButton *update_pushButton;
+    QPushButton *insert_pushButton;
+    QPushButton *createTable_pushButton;
     QPushButton *dropTable_pushButton;
+    QPushButton *delete_pushButton;
     QTextBrowser *textBrowser_2;
     QTableView *view_;
-    QPushButton *authorization_pushButton;
-    QPushButton *createUser_pushButton;
-    QPushButton *insert_pushButton;
-    QPushButton *select_pushButton;
-    QPushButton *delete_pushButton;
-    QPushButton *update_pushButton;
-    QPushButton *alterTable_pushButton;
-    QPushButton *createTable_pushButton;
+    QTextEdit *textEdit;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -56,13 +62,13 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1600, 1015);
+        MainWindow->resize(1600, 1000);
         MainWindow->setStyleSheet(QString::fromUtf8("background: rgb(50, 50, 50);"));
         createAction = new QAction(MainWindow);
         createAction->setObjectName(QString::fromUtf8("createAction"));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font.setPointSize(12);
+        font.setPointSize(9);
         createAction->setFont(font);
         dropAction = new QAction(MainWindow);
         dropAction->setObjectName(QString::fromUtf8("dropAction"));
@@ -82,22 +88,54 @@ public:
         selectAction = new QAction(MainWindow);
         selectAction->setObjectName(QString::fromUtf8("selectAction"));
         selectAction->setFont(font);
-        selectAction->setVisible(true);
-        selectAction->setIconVisibleInMenu(true);
         updateAction = new QAction(MainWindow);
         updateAction->setObjectName(QString::fromUtf8("updateAction"));
         updateAction->setFont(font);
         insertAction = new QAction(MainWindow);
         insertAction->setObjectName(QString::fromUtf8("insertAction"));
         insertAction->setFont(font);
+        createBDAction = new QAction(MainWindow);
+        createBDAction->setObjectName(QString::fromUtf8("createBDAction"));
+        createBDAction->setFont(font);
+        DropDBAction = new QAction(MainWindow);
+        DropDBAction->setObjectName(QString::fromUtf8("DropDBAction"));
+        DropDBAction->setFont(font);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
+        createUser_pushButton = new QPushButton(centralWidget);
+        createUser_pushButton->setObjectName(QString::fromUtf8("createUser_pushButton"));
+        createUser_pushButton->setGeometry(QRect(1430, 820, 93, 28));
+        authorization_pushButton = new QPushButton(centralWidget);
+        authorization_pushButton->setObjectName(QString::fromUtf8("authorization_pushButton"));
+        authorization_pushButton->setGeometry(QRect(1430, 790, 93, 28));
+        alterTable_pushButton = new QPushButton(centralWidget);
+        alterTable_pushButton->setObjectName(QString::fromUtf8("alterTable_pushButton"));
+        alterTable_pushButton->setGeometry(QRect(1430, 640, 93, 28));
+        select_pushButton = new QPushButton(centralWidget);
+        select_pushButton->setObjectName(QString::fromUtf8("select_pushButton"));
+        select_pushButton->setGeometry(QRect(1430, 730, 93, 28));
+        update_pushButton = new QPushButton(centralWidget);
+        update_pushButton->setObjectName(QString::fromUtf8("update_pushButton"));
+        update_pushButton->setGeometry(QRect(1430, 670, 93, 28));
+        insert_pushButton = new QPushButton(centralWidget);
+        insert_pushButton->setObjectName(QString::fromUtf8("insert_pushButton"));
+        insert_pushButton->setGeometry(QRect(1430, 760, 93, 28));
+        createTable_pushButton = new QPushButton(centralWidget);
+        createTable_pushButton->setObjectName(QString::fromUtf8("createTable_pushButton"));
+        createTable_pushButton->setGeometry(QRect(1430, 810, 93, 28));
         dropTable_pushButton = new QPushButton(centralWidget);
         dropTable_pushButton->setObjectName(QString::fromUtf8("dropTable_pushButton"));
-        dropTable_pushButton->setGeometry(QRect(1511, 873, 80, 20));
+        dropTable_pushButton->setGeometry(QRect(1430, 610, 93, 28));
+        delete_pushButton = new QPushButton(centralWidget);
+        delete_pushButton->setObjectName(QString::fromUtf8("delete_pushButton"));
+        delete_pushButton->setGeometry(QRect(1430, 700, 93, 28));
         textBrowser_2 = new QTextBrowser(centralWidget);
         textBrowser_2->setObjectName(QString::fromUtf8("textBrowser_2"));
-        textBrowser_2->setGeometry(QRect(9, 9, 341, 891));
+        textBrowser_2->setGeometry(QRect(10, 0, 301, 881));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
+        textBrowser_2->setFont(font1);
         textBrowser_2->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -105,11 +143,12 @@ public:
         textBrowser_2->setReadOnly(false);
         view_ = new QTableView(centralWidget);
         view_->setObjectName(QString::fromUtf8("view_"));
-        view_->setGeometry(QRect(359, 9, 1241, 891));
-        view_->setStyleSheet(QString::fromUtf8("QTableView {\n"
-"        border: 1px solid rgb(45, 45, 45);\n"
+        view_->setGeometry(QRect(320, 550, 1271, 331));
+        view_->setFont(font1);
+        view_->setStyleSheet(QString::fromUtf8("QTableView {  \n"
 "        background: rgb(57, 58, 60);\n"
 "        gridline-color: rgb(60, 60, 60);\n"
+"        border:2px solid rgb(20, 128, 211);\n"
 "}\n"
 "QTableView::item {\n"
 "        padding-left: 5px;\n"
@@ -132,43 +171,36 @@ public:
 "        height: 20px;\n"
 "}\n"
 ""));
-        authorization_pushButton = new QPushButton(centralWidget);
-        authorization_pushButton->setObjectName(QString::fromUtf8("authorization_pushButton"));
-        authorization_pushButton->setGeometry(QRect(1511, 847, 80, 20));
-        createUser_pushButton = new QPushButton(centralWidget);
-        createUser_pushButton->setObjectName(QString::fromUtf8("createUser_pushButton"));
-        createUser_pushButton->setGeometry(QRect(1511, 821, 80, 20));
-        insert_pushButton = new QPushButton(centralWidget);
-        insert_pushButton->setObjectName(QString::fromUtf8("insert_pushButton"));
-        insert_pushButton->setGeometry(QRect(1511, 795, 80, 20));
-        select_pushButton = new QPushButton(centralWidget);
-        select_pushButton->setObjectName(QString::fromUtf8("select_pushButton"));
-        select_pushButton->setGeometry(QRect(1511, 769, 80, 20));
-        delete_pushButton = new QPushButton(centralWidget);
-        delete_pushButton->setObjectName(QString::fromUtf8("delete_pushButton"));
-        delete_pushButton->setGeometry(QRect(1511, 743, 80, 20));
-        update_pushButton = new QPushButton(centralWidget);
-        update_pushButton->setObjectName(QString::fromUtf8("update_pushButton"));
-        update_pushButton->setGeometry(QRect(1511, 717, 80, 20));
-        alterTable_pushButton = new QPushButton(centralWidget);
-        alterTable_pushButton->setObjectName(QString::fromUtf8("alterTable_pushButton"));
-        alterTable_pushButton->setGeometry(QRect(1511, 691, 80, 20));
-        alterTable_pushButton->setAutoFillBackground(false);
-        createTable_pushButton = new QPushButton(centralWidget);
-        createTable_pushButton->setObjectName(QString::fromUtf8("createTable_pushButton"));
-        createTable_pushButton->setGeometry(QRect(1511, 665, 80, 20));
+        textEdit = new QTextEdit(centralWidget);
+        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        textEdit->setGeometry(QRect(323, 3, 1271, 541));
+        textEdit->setFont(font1);
+        textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
+"border-radius:4px;\n"
+"color: white;\n"
+"\n"
+""));
+        pushButton = new QPushButton(centralWidget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(1440, 850, 80, 18));
+        pushButton_2 = new QPushButton(centralWidget);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setGeometry(QRect(1340, 850, 80, 18));
         MainWindow->setCentralWidget(centralWidget);
-        select_pushButton->raise();
+        pushButton->raise();
+        pushButton_2->raise();
         createTable_pushButton->raise();
+        createUser_pushButton->raise();
         authorization_pushButton->raise();
         alterTable_pushButton->raise();
-        dropTable_pushButton->raise();
-        insert_pushButton->raise();
-        createUser_pushButton->raise();
-        delete_pushButton->raise();
+        select_pushButton->raise();
         update_pushButton->raise();
+        insert_pushButton->raise();
+        dropTable_pushButton->raise();
+        delete_pushButton->raise();
         textBrowser_2->raise();
         view_->raise();
+        textEdit->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1600, 21));
@@ -177,10 +209,10 @@ public:
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
         mainToolBar->setMinimumSize(QSize(1600, 70));
         mainToolBar->setMaximumSize(QSize(1600, 70));
-        QFont font1;
-        font1.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font1.setPointSize(14);
-        mainToolBar->setFont(font1);
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
+        font2.setPointSize(10);
+        mainToolBar->setFont(font2);
         mainToolBar->setStyleSheet(QString::fromUtf8("QToolButton{\n"
 "                                   border: none;\n"
 "                                   color: white;\n"
@@ -193,6 +225,8 @@ public:
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
+        mainToolBar->addAction(createBDAction);
+        mainToolBar->addAction(DropDBAction);
         mainToolBar->addAction(createAction);
         mainToolBar->addAction(dropAction);
         mainToolBar->addAction(alterAction);
@@ -213,6 +247,8 @@ public:
         QObject::connect(updateAction, SIGNAL(triggered()), update_pushButton, SLOT(click()));
         QObject::connect(insertAction, SIGNAL(triggered()), insert_pushButton, SLOT(click()));
         QObject::connect(createAction, SIGNAL(triggered()), createTable_pushButton, SLOT(click()));
+        QObject::connect(createBDAction, SIGNAL(triggered()), pushButton, SLOT(click()));
+        QObject::connect(DropDBAction, SIGNAL(triggered()), pushButton_2, SLOT(click()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -233,15 +269,19 @@ public:
         selectAction->setText(QCoreApplication::translate("MainWindow", "\346\237\245\350\257\242\350\256\260\345\275\225", nullptr));
         updateAction->setText(QCoreApplication::translate("MainWindow", "\346\233\264\346\226\260\350\256\260\345\275\225", nullptr));
         insertAction->setText(QCoreApplication::translate("MainWindow", "\346\217\222\345\205\245\350\256\260\345\275\225", nullptr));
-        dropTable_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244\350\241\250", nullptr));
-        authorization_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", nullptr));
+        createBDAction->setText(QCoreApplication::translate("MainWindow", "\346\226\260\345\273\272\346\225\260\346\215\256\345\272\223", nullptr));
+        DropDBAction->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244\346\225\260\346\215\256\345\272\223", nullptr));
         createUser_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\233\345\273\272\347\224\250\346\210\267", nullptr));
-        insert_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\217\222\345\205\245", nullptr));
-        select_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\237\245\350\257\242", nullptr));
-        delete_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244", nullptr));
-        update_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\233\264\346\226\260", nullptr));
+        authorization_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", nullptr));
         alterTable_pushButton->setText(QCoreApplication::translate("MainWindow", "\344\277\256\346\224\271\350\241\250\347\273\223\346\236\204", nullptr));
+        select_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\237\245\350\257\242", nullptr));
+        update_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\233\264\346\226\260", nullptr));
+        insert_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\217\222\345\205\245", nullptr));
         createTable_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\233\345\273\272\350\241\250", nullptr));
+        dropTable_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244\350\241\250", nullptr));
+        delete_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
     } // retranslateUi
 
 };

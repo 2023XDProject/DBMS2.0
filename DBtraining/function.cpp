@@ -277,7 +277,6 @@ QString Function::select(QString attribute,QString table,QString condition,QStri
     //存储要查询的表名的列表
     QStringList tableList=table.split(',',QString::SkipEmptyParts);
     //存储要查询的属性的列表
-
     QStringList attributeList=attribute.split(',',QString::SkipEmptyParts);
 
     //要查询的表名只有1个-单表查询

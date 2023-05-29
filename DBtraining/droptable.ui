@@ -93,7 +93,7 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>表名：</string>
+    <string>表名</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit">
@@ -104,6 +104,12 @@
      <width>171</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);

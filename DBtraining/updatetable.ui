@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>954</width>
-    <height>574</height>
+    <width>698</width>
+    <height>435</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>110</y>
+     <x>90</x>
+     <y>60</y>
      <width>121</width>
      <height>41</height>
     </rect>
@@ -35,21 +35,21 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>表名：</string>
+    <string>表名</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>200</y>
+     <x>90</x>
+     <y>150</y>
      <width>121</width>
      <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>幼圆</family>
+     <family>Arial</family>
      <pointsize>12</pointsize>
     </font>
    </property>
@@ -57,14 +57,14 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>set :</string>
+    <string>set</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>300</y>
+     <x>90</x>
+     <y>250</y>
      <width>101</width>
      <height>41</height>
     </rect>
@@ -79,17 +79,23 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>条件：</string>
+    <string>条件</string>
    </property>
   </widget>
   <widget class="QTextEdit" name="update_textEdit">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>110</y>
+     <x>260</x>
+     <y>60</y>
      <width>351</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
@@ -102,11 +108,17 @@ color: white;
   <widget class="QTextEdit" name="set_textEdit">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>200</y>
+     <x>260</x>
+     <y>150</y>
      <width>351</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
@@ -119,11 +131,17 @@ color: white;
   <widget class="QTextEdit" name="where_textEdit">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>290</y>
+     <x>260</x>
+     <y>240</y>
      <width>351</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
@@ -136,8 +154,8 @@ color: white;
   <widget class="QPushButton" name="update_pushButton">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>470</y>
+     <x>120</x>
+     <y>340</y>
      <width>121</width>
      <height>71</height>
     </rect>
@@ -164,8 +182,8 @@ color: white;
   <widget class="QPushButton" name="back_pushButton">
    <property name="geometry">
     <rect>
-     <x>620</x>
-     <y>470</y>
+     <x>440</x>
+     <y>340</y>
      <width>121</width>
      <height>71</height>
     </rect>

@@ -35,7 +35,7 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>属性：</string>
+    <string>属性</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -57,7 +57,7 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>表名：</string>
+    <string>表名</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -79,7 +79,7 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>顺序：</string>
+    <string>顺序</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -101,7 +101,7 @@
     <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>条件:</string>
+    <string>条件</string>
    </property>
   </widget>
   <widget class="QPushButton" name="confirm_pushButton">
@@ -171,6 +171,12 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
 border-radius:4px;
@@ -187,6 +193,12 @@ color: white;
      <width>301</width>
      <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
@@ -205,6 +217,12 @@ color: white;
      <height>61</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
 border-radius:4px;
@@ -221,6 +239,12 @@ color: white;
      <width>301</width>
      <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background: rgb(68, 69, 73);
