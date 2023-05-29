@@ -666,7 +666,6 @@ QString Function::delete_function(QString table,QString condition)
     in>>data;
     qDebug("%s",qPrintable(data));
 
-    //QStringList conditionList=condition.split(" ",QString::SkipEmptyParts);
     int cnt=0;
     while(!in.atEnd())
     {
@@ -704,7 +703,7 @@ QString Function::delete_function(QString table,QString condition)
         toBuffer>>data;
         qDebug("%s",qPrintable(data));
         delete_row.append(data);
-        //                resultOut<<data<<"\n";
+        //resultOut<<data<<"\n";
         if(data=="")break;
         QStringList dataList=data.split("%",QString::SkipEmptyParts);
     }
@@ -1118,8 +1117,11 @@ QString Function::referenceConstraints(QString table)
 
     while(!relation_in.atEnd()){
         relation_in >> data;
+
         if(data=="") break;
+
         temp_relation = data.split("-");
+
         relation.append(temp_relation[0]);
     }
 
@@ -1129,7 +1131,9 @@ QString Function::referenceConstraints(QString table)
     else{
         foreach(QString s, relation){
             temp_relationTable = s.split(".");
+
             relationTable.append(temp_relationTable[0]);
+
             qDebug() << temp_relationTable[0];
         }
 
@@ -1145,142 +1149,178 @@ QString Function::referenceConstraints(QString table)
 QString Function::insert(QString tableName,QString value)
 {
     QStringList valueList=value.split(",",QString::SkipEmptyParts);
+
     QMap<QString,int>projection;
     QString tableForm;
+
     QFile readFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
     if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text))
         qDebug()<<"打开文件失败";
-    //qDebug("%s",qPrintable(rootAddress+tableName+".txt"));
+
     QTextStream in(&readFile);
     in>>tableForm;
+
     qDebug("%s",qPrintable(tableForm));
+
     QStringList tableFormList=tableForm.split("%",QString::SkipEmptyParts);
     int cnt=0;
 
-    foreach(QString s,tableFormList)
-    {
+    foreach(QString s,tableFormList){
         QStringList attributeList=s.split("|",QString::SkipEmptyParts);
+
         projection[attributeList[2]]=cnt++;
+
         qDebug("%s",qPrintable(attributeList[2]));
         qDebug()<<cnt-1;
     }
 
     QString primaryKey;
     in>>primaryKey;
+
     qDebug("%s",qPrintable(primaryKey));
+
     QStringList primaryKeyList=primaryKey.split("%",QString::SkipEmptyParts);
 
     QString ForignKey;
     in>>ForignKey;
+
     qDebug("%s",qPrintable(ForignKey));
 
     QString data;
     QSet<QString>primaryKeySet;
 
-    while(!in.atEnd())
-    {
+    while(!in.atEnd()){
         qDebug()<<"the set";
+
         in>>data;
+
         if(data=="")break;
+
         qDebug("%s",qPrintable(data));
+
         QStringList dataList=data.split("%",QString::SkipEmptyParts);
         QString PK="";
+
         foreach(QString s,primaryKeyList)
             PK+=dataList[projection[s]]+"%";
+
         qDebug("%s",qPrintable(PK));
+
         primaryKeySet.insert(PK);
     }
     readFile.close();
 
     QString PK="";
+
     qDebug()<<"??";
+
     foreach(QString s,primaryKeyList)
         PK+=valueList[projection[s]]+"%";
+
     qDebug("%s",qPrintable(PK));
-    if(primaryKeySet.contains(PK))
-        return "InsertWrong";
+
+    if(primaryKeySet.contains(PK)) return "InsertWrong";
 
     QStringList ForignKeyList=ForignKey.split("%",QString::SkipEmptyParts);
 
-    foreach(QString s,ForignKeyList)
-    {
+    foreach(QString s,ForignKeyList){
         QSet<QString>FKSet;
         QStringList referenceData=s.split("|",QString::SkipEmptyParts);
+
         if(referenceData.size()==1){
             break;
         }
+
         QFile tmpFile(rootAddress_+"\\"+DBName_+"\\"+referenceData[1]+".txt");
         if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text))
             qDebug()<<"打开文件失败";
-        QTextStream tmpIn(&tmpFile);
 
+        QTextStream tmpIn(&tmpFile);
         QString dataIntmp;
         tmpIn>>dataIntmp;
+
         QStringList tmpFormList=dataIntmp.split("%",QString::SkipEmptyParts);
         QMap<QString,int>tmpProjection;
         int tmpCnt=0;
-        foreach(QString s1,tmpFormList)
-        {
+
+        foreach(QString s1,tmpFormList){
             QStringList TmpAttributeList=s1.split("|",QString::SkipEmptyParts);
+
             tmpProjection[TmpAttributeList[2]]=tmpCnt++;
+
             qDebug("%s",qPrintable(TmpAttributeList[2]));
             qDebug()<<tmpCnt-1;
         }
         tmpIn>>dataIntmp;
         tmpIn>>dataIntmp;
 
-        while(!tmpIn.atEnd())
-        {
+        while(!tmpIn.atEnd()){
             tmpIn>>dataIntmp;
+
             if(dataIntmp=="")break;
+
             qDebug("%s",qPrintable(dataIntmp));
+
             QStringList dataIntmpList=dataIntmp.split("%",QString::SkipEmptyParts);
+
             FKSet.insert(dataIntmpList[tmpProjection[referenceData[2]]]);
         }
         tmpFile.close();
+
         qDebug()<<"isHere";
         qDebug("%s",qPrintable(valueList[projection[referenceData[0]]]));
-        if(!FKSet.contains(valueList[projection[referenceData[0]]]))
-            return "InsertWrong";
+
+        if(!FKSet.contains(valueList[projection[referenceData[0]]])) return "InsertWrong";
     }
     qDebug()<<"wtf!!";
 
     QFile writeFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
     if(!writeFile.open(QIODevice::Append|QIODevice::Text))
         qDebug()<<"打开文件失败";
+
     QTextStream out(&writeFile);
-    //out<<"\n";
     QString outString="";
+
     foreach(QString s,valueList)
         outString+=s+"%";
-    out<<outString.left(outString.size()-1)+"\n";
-    writeFile.close();
-    return "InsertOk";
 
+    out<<outString.left(outString.size()-1)+"\n";
+
+    writeFile.close();
+
+    return "InsertOk";
 }
 
 QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype,QString newColumnName)
 {
     QString tableForm;
+
     qDebug("%s",qPrintable(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt"));
+
     QFile readFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
-    if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text))
-    {return "打开文件失败";}
+    if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text)){
+        return "打开文件失败";
+    }
+
     QTextStream in(&readFile);
     in>>tableForm;
+
     QString line2,line,line3;
     in>>line2;
+
     QStringList tableFormList=tableForm.split("%",QString::SkipEmptyParts);
     QSet<QString> attributeSet;
-    foreach(QString s,tableFormList)
-    {
+
+    foreach(QString s,tableFormList){
         QStringList tempList=s.split("|",QString::SkipEmptyParts);
         attributeSet.insert(tempList[2]);
     }
+
     in>>line3;
+
     if(operate.toUpper()=="ADD")
     {
-        if(tableFormList.contains(columnname)==true){return "ADDWrong";}
+        if(attributeSet.contains(columnname)==true){return "ADDWrong";}
         else
         {
             tableForm+="%0|0|";
@@ -1310,7 +1350,68 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
         }
     }
 
-    if(operate.toUpper()=="DROP"){
+    else if(operate.toUpper()=="DROP"){
+        QStringList primeKeyList=line2.split("%",QString::SkipEmptyParts);
+        if(primeKeyList.contains(columnname)==true){return "DropWrong";}
+        if(attributeSet.contains(columnname)!=true){return "DropWrong";}
+
+        QString FKReference=tableName+"."+columnname;
+        QFile relationFile(rootAddress_+"\\relation.txt");
+        if(!relationFile.open(QIODevice::ReadOnly|QIODevice::Text))
+            return"打开文件失败";
+        QTextStream relationIn(&relationFile);
+        while(!relationIn.atEnd())
+        {
+            relationIn>>line;
+            QStringList tempList=line.split("-");
+            if(tempList[0]==FKReference)
+            {
+                relationFile.close();
+                return "DropWrong";
+            }
+        }
+        relationFile.close();
+
+        int dropNum=0,cnt=0;
+        QString line1="";
+        foreach(QString s,tableFormList)
+        {
+            QStringList tempList=s.split("|",QString::SkipEmptyParts);
+            cnt+=1;
+            if(tempList[2]==columnname){
+                dropNum=cnt;continue;
+            }else{
+                line1+=s+"%";
+            }
+        }
+        QFile writeFile(rootAddress_+"\\"+DBName_+"\\"+tableName+"1.txt");
+        if(!writeFile.open(QIODevice::Append|QIODevice::Text))
+            return"打开文件失败";
+        QTextStream out(&writeFile);
+
+        out<<line1.left(line1.size()-1)<<"\n";
+        out << line2 << endl;
+        out<<line3<<"\n";
+
+        QStringList valueList;
+        while(in.atEnd() == false)
+        {
+            in>>line;
+            valueList=line.split("%",QString::SkipEmptyParts);
+            valueList.removeAt(dropNum-1);
+            if(valueList.size()==1){
+                out << valueList[0]<< endl;
+            }
+            out << valueList.join("%")<< endl;
+        }
+
+        writeFile.close();
+        readFile.close();
+        readFile.remove();
+        writeFile.rename(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
+        return "DROPOK";
+    }
+    else if(operate.toUpper()=="RENAME"){
         QStringList primeKeyList=line2.split("%",QString::SkipEmptyParts);
         if(primeKeyList.contains(columnname)==true){return "DropWrong";}
         if(attributeSet.contains(columnname)!=true){return "DropWrong";}
@@ -1766,8 +1867,12 @@ QString Function::CreateDB(QString DBName){
 
 //删除数据库
 QString Function::DropDB(QString DBName){
-    //判断该文件夹存不存在
+
     QString temp=rootAddress_+"\\"+DBName;
+    QFile file(temp);
+    if(!file.exists()){
+        return "数据库不存在";
+    }
     bool isFinish=dropFloder(temp);
     if(isFinish==true){
         DBName_="Ruanko";
