@@ -8,6 +8,7 @@
 #include <QDir>
 #include <QStandardItemModel>
 #include <QTableView>
+#include <QDockWidget>
 #include"select.h"
 #include"deleteTable.h"
 #include"inserttable.h"
@@ -40,7 +41,7 @@ private:
     //QString rootAddress="D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
     QString rootAddress_;
     QTcpSocket *socket;
-
+    void updateItemInfo();
     void sendStringData();
     void setActionStyle();
 
@@ -88,8 +89,9 @@ private:
     //左侧组件
     QDockWidget* Dock1_;
     QTreeView *treeView_;
-    QDir* dirinfo_;
+    QDir* dirinfo_=nullptr;
     QStandardItemModel *model_;
+    QStandardItemModel *model2_;
     QStandardItem *item_;
 
     Function *fun_;

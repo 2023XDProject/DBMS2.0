@@ -73,7 +73,11 @@ public:
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         userName = new QLineEdit(createUserTable);
         userName->setObjectName(QString::fromUtf8("userName"));
-        userName->setGeometry(QRect(170, 70, 171, 31));
+        userName->setGeometry(QRect(170, 70, 171, 41));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
+        userName->setFont(font1);
         userName->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -81,7 +85,8 @@ public:
 ""));
         pwd = new QLineEdit(createUserTable);
         pwd->setObjectName(QString::fromUtf8("pwd"));
-        pwd->setGeometry(QRect(170, 150, 131, 31));
+        pwd->setGeometry(QRect(170, 150, 171, 41));
+        pwd->setFont(font1);
         pwd->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"

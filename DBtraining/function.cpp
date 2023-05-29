@@ -5,7 +5,7 @@
 Function::Function(){
     QDir *dir =new QDir(QDir::currentPath());
     dir->cdUp();
-    rootAddress_=dir->path().replace(QString("/"),QString("\\"));
+    rootAddress_=dir->path().replace(QString("/"),QString("\\"))+"\\data";
 }
 
 QStringList Function::WriteContent(QStringList tableList)
@@ -1770,6 +1770,7 @@ QString Function::DropDB(QString DBName){
     QString temp=rootAddress_+"\\"+DBName;
     bool isFinish=dropFloder(temp);
     if(isFinish==true){
+        DBName_="Ruanko";
         return "DropDBOK";
     }else{
         return "DRopDbWrong";

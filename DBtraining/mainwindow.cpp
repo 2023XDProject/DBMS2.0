@@ -17,8 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //获取绝对路径
     QDir *dir =new QDir(QDir::currentPath());
     dir->cdUp();
-    rootAddress_=dir->path().replace(QString("/"),QString("\\"));
+    rootAddress_=dir->path().replace(QString("/"),QString("\\"))+"\\data";
 
+    dirinfo_=new QDir(rootAddress_),
+    updateItemInfo();
     server=new QTcpServer;
     server->listen(QHostAddress::AnyIPv4,PORT);
     connect(server,&QTcpServer::newConnection,this,&MainWindow::newClientHandle);
@@ -33,7 +35,7 @@ MainWindow::~MainWindow()
     delete Dock1_;
     delete treeView_;
     delete dirinfo_;
-    delete model_;
+    delete model_,model2_;
     delete item_;
     delete fun_;
     delete selectWindow_,updateWindow_,deleteWindow_;
@@ -272,7 +274,7 @@ void MainWindow::isFinish(QString data){
         if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
-
+         updateItemInfo();
         resultFile.remove();
     }
 }
@@ -295,59 +297,57 @@ void MainWindow::receiveTable(QString data){
         if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
-
+        updateItemInfo();
         resultFile.remove();
     }
     else{
-        //查询失败
+        //查询成功
+        updateItemInfo();
         reShowTable(data);
     }
 }
 
-////更新左侧连接信息(未完成)
-//void MainWindow::updateItemInfo(){
-//    delete Dock1_,treeView_;
-//    Dock1_ = new QDockWidget(this);
-//    Dock1_->setAllowedAreas(Qt::LeftDockWidgetArea);
+//更新左侧连接信息(完成)
+void MainWindow::updateItemInfo(){
 
-//    //导入模型
-//    treeView_= new QTreeView();
-//    QStandardItemModel *model = new QStandardItemModel(treeView_);//创建模型
-//    treeView_->setModel(model);
-//    if (!dirinfo_->exists()) {
-//        delete dirinfo_, dirinfo_ = nullptr;
-//        return;
-//    }
+    //导入模型
+    if(model2_!=nullptr){
+        model2_=nullptr;
+    }
+    model2_ = new QStandardItemModel(ui->treeView);//创建模型
+    if (!dirinfo_->exists()) {
+        delete dirinfo_, dirinfo_ = nullptr;
+        return;
+    }
 
-//    QStringList dirList = dirinfo_->entryList(QDir::Dirs);
-//    dirList.removeOne(".");
-//    dirList.removeOne("..");
-//    for(int i=0;i<dirList.size();++i)
-//    {
-//        qDebug()<<dirList[i];
-//        QStandardItem *item = new QStandardItem(dirList[i]);
-//        QString temp=dirList[i];
-//        QDir* dirinfo2 = new QDir("data/"+temp);
-//        if (!dirinfo2->exists()) {
-//            delete dirinfo2, dirinfo2 = nullptr;
-//            return;
-//        }
+    QStringList dirList = dirinfo_->entryList(QDir::Dirs);
+    dirList.removeOne(".");
+    dirList.removeOne("..");
+    for(int i=0;i<dirList.size();++i)
+    {
+        qDebug()<<dirList[i];
+        QStandardItem *item = new QStandardItem(dirList[i]);
+        QString temp=dirList[i];
+        QDir* dirinfo2 = new QDir(rootAddress_+"\\"+temp);
+        if (!dirinfo2->exists()) {
+            delete dirinfo2, dirinfo2 = nullptr;
+            return;
+        }
 
-//        //dirinfo->setNameFilters(QStringList("*.png"));过滤器
-//        QStringList fileList = dirinfo2->entryList(QDir::Files);
-//        fileList.removeOne(".");
-//        fileList.removeOne("..");
+        //dirinfo->setNameFilters(QStringList("*.png"));过滤器
+        QStringList fileList = dirinfo2->entryList(QDir::Files);
+        fileList.removeOne(".");
+        fileList.removeOne("..");
 
-//        for(int j=0;j<fileList.size();++j){
-//            qDebug()<<fileList[j];
-//            item->appendRow(new QStandardItem(fileList[j]));
-//        }
-//        model->appendRow(item);
-//    }
+        for(int j=0;j<fileList.size();++j){
+            qDebug()<<fileList[j];
+            item->appendRow(new QStandardItem(fileList[j]));
+        }
+        model2_->appendRow(item);
+    }
 
-//    Dock1_->setWidget(treeView_);
-//    addDockWidget(Qt::LeftDockWidgetArea,Dock1_);
-//}
+        ui->treeView->setModel(model2_);
+}
 
 //更新表格
 void MainWindow::reShowTable(QString data){

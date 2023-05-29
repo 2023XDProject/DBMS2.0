@@ -88,6 +88,10 @@ public:
         attribute_textEdit = new QTextEdit(Select);
         attribute_textEdit->setObjectName(QString::fromUtf8("attribute_textEdit"));
         attribute_textEdit->setGeometry(QRect(360, 110, 301, 61));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
+        attribute_textEdit->setFont(font1);
         attribute_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -96,6 +100,7 @@ public:
         tablename_textEdit = new QTextEdit(Select);
         tablename_textEdit->setObjectName(QString::fromUtf8("tablename_textEdit"));
         tablename_textEdit->setGeometry(QRect(360, 190, 301, 61));
+        tablename_textEdit->setFont(font1);
         tablename_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -104,6 +109,7 @@ public:
         order__textEdit = new QTextEdit(Select);
         order__textEdit->setObjectName(QString::fromUtf8("order__textEdit"));
         order__textEdit->setGeometry(QRect(360, 370, 301, 61));
+        order__textEdit->setFont(font1);
         order__textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -112,6 +118,7 @@ public:
         condition_textEdit = new QTextEdit(Select);
         condition_textEdit->setObjectName(QString::fromUtf8("condition_textEdit"));
         condition_textEdit->setGeometry(QRect(360, 280, 301, 61));
+        condition_textEdit->setFont(font1);
         condition_textEdit->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -126,10 +133,10 @@ public:
     void retranslateUi(QWidget *Select)
     {
         Select->setWindowTitle(QCoreApplication::translate("Select", "Form", nullptr));
-        label->setText(QCoreApplication::translate("Select", "\345\261\236\346\200\247\357\274\232", nullptr));
-        label_2->setText(QCoreApplication::translate("Select", "\350\241\250\345\220\215\357\274\232", nullptr));
-        label_3->setText(QCoreApplication::translate("Select", "\351\241\272\345\272\217\357\274\232", nullptr));
-        label_4->setText(QCoreApplication::translate("Select", "\346\235\241\344\273\266:", nullptr));
+        label->setText(QCoreApplication::translate("Select", "\345\261\236\346\200\247", nullptr));
+        label_2->setText(QCoreApplication::translate("Select", "\350\241\250\345\220\215", nullptr));
+        label_3->setText(QCoreApplication::translate("Select", "\351\241\272\345\272\217", nullptr));
+        label_4->setText(QCoreApplication::translate("Select", "\346\235\241\344\273\266", nullptr));
         confirm_pushButton->setText(QCoreApplication::translate("Select", "\347\241\256\350\256\244", nullptr));
         back_pushButton->setText(QCoreApplication::translate("Select", "\350\277\224\345\233\236", nullptr));
     } // retranslateUi

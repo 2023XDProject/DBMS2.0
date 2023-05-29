@@ -134,31 +134,6 @@
      <string>删除</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>0</y>
-      <width>301</width>
-      <height>881</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background: rgb(68, 69, 73);
-border-radius:4px;
-border:2px solid rgb(20, 128, 211);
-</string>
-    </property>
-    <property name="readOnly">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QTableView" name="view_">
     <property name="geometry">
      <rect>
@@ -252,6 +227,90 @@ color: white;
      <string>PushButton</string>
     </property>
    </widget>
+   <widget class="QTreeView" name="treeView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>301</width>
+      <height>881</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+QTreeView{
+
+background: rgb(68, 69, 73);
+border-radius:4px;
+border:2px solid rgb(20, 128, 211);
+
+
+color:rgb(255,255,255);
+
+font-size:20px;
+
+}
+
+QTreeView::item{
+
+height:35px;
+
+}
+
+QTreeView::item:hover{
+
+background:transparent;
+
+color:rgb(19,154,230);
+
+}
+
+QTreeView::item:selected{
+
+color:rgb(255,255,255);
+
+background-color:rgba(3,155,252,50);
+
+border-radius:4px;
+
+}
+
+QTreeView QHeaderView::section{
+
+background:transparent;
+
+height:0px;
+
+}
+
+QTreeView::branch:has-siblings:!adjoins-item {
+
+ }
+
+ QTreeView::branch:has-siblings:adjoins-item {
+
+ }
+
+  QTreeView::branch:!has-children:!has-siblings:adjoins-item {
+
+ }
+
+ QTreeView::branch:has-children:!has-siblings:closed,
+
+ QTreeView::branch:closed:has-children:has-siblings {
+
+         border-image: none;
+ }
+
+ QTreeView::branch:open:has-children:!has-siblings,
+
+ QTreeView::branch:open:has-children:has-siblings  {
+
+         border-image: none;
+ }
+</string>
+    </property>
+   </widget>
    <zorder>pushButton</zorder>
    <zorder>pushButton_2</zorder>
    <zorder>createTable_pushButton</zorder>
@@ -263,9 +322,9 @@ color: white;
    <zorder>insert_pushButton</zorder>
    <zorder>dropTable_pushButton</zorder>
    <zorder>delete_pushButton</zorder>
-   <zorder>textBrowser_2</zorder>
    <zorder>view_</zorder>
    <zorder>textEdit</zorder>
+   <zorder>treeView</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -273,7 +332,7 @@ color: white;
      <x>0</x>
      <y>0</y>
      <width>1600</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
