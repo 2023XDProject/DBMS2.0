@@ -1145,118 +1145,146 @@ QString Function::referenceConstraints(QString table)
 QString Function::insert(QString tableName,QString value)
 {
     QStringList valueList=value.split(",",QString::SkipEmptyParts);
+
     QMap<QString,int>projection;
     QString tableForm;
+
     QFile readFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
     if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text))
         qDebug()<<"打开文件失败";
-    //qDebug("%s",qPrintable(rootAddress+tableName+".txt"));
+
     QTextStream in(&readFile);
     in>>tableForm;
+
     qDebug("%s",qPrintable(tableForm));
+
     QStringList tableFormList=tableForm.split("%",QString::SkipEmptyParts);
     int cnt=0;
 
-    foreach(QString s,tableFormList)
-    {
+    foreach(QString s,tableFormList){
         QStringList attributeList=s.split("|",QString::SkipEmptyParts);
+
         projection[attributeList[2]]=cnt++;
+
         qDebug("%s",qPrintable(attributeList[2]));
         qDebug()<<cnt-1;
     }
 
     QString primaryKey;
     in>>primaryKey;
+
     qDebug("%s",qPrintable(primaryKey));
+
     QStringList primaryKeyList=primaryKey.split("%",QString::SkipEmptyParts);
 
     QString ForignKey;
     in>>ForignKey;
+
     qDebug("%s",qPrintable(ForignKey));
 
     QString data;
     QSet<QString>primaryKeySet;
 
-    while(!in.atEnd())
-    {
+    while(!in.atEnd()){
         qDebug()<<"the set";
+
         in>>data;
+
         if(data=="")break;
+
         qDebug("%s",qPrintable(data));
+
         QStringList dataList=data.split("%",QString::SkipEmptyParts);
         QString PK="";
+
         foreach(QString s,primaryKeyList)
             PK+=dataList[projection[s]]+"%";
+
         qDebug("%s",qPrintable(PK));
+
         primaryKeySet.insert(PK);
     }
     readFile.close();
 
     QString PK="";
+
     qDebug()<<"??";
+
     foreach(QString s,primaryKeyList)
         PK+=valueList[projection[s]]+"%";
+
     qDebug("%s",qPrintable(PK));
-    if(primaryKeySet.contains(PK))
-        return "InsertWrong";
+
+    if(primaryKeySet.contains(PK)) return "InsertWrong";
 
     QStringList ForignKeyList=ForignKey.split("%",QString::SkipEmptyParts);
 
-    foreach(QString s,ForignKeyList)
-    {
+    foreach(QString s,ForignKeyList){
         QSet<QString>FKSet;
         QStringList referenceData=s.split("|",QString::SkipEmptyParts);
+
         if(referenceData.size()==1){
             break;
         }
+
         QFile tmpFile(rootAddress_+"\\"+DBName_+"\\"+referenceData[1]+".txt");
         if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text))
             qDebug()<<"打开文件失败";
-        QTextStream tmpIn(&tmpFile);
 
+        QTextStream tmpIn(&tmpFile);
         QString dataIntmp;
         tmpIn>>dataIntmp;
+
         QStringList tmpFormList=dataIntmp.split("%",QString::SkipEmptyParts);
         QMap<QString,int>tmpProjection;
         int tmpCnt=0;
-        foreach(QString s1,tmpFormList)
-        {
+
+        foreach(QString s1,tmpFormList){
             QStringList TmpAttributeList=s1.split("|",QString::SkipEmptyParts);
+
             tmpProjection[TmpAttributeList[2]]=tmpCnt++;
+
             qDebug("%s",qPrintable(TmpAttributeList[2]));
             qDebug()<<tmpCnt-1;
         }
         tmpIn>>dataIntmp;
         tmpIn>>dataIntmp;
 
-        while(!tmpIn.atEnd())
-        {
+        while(!tmpIn.atEnd()){
             tmpIn>>dataIntmp;
+
             if(dataIntmp=="")break;
+
             qDebug("%s",qPrintable(dataIntmp));
+
             QStringList dataIntmpList=dataIntmp.split("%",QString::SkipEmptyParts);
+
             FKSet.insert(dataIntmpList[tmpProjection[referenceData[2]]]);
         }
         tmpFile.close();
+
         qDebug()<<"isHere";
         qDebug("%s",qPrintable(valueList[projection[referenceData[0]]]));
-        if(!FKSet.contains(valueList[projection[referenceData[0]]]))
-            return "InsertWrong";
+
+        if(!FKSet.contains(valueList[projection[referenceData[0]]])) return "InsertWrong";
     }
     qDebug()<<"wtf!!";
 
     QFile writeFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
     if(!writeFile.open(QIODevice::Append|QIODevice::Text))
         qDebug()<<"打开文件失败";
+
     QTextStream out(&writeFile);
-    //out<<"\n";
     QString outString="";
+
     foreach(QString s,valueList)
         outString+=s+"%";
-    out<<outString.left(outString.size()-1)+"\n";
-    writeFile.close();
-    return "InsertOk";
 
+    out<<outString.left(outString.size()-1)+"\n";
+
+    writeFile.close();
+
+    return "InsertOk";
 }
 
 QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype,QString newColumnName)

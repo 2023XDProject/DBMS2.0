@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>553</width>
+    <height>485</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>220</y>
+     <x>100</x>
+     <y>410</y>
      <width>101</width>
      <height>51</height>
     </rect>
@@ -48,8 +48,8 @@
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>220</y>
+     <x>340</x>
+     <y>410</y>
      <width>101</width>
      <height>51</height>
     </rect>
@@ -77,10 +77,10 @@
   <widget class="QLineEdit" name="lineEdit">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>60</y>
-     <width>161</width>
-     <height>41</height>
+     <x>150</x>
+     <y>40</y>
+     <width>321</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
@@ -100,10 +100,10 @@ color: white;
   <widget class="QLineEdit" name="lineEdit_2">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>130</y>
-     <width>161</width>
-     <height>41</height>
+     <x>150</x>
+     <y>120</y>
+     <width>321</width>
+     <height>251</height>
     </rect>
    </property>
    <property name="font">
@@ -119,12 +119,15 @@ border:2px solid rgb(20, 128, 211);
 color: white;
 </string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>60</y>
+     <x>60</x>
+     <y>50</y>
      <width>71</width>
      <height>41</height>
     </rect>
@@ -145,9 +148,9 @@ color: white;
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>130</y>
-     <width>91</width>
+     <x>60</x>
+     <y>120</y>
+     <width>71</width>
      <height>41</height>
     </rect>
    </property>
