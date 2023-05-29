@@ -18,9 +18,9 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -49,11 +49,11 @@ public:
     QPushButton *createTable_pushButton;
     QPushButton *dropTable_pushButton;
     QPushButton *delete_pushButton;
-    QTextBrowser *textBrowser_2;
     QTableView *view_;
     QTextEdit *textEdit;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
+    QTreeView *treeView;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -129,21 +129,12 @@ public:
         delete_pushButton = new QPushButton(centralWidget);
         delete_pushButton->setObjectName(QString::fromUtf8("delete_pushButton"));
         delete_pushButton->setGeometry(QRect(1430, 700, 93, 28));
-        textBrowser_2 = new QTextBrowser(centralWidget);
-        textBrowser_2->setObjectName(QString::fromUtf8("textBrowser_2"));
-        textBrowser_2->setGeometry(QRect(10, 0, 301, 881));
-        QFont font1;
-        font1.setFamily(QString::fromUtf8("Arial"));
-        font1.setPointSize(10);
-        textBrowser_2->setFont(font1);
-        textBrowser_2->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
-"border-radius:4px;\n"
-"border:2px solid rgb(20, 128, 211);\n"
-""));
-        textBrowser_2->setReadOnly(false);
         view_ = new QTableView(centralWidget);
         view_->setObjectName(QString::fromUtf8("view_"));
         view_->setGeometry(QRect(320, 550, 1271, 331));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
         view_->setFont(font1);
         view_->setStyleSheet(QString::fromUtf8("QTableView {  \n"
 "        background: rgb(57, 58, 60);\n"
@@ -186,6 +177,82 @@ public:
         pushButton_2 = new QPushButton(centralWidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
         pushButton_2->setGeometry(QRect(1340, 850, 80, 18));
+        treeView = new QTreeView(centralWidget);
+        treeView->setObjectName(QString::fromUtf8("treeView"));
+        treeView->setGeometry(QRect(10, 0, 301, 881));
+        treeView->setStyleSheet(QString::fromUtf8("\n"
+"QTreeView{\n"
+"\n"
+"background: rgb(68, 69, 73);\n"
+"border-radius:4px;\n"
+"border:2px solid rgb(20, 128, 211);\n"
+"\n"
+"\n"
+"color:rgb(255,255,255);\n"
+"\n"
+"font-size:20px;\n"
+"\n"
+"}\n"
+"\n"
+"QTreeView::item{\n"
+"\n"
+"height:35px;\n"
+"\n"
+"}\n"
+"\n"
+"QTreeView::item:hover{\n"
+"\n"
+"background:transparent;\n"
+"\n"
+"color:rgb(19,154,230);\n"
+"\n"
+"}\n"
+"\n"
+"QTreeView::item:selected{\n"
+"\n"
+"color:rgb(255,255,255);\n"
+"\n"
+"background-color:rgba(3,155,252,50);\n"
+"\n"
+"border-radius:4px;\n"
+"\n"
+"}\n"
+"\n"
+"QTreeView QHeaderView::section{\n"
+"\n"
+"background:transparent;\n"
+"\n"
+"height:0px;\n"
+"\n"
+"}\n"
+"\n"
+"QTreeView::branch:has-siblings:!adjoins-item {\n"
+"\n"
+" }\n"
+"\n"
+" QTreeView::branch:has-siblings:adjoins-item {\n"
+"\n"
+" }\n"
+"\n"
+"  QTreeView::branch:!has-children:!has-siblings:adjoins-item {\n"
+"\n"
+" }\n"
+"\n"
+" QTreeView::branch:has-children:!has-siblings:closed,\n"
+"\n"
+" QTreeView::branch:closed:has-children:has-siblings {\n"
+"\n"
+"         border-image: none;\n"
+" }\n"
+"\n"
+" QTreeVi"
+                        "ew::branch:open:has-children:!has-siblings,\n"
+"\n"
+" QTreeView::branch:open:has-children:has-siblings  {\n"
+"\n"
+"         border-image: none;\n"
+" }\n"
+""));
         MainWindow->setCentralWidget(centralWidget);
         pushButton->raise();
         pushButton_2->raise();
@@ -198,12 +265,12 @@ public:
         insert_pushButton->raise();
         dropTable_pushButton->raise();
         delete_pushButton->raise();
-        textBrowser_2->raise();
         view_->raise();
         textEdit->raise();
+        treeView->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1600, 21));
+        menuBar->setGeometry(QRect(0, 0, 1600, 23));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));

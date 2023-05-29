@@ -1,4 +1,0 @@
-class.classno-s.classno
-s.sno-sc.sno
-c.cno-sc.cno
-

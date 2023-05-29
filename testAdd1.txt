@@ -1,3 +1,0 @@
-1|0|tno|int%0|0|saf|int
-tno
-NF
