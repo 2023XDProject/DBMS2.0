@@ -666,7 +666,6 @@ QString Function::delete_function(QString table,QString condition)
     in>>data;
     qDebug("%s",qPrintable(data));
 
-    //QStringList conditionList=condition.split(" ",QString::SkipEmptyParts);
     int cnt=0;
     while(!in.atEnd())
     {
@@ -704,7 +703,7 @@ QString Function::delete_function(QString table,QString condition)
         toBuffer>>data;
         qDebug("%s",qPrintable(data));
         delete_row.append(data);
-        //                resultOut<<data<<"\n";
+        //resultOut<<data<<"\n";
         if(data=="")break;
         QStringList dataList=data.split("%",QString::SkipEmptyParts);
     }
@@ -1118,8 +1117,11 @@ QString Function::referenceConstraints(QString table)
 
     while(!relation_in.atEnd()){
         relation_in >> data;
+
         if(data=="") break;
+
         temp_relation = data.split("-");
+
         relation.append(temp_relation[0]);
     }
 
@@ -1129,7 +1131,9 @@ QString Function::referenceConstraints(QString table)
     else{
         foreach(QString s, relation){
             temp_relationTable = s.split(".");
+
             relationTable.append(temp_relationTable[0]);
+
             qDebug() << temp_relationTable[0];
         }
 
