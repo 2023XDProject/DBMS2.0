@@ -1,0 +1,4 @@
+0|0|Tno|char8
+cno|char6%
+NP
+FP
