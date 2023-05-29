@@ -1262,25 +1262,33 @@ QString Function::insert(QString tableName,QString value)
 QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype,QString newColumnName)
 {
     QString tableForm;
+
     qDebug("%s",qPrintable(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt"));
+
     QFile readFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
-    if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text))
-    {return "打开文件失败";}
+    if(!readFile.open(QIODevice::ReadOnly|QIODevice::Text)){
+        return "打开文件失败";
+    }
+
     QTextStream in(&readFile);
     in>>tableForm;
+
     QString line2,line,line3;
     in>>line2;
+
     QStringList tableFormList=tableForm.split("%",QString::SkipEmptyParts);
     QSet<QString> attributeSet;
-    foreach(QString s,tableFormList)
-    {
+
+    foreach(QString s,tableFormList){
         QStringList tempList=s.split("|",QString::SkipEmptyParts);
         attributeSet.insert(tempList[2]);
     }
+
     in>>line3;
+
     if(operate.toUpper()=="ADD")
     {
-        if(tableFormList.contains(columnname)==true){return "ADDWrong";}
+        if(attributeSet.contains(columnname)==true){return "ADDWrong";}
         else
         {
             tableForm+="%0|0|";
