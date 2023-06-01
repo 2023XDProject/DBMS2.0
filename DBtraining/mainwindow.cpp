@@ -20,10 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
     rootAddress_=dir->path().replace(QString("/"),QString("\\"))+"\\data";
 
     dirinfo_=new QDir(rootAddress_),
-    updateItemInfo();
+            updateItemInfo();
     server=new QTcpServer;
     server->listen(QHostAddress::AnyIPv4,PORT);
     connect(server,&QTcpServer::newConnection,this,&MainWindow::newClientHandle);
+    //connect(fun_,SIGNAL(matchSqlType(QString)),this,SLOT(isFinish(QString)));
+    connect(fun_,SIGNAL(sendData(QString)),this,SLOT(isFinish(QString)));
+    connect(fun_,SIGNAL(sendTable(QString)),this,SLOT(receiveTable(QString)));
 }
 
 MainWindow::~MainWindow()
@@ -68,7 +71,7 @@ void MainWindow::clientInfoSlot()
         while(!InfoIn.atEnd())
         {
             InfoIn>>InfoCheck;
-            qDebug(qPrintable(InfoCheck));
+            //qDebug(qPrintable(InfoCheck));
             if(InfoCheck==InfoList[1])
             {
                 checkInfo=true;
@@ -274,7 +277,7 @@ void MainWindow::isFinish(QString data){
         if(!resultFile.open(QIODevice::ReadOnly|QIODevice::Text)){
             qDebug()<<"文件打开失败";
         }
-         updateItemInfo();
+        updateItemInfo();
         resultFile.remove();
     }
 }
@@ -346,7 +349,7 @@ void MainWindow::updateItemInfo(){
         model2_->appendRow(item);
     }
 
-        ui->treeView->setModel(model2_);
+    ui->treeView->setModel(model2_);
 }
 
 //更新表格
@@ -387,4 +390,15 @@ void MainWindow::reShowTable(QString data){
     resultFile.close();
     resultFile.remove();
     ui->view_->setModel(model_);
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QString text=ui->textEdit->toPlainText();
+    //qDebug()<<text;
+    if(text.isEmpty()){
+        sendData("sql语句不能为空！");
+    }else{
+        fun_->matchSqlType(text);
+    }
 }

@@ -576,6 +576,8 @@ release/moc_mainwindow.cpp: ../DBtraining/mainwindow.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qstandarditemmodel.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTableView \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtableview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QDockWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdockwidget.h \
 		../DBtraining/select.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QWidget \
 		../DBtraining/function.h \
@@ -2403,6 +2405,8 @@ release/main.o: ../DBtraining/main.cpp ../DBtraining/mainwindow.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qstandarditemmodel.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTableView \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtableview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QDockWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdockwidget.h \
 		../DBtraining/select.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QWidget \
 		../DBtraining/function.h \
@@ -2584,6 +2588,8 @@ release/mainwindow.o: ../DBtraining/mainwindow.cpp ../DBtraining/mainwindow.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qstandarditemmodel.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTableView \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtableview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QDockWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdockwidget.h \
 		../DBtraining/select.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QWidget \
 		../DBtraining/function.h \
@@ -2639,15 +2645,13 @@ release/mainwindow.o: ../DBtraining/mainwindow.cpp ../DBtraining/mainwindow.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QStatusBar \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qstatusbar.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTextBrowser \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtextbrowser.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTextEdit \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtextedit.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextdocument.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextoption.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextcursor.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qtextformat.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qpen.h \
-		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTextEdit \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QToolBar \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtoolbar.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\DBtraining\mainwindow.cpp
@@ -2790,6 +2794,8 @@ release/select.o: ../DBtraining/select.cpp ../DBtraining/mainwindow.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qstandarditemmodel.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTableView \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtableview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QDockWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdockwidget.h \
 		../DBtraining/select.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QWidget \
 		../DBtraining/function.h \
@@ -2985,6 +2991,8 @@ release/deletetable.o: ../DBtraining/deletetable.cpp ../DBtraining/mainwindow.h 
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qstandarditemmodel.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTableView \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtableview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QDockWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdockwidget.h \
 		../DBtraining/select.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QWidget \
 		../DBtraining/function.h \
@@ -3180,6 +3188,8 @@ release/updatetable.o: ../DBtraining/updatetable.cpp ../DBtraining/mainwindow.h 
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtGui/qstandarditemmodel.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QTableView \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qtableview.h \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QDockWidget \
+		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/qdockwidget.h \
 		../DBtraining/select.h \
 		C:/Qt/Qt5.14.2/5.14.2/mingw73_32/include/QtWidgets/QWidget \
 		../DBtraining/function.h \

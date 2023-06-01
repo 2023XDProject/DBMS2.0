@@ -38,7 +38,6 @@ public:
     ~MainWindow();
 private:
     QTcpServer *server;
-    //QString rootAddress="D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
     QString rootAddress_;
     QTcpSocket *socket;
     void updateItemInfo();
@@ -73,6 +72,10 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+signals:
+    void sendData(QString);   //用来传递数据的信号
 
 public slots:
     void reshow();

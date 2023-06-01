@@ -1,0 +1,5 @@
+1|0|tno|int%0|0|tname|char3
+tno
+NF
+124%qwq
+14%sdf

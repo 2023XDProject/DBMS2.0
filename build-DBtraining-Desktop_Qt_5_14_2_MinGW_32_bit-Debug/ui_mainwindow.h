@@ -39,6 +39,7 @@ public:
     QAction *insertAction;
     QAction *createBDAction;
     QAction *DropDBAction;
+    QAction *actAction;
     QWidget *centralWidget;
     QPushButton *createUser_pushButton;
     QPushButton *authorization_pushButton;
@@ -54,6 +55,7 @@ public:
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QTreeView *treeView;
+    QPushButton *pushButton_3;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -68,7 +70,7 @@ public:
         createAction->setObjectName(QString::fromUtf8("createAction"));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font.setPointSize(9);
+        font.setPointSize(8);
         createAction->setFont(font);
         dropAction = new QAction(MainWindow);
         dropAction->setObjectName(QString::fromUtf8("dropAction"));
@@ -100,6 +102,9 @@ public:
         DropDBAction = new QAction(MainWindow);
         DropDBAction->setObjectName(QString::fromUtf8("DropDBAction"));
         DropDBAction->setFont(font);
+        actAction = new QAction(MainWindow);
+        actAction->setObjectName(QString::fromUtf8("actAction"));
+        actAction->setFont(font);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         createUser_pushButton = new QPushButton(centralWidget);
@@ -253,7 +258,11 @@ public:
 "         border-image: none;\n"
 " }\n"
 ""));
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setGeometry(QRect(790, 130, 80, 18));
         MainWindow->setCentralWidget(centralWidget);
+        pushButton_3->raise();
         pushButton->raise();
         pushButton_2->raise();
         createTable_pushButton->raise();
@@ -270,7 +279,7 @@ public:
         treeView->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1600, 23));
+        menuBar->setGeometry(QRect(0, 0, 1600, 21));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -278,7 +287,7 @@ public:
         mainToolBar->setMaximumSize(QSize(1600, 70));
         QFont font2;
         font2.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
-        font2.setPointSize(10);
+        font2.setPointSize(9);
         mainToolBar->setFont(font2);
         mainToolBar->setStyleSheet(QString::fromUtf8("QToolButton{\n"
 "                                   border: none;\n"
@@ -303,6 +312,7 @@ public:
         mainToolBar->addAction(selectAction);
         mainToolBar->addAction(updateAction);
         mainToolBar->addAction(insertAction);
+        mainToolBar->addAction(actAction);
 
         retranslateUi(MainWindow);
         QObject::connect(creatUserAction, SIGNAL(triggered()), createUser_pushButton, SLOT(click()));
@@ -316,6 +326,7 @@ public:
         QObject::connect(createAction, SIGNAL(triggered()), createTable_pushButton, SLOT(click()));
         QObject::connect(createBDAction, SIGNAL(triggered()), pushButton, SLOT(click()));
         QObject::connect(DropDBAction, SIGNAL(triggered()), pushButton_2, SLOT(click()));
+        QObject::connect(actAction, SIGNAL(triggered()), pushButton_3, SLOT(click()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -338,6 +349,7 @@ public:
         insertAction->setText(QCoreApplication::translate("MainWindow", "\346\217\222\345\205\245\350\256\260\345\275\225", nullptr));
         createBDAction->setText(QCoreApplication::translate("MainWindow", "\346\226\260\345\273\272\346\225\260\346\215\256\345\272\223", nullptr));
         DropDBAction->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244\346\225\260\346\215\256\345\272\223", nullptr));
+        actAction->setText(QCoreApplication::translate("MainWindow", "\350\277\220\350\241\214", nullptr));
         createUser_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\233\345\273\272\347\224\250\346\210\267", nullptr));
         authorization_pushButton->setText(QCoreApplication::translate("MainWindow", "\346\235\203\351\231\220\347\256\241\347\220\206", nullptr));
         alterTable_pushButton->setText(QCoreApplication::translate("MainWindow", "\344\277\256\346\224\271\350\241\250\347\273\223\346\236\204", nullptr));
@@ -349,6 +361,7 @@ public:
         delete_pushButton->setText(QCoreApplication::translate("MainWindow", "\345\210\240\351\231\244", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
     } // retranslateUi
 
 };

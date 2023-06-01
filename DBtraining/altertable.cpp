@@ -21,7 +21,8 @@ void alterTable::on_pushButton_clicked()
     QString column=ui->line_column->text();
     QString dataType=ui->line_dataType->text();
     QString newcolum=ui->line_newColumn->text();
-    sendData(fun_->AlterTable(operate,table,column,dataType,newcolum));
+    QString newtype=ui->line_newType->text();
+    sendData(fun_->AlterTable(operate,table,column,dataType,newcolum,newtype));
     //OperateRights()
 }
 

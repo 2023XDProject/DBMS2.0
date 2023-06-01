@@ -32,11 +32,11 @@ public:
     {
         if (insertTable->objectName().isEmpty())
             insertTable->setObjectName(QString::fromUtf8("insertTable"));
-        insertTable->resize(400, 300);
+        insertTable->resize(553, 485);
         insertTable->setStyleSheet(QString::fromUtf8("background: rgb(50, 50, 50);"));
         pushButton = new QPushButton(insertTable);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(60, 220, 101, 51));
+        pushButton->setGeometry(QRect(100, 410, 101, 51));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\271\274\345\234\206"));
         font.setPointSize(12);
@@ -51,7 +51,7 @@ public:
 ""));
         pushButton_2 = new QPushButton(insertTable);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setGeometry(QRect(240, 220, 101, 51));
+        pushButton_2->setGeometry(QRect(340, 410, 101, 51));
         pushButton_2->setFont(font);
         pushButton_2->setStyleSheet(QString::fromUtf8("border: none;\n"
 "        color: rgb(175, 175, 175);\n"
@@ -63,7 +63,7 @@ public:
 ""));
         lineEdit = new QLineEdit(insertTable);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(170, 60, 161, 41));
+        lineEdit->setGeometry(QRect(150, 40, 321, 51));
         QFont font1;
         font1.setFamily(QString::fromUtf8("Arial"));
         font1.setPointSize(10);
@@ -75,21 +75,22 @@ public:
 ""));
         lineEdit_2 = new QLineEdit(insertTable);
         lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(170, 130, 161, 41));
+        lineEdit_2->setGeometry(QRect(150, 120, 321, 251));
         lineEdit_2->setFont(font1);
         lineEdit_2->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
 "color: white;\n"
 ""));
+        lineEdit_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         label = new QLabel(insertTable);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(70, 60, 71, 41));
+        label->setGeometry(QRect(60, 50, 71, 41));
         label->setFont(font);
         label->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
         label_2 = new QLabel(insertTable);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(70, 130, 91, 41));
+        label_2->setGeometry(QRect(60, 120, 71, 41));
         label_2->setFont(font);
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 

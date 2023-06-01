@@ -72,6 +72,10 @@ public:
         line_operate = new QLineEdit(alterTable);
         line_operate->setObjectName(QString::fromUtf8("line_operate"));
         line_operate->setGeometry(QRect(220, 40, 241, 41));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Arial"));
+        font1.setPointSize(10);
+        line_operate->setFont(font1);
         line_operate->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -80,6 +84,7 @@ public:
         line_table = new QLineEdit(alterTable);
         line_table->setObjectName(QString::fromUtf8("line_table"));
         line_table->setGeometry(QRect(220, 110, 241, 41));
+        line_table->setFont(font1);
         line_table->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"
 "border:2px solid rgb(20, 128, 211);\n"
@@ -88,9 +93,6 @@ public:
         line_column = new QLineEdit(alterTable);
         line_column->setObjectName(QString::fromUtf8("line_column"));
         line_column->setGeometry(QRect(220, 180, 241, 41));
-        QFont font1;
-        font1.setFamily(QString::fromUtf8("Arial"));
-        font1.setPointSize(10);
         line_column->setFont(font1);
         line_column->setStyleSheet(QString::fromUtf8("background: rgb(68, 69, 73);\n"
 "border-radius:4px;\n"

@@ -1,7 +1,5 @@
 #include "function.h"
 
-//QString rootAddress = "D:\\temp\\DBMS_BJTU_2022-main\\project1-dbms";
-
 Function::Function(){
     QDir *dir =new QDir(QDir::currentPath());
     dir->cdUp();
@@ -87,48 +85,6 @@ bool Function::simplyConditionJudge(QString condition,QString data,QMap<QString,
     qDebug("%s",qPrintable(dataTypeProjection[conditionList[0]]));
     qDebug()<<projection[conditionList[0]];
     qDebug()<<projection[conditionList[1]];
-
-    //    //判断是int类型还是char类型
-    //    if(conditionList[0].contains("."))
-    //    {
-    //        if(dataTypeProjection[conditionList[0]].compare("int")==0)
-    //        {
-    //            compareInt1=dataList[projection[conditionList[0]]].toInt();
-    //            dataType=0;
-    //        }
-    //        else
-    //        {
-    //            compareString1=dataList[projection[conditionList[0]]];
-    //            dataType=1;
-    //        }
-
-    //    }
-    //    if(conditionList[1].contains("."))
-    //    {
-    //        if(dataTypeProjection[conditionList[1]].compare("int")==0)
-    //        {
-    //            compareInt2=dataList[projection[conditionList[1]]].toInt();
-    //            dataType=0;
-    //        }
-    //        else
-    //            compareString2=dataList[projection[conditionList[1]]];
-    //    }
-    //    if(!conditionList[0].contains("."))
-    //    {
-    //        if(dataType==1)
-    //            compareString1=conditionList[0];
-    //        else
-    //            compareInt1=conditionList[0].toInt();
-    //    }
-    //    if(!conditionList[1].contains("."))
-    //    {
-    //        if(dataType==1)
-    //            compareString2=conditionList[1];
-    //        else
-    //            compareInt2=conditionList[1].toInt();
-    //    }
-
-    //判断是int类型还是char类型
 
     if(dataTypeProjection[conditionList[0]].compare("int")==0)
     {
@@ -282,10 +238,12 @@ QString Function::select(QString attribute,QString table,QString condition,QStri
     //要查询的表名只有1个-单表查询
     if(tableList.size()==1){
         isSingalTable=true;
-        foreach(QString s,attributeList){
-            //将要查询的表名.字段名全部加入属性集合
-            attributeSet.insert(tableList[0]+"."+s);
-            //qDebug("%s",qPrintable(s));
+        if(attributeList[0].toStdString()!="*"){
+            foreach(QString s,attributeList){
+                //将要查询的表名.字段名全部加入属性集合
+                attributeSet.insert(tableList[0]+"."+s);
+                //qDebug("%s",qPrintable(s));
+            }
         }
     }
 
@@ -328,6 +286,10 @@ QString Function::select(QString attribute,QString table,QString condition,QStri
             //attributeTmp存储"|"分出字段的每个信息
             //[0]=PK,[1]=FK,[2]=NAME,[3]=TYPE
             QStringList attributeTmp=tmps.split('|',QString::SkipEmptyParts);
+
+            if(attributeList[0].toStdString()=="*" && isSingalTable){
+                attributeSet.insert(tableList[0]+"."+attributeTmp[2]);
+            }
 
             //columnNum记录字段的个数
             //映射[表名.字段名]=字段位置号
@@ -565,12 +527,7 @@ QString Function::rewriteFile(QString file_addr,QString target_tableName){
 
 QString Function::delete_function(QString table,QString condition)
 {
-    QString decision;
 
-    decision = referenceConstraints(table);
-    if(decision == "yes"){
-        return  "DeleteWrong";
-    }
     //创建一个中间缓存文件
     QFile file(rootAddress_+"\\temp.txt");
     if(!file.open(QIODevice::Append|QIODevice::Text)){
@@ -708,7 +665,7 @@ QString Function::delete_function(QString table,QString condition)
         QStringList dataList=data.split("%",QString::SkipEmptyParts);
     }
 
-    if(delete_row.size() == 0){
+    if(delete_row.size() == 0||delete_row[0]==""){
         qDebug() << "没有匹配数据";
         return "DeleteWrong";
     }else{
@@ -736,6 +693,179 @@ QString Function::delete_function(QString table,QString condition)
 
     return "DeleteOk";
 }
+
+//QString Function::delete_function(QString table,QString condition)
+//{
+//        QStringList field=condition.split("=",QString::SkipEmptyParts);
+//        field.removeLast();
+
+//        QString decision;
+//        decision=foreignkey(field,table);
+//        //decision = referenceConstraints(table);
+//        if(decision == "yes"){
+//            return  "FK记录不可删除";
+//        }
+//    //创建一个中间缓存文件
+//    QFile file(rootAddress_+"\\temp.txt");
+//    if(!file.open(QIODevice::Append|QIODevice::Text)){
+//        qDebug()<<"文件打开失败";
+//    }
+
+//    QMap<QString,int>projection;//投影
+//    QMap<QString,QString> dataTypeProjection;//数据类型投影
+
+//    //根据选中表建立中间文件表头
+//    qDebug()<<"table";
+//    qDebug("%s",qPrintable(table));
+//    QStringList tableList=table.split(',',QString::SkipEmptyParts);
+//    QString newForm="";//新的头文件表头
+//    int columnNum=0;
+
+//    foreach(QString s,tableList)
+//    {
+//        qDebug("%s",qPrintable(rootAddress_+"\\"+DBName_+"\\"+s+".txt"));
+//        QFile tmpFile(rootAddress_+"\\"+DBName_+"\\"+s+".txt");
+//        if(!tmpFile.open(QIODevice::ReadOnly|QIODevice::Text)){
+//            qDebug()<<"文件打开失败";
+//        }
+//        //读取from中的文件tempFile记录信息
+//        QTextStream in(&tmpFile);
+//        QString tmpString;
+//        in>>tmpString;
+//        qDebug("%s",qPrintable(tmpString));
+//        //1|0|sno|char8%0|0|sname|char10%0|0|sex|char1%0|1|classno|char8%0|0|totalCredit|int
+//        //分割每个属性信息
+//        //projrction存属性下标，dataTypeProjection存属性类型——key,value
+//        QStringList tmpList=tmpString.split('%',QString::SkipEmptyParts);
+//        foreach(QString tmps,tmpList)
+//        {
+//            qDebug("%s",qPrintable(tmps));
+//            QStringList attributeTmp=tmps.split('|',QString::SkipEmptyParts);
+//            projection[s+"."+attributeTmp[2]]=columnNum++;
+//            dataTypeProjection[s+"."+attributeTmp[2]]=attributeTmp[3];
+//            QString newString=s+"."+attributeTmp[2]+"|"+attributeTmp[3]+"%";
+//            newForm+=newString;
+//        }
+//        tmpFile.close();
+//    }
+//    //输出信息至file文件
+//    QTextStream out(&file);
+//    out<<newForm+"\n";
+//    QMap<QString,int>::iterator iter=projection.begin();
+//    while(iter!=projection.end()){
+//        qDebug()<<iter.key()<<":"<<iter.value();
+//        iter++;
+//    }
+
+//    //把所有数据写进file文件
+//    QStringList tableList_1;
+//    foreach(QString s,tableList)
+//        tableList_1.append(s);//不确定是值传递还是引用传递
+//    qDebug()<<"abab";
+//    tableList_1=WriteContent(tableList);
+//    foreach(QString s,tableList_1)
+//        out<<s+"\n";
+//    file.close();
+//    //写结果文件
+
+//    QFile ResultFile(rootAddress_+"\\result.txt");
+//    if(!ResultFile.open(QIODevice::Append|QIODevice::Text)){
+//        qDebug()<<"文件打开失败";
+//    }
+
+//    QFile tempFile(rootAddress_+"\\"+"temp.txt");
+//    if(!tempFile.open(QIODevice::ReadOnly|QIODevice::Text)){
+//        qDebug()<<"文件打开失败";
+//    }
+
+//    QFile temp2File(rootAddress_+"\\"+"temp2.txt");
+//    if(!temp2File.open(QIODevice::Append|QIODevice::Text)){
+//        qDebug()<<"文件打开失败";
+//    }
+
+//    QFile targetFile(rootAddress_+"\\"+DBName_+"\\"+table+".txt");
+//    if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
+//        qDebug()<<"文件打开失败";
+//    }
+
+//    QTextStream resultOut(&ResultFile);
+//    QTextStream in(&tempFile);
+//    QTextStream tempOut(&temp2File);
+//    QTextStream character_in(&targetFile);
+
+//    QString Header="";
+
+//    QString data;
+//    in>>data;
+//    qDebug("%s",qPrintable(data));
+
+//    int cnt=0;
+//    while(!in.atEnd())
+//    {
+//        in>>data;
+//        qDebug("%s",qPrintable(data));
+//        if(data=="")break;
+//        if(JudgeCondition(condition,data,projection,dataTypeProjection))
+//            tempOut<<data<<"\n";
+
+//        cnt+=1;
+//        qDebug()<<cnt;
+//    }
+
+//    //tempFile.remove();
+
+//    temp2File.close();
+//    tempFile.close();
+
+
+//    QFile tempToResult(rootAddress_+"\\"+"temp2.txt");
+//    if(!tempToResult.open(QIODevice::ReadOnly|QIODevice::Text)){
+//        qDebug()<<"文件打开失败";
+//    }
+
+//    QTextStream toBuffer(&tempToResult);
+//    QStringList delete_row;
+
+//    toBuffer>>data;
+//    delete_row.append(data);
+
+//    while(!toBuffer.atEnd())
+//    {
+//        toBuffer>>data;
+//        qDebug("%s",qPrintable(data));
+//        delete_row.append(data);
+//        if(data=="")break;
+//        QStringList dataList=data.split("%",QString::SkipEmptyParts);
+//    }
+
+//    if(delete_row.size() == 0){
+//        qDebug() << "没有匹配数据";
+//        return "字段不存在";
+//    }else{
+//        foreach(QString s , delete_row){
+//            qDebug("%s",qPrintable(s));
+//        }
+//    }
+
+//    while(!character_in.atEnd()){
+//        character_in >> data;
+//        if(data == "") break;
+//        if(!delete_row.contains(data)){
+//            resultOut << data << "\n";
+//        }
+//    }
+
+
+//    targetFile.close();
+//    tempToResult.close();
+//    tempToResult.remove();
+//    tempFile.remove();
+//    ResultFile.close();
+
+//    rewriteFile(rootAddress_+"\\result.txt",table);
+
+//    return "DeleteOk";
+//}
 
 QString Function::primarykey(QMap<QString,int> projection,QString table,QString file_addr){
     QFile targetFile(rootAddress_ + "\\"+DBName_+"\\" + table + ".txt");
@@ -814,6 +944,7 @@ QString Function::primarykey(QMap<QString,int> projection,QString table,QString 
     }
 }
 
+//判断是否为外键
 QString Function::foreignkey(QStringList set_KeyValue,QString table){
     QFile targetFile(rootAddress_ + "\\" +DBName_+"\\"+ table + ".txt");
     if(!targetFile.open(QIODevice::ReadOnly|QIODevice::Text)){
@@ -1046,9 +1177,10 @@ QString Function::update_function(QString table,QString set,QString condition)
             if(data=="")break;
             QStringList dataList=data.split("%",QString::SkipEmptyParts);
         }
-
-        if(update_row.size() == 0){
-            qDebug() << "没有匹配数据";
+        qDebug()<<"不存在待更新列："<<update_row.size();
+        if(update_row.size()==0||update_row[0]==""){
+            //qDebug()<<"不存在待更新列："<<update_row.size();
+            //qDebug() << "没有匹配数据";
             return "UpdateWrong";
         }else{
             foreach(QString s , update_row){
@@ -1097,7 +1229,7 @@ QString Function::update_function(QString table,QString set,QString condition)
 
     }
     else {
-        return "UpdateWrong";
+        return "FK记录不可更改";
     }
 }
 
@@ -1272,7 +1404,6 @@ QString Function::insert(QString tableName,QString value)
 
         if(!FKSet.contains(valueList[projection[referenceData[0]]])) return "InsertWrong";
     }
-    qDebug()<<"wtf!!";
 
     QFile writeFile(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
     if(!writeFile.open(QIODevice::Append|QIODevice::Text))
@@ -1291,7 +1422,7 @@ QString Function::insert(QString tableName,QString value)
     return "InsertOk";
 }
 
-QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype,QString newColumnName)
+QString Function::AlterTable(QString operate,QString tableName,QString columnname,QString Datatype,QString newColumnName,QString newColumnType)
 {
     QString tableForm;
 
@@ -1303,24 +1434,24 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
     }
 
     QTextStream in(&readFile);
-    in>>tableForm;
+    in>>tableForm;//字段信息行
 
     QString line2,line,line3;
-    in>>line2;
+    in>>line2;//PK信息行
 
+    //tableFormList存每个字段的全部信息
     QStringList tableFormList=tableForm.split("%",QString::SkipEmptyParts);
+    //attributeSet存每个字段的名字
     QSet<QString> attributeSet;
-
     foreach(QString s,tableFormList){
         QStringList tempList=s.split("|",QString::SkipEmptyParts);
         attributeSet.insert(tempList[2]);
     }
 
-    in>>line3;
+    in>>line3;//FK信息行
 
-    if(operate.toUpper()=="ADD")
-    {
-        if(attributeSet.contains(columnname)==true){return "ADDWrong";}
+    if(operate.toUpper()=="ADD"){
+        if(attributeSet.contains(columnname)==true){return "字段已存在";}
         else
         {
             tableForm+="%0|0|";
@@ -1349,11 +1480,10 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
             return "ADDOK";
         }
     }
-
     else if(operate.toUpper()=="DROP"){
         QStringList primeKeyList=line2.split("%",QString::SkipEmptyParts);
-        if(primeKeyList.contains(columnname)==true){return "DropWrong";}
-        if(attributeSet.contains(columnname)!=true){return "DropWrong";}
+        if(primeKeyList.contains(columnname)==true){return "PK不可删除";}
+        if(attributeSet.contains(columnname)!=true){return "字段不存在";}
 
         QString FKReference=tableName+"."+columnname;
         QFile relationFile(rootAddress_+"\\relation.txt");
@@ -1364,22 +1494,22 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
         {
             relationIn>>line;
             QStringList tempList=line.split("-");
-            if(tempList[0]==FKReference)
+            if(tempList[0]!="" && tempList[1]==FKReference)
             {
                 relationFile.close();
-                return "DropWrong";
+                return "FK不可删除";
             }
         }
         relationFile.close();
 
-        int dropNum=0,cnt=0;
+        int updateNum=0,cnt=0;
         QString line1="";
         foreach(QString s,tableFormList)
         {
             QStringList tempList=s.split("|",QString::SkipEmptyParts);
             cnt+=1;
             if(tempList[2]==columnname){
-                dropNum=cnt;continue;
+                updateNum=cnt;continue;
             }else{
                 line1+=s+"%";
             }
@@ -1398,7 +1528,7 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
         {
             in>>line;
             valueList=line.split("%",QString::SkipEmptyParts);
-            valueList.removeAt(dropNum-1);
+            valueList.removeAt(updateNum-1);
             if(valueList.size()==1){
                 out << valueList[0]<< endl;
             }
@@ -1413,8 +1543,8 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
     }
     else if(operate.toUpper()=="RENAME"){
         QStringList primeKeyList=line2.split("%",QString::SkipEmptyParts);
-        if(primeKeyList.contains(columnname)==true){return "DropWrong";}
-        if(attributeSet.contains(columnname)!=true){return "DropWrong";}
+        if(primeKeyList.contains(columnname)==true){return "PK不可更新";}
+        if(attributeSet.contains(columnname)!=true){return "字段不存在";}
 
         QString FKReference=tableName+"."+columnname;
         QFile relationFile(rootAddress_+"\\relation.txt");
@@ -1425,52 +1555,72 @@ QString Function::AlterTable(QString operate,QString tableName,QString columnnam
         {
             relationIn>>line;
             QStringList tempList=line.split("-");
-            if(tempList[0]==FKReference)
-            {
+            if(tempList[0]!="" && tempList[1]==FKReference){
                 relationFile.close();
-                return "DropWrong";
+                return "FK不可更新";
             }
         }
         relationFile.close();
 
-        int dropNum=0,cnt=0;
-        QString line1="";
-        foreach(QString s,tableFormList)
-        {
+        int updateNum=0,cnt=0;
+
+        //找到要改的字段位置
+        foreach(QString s,tableFormList){
             QStringList tempList=s.split("|",QString::SkipEmptyParts);
             cnt+=1;
             if(tempList[2]==columnname){
-                dropNum=cnt;continue;
-            }else{
-                line1+=s+"%";
+                updateNum=cnt;
+                continue;
             }
         }
+
+        //新建临时文件
         QFile writeFile(rootAddress_+"\\"+DBName_+"\\"+tableName+"1.txt");
         if(!writeFile.open(QIODevice::Append|QIODevice::Text))
             return"打开文件失败";
         QTextStream out(&writeFile);
 
-        out<<line1.left(line1.size()-1)<<"\n";
-        out << line2 << endl;
-        out<<line3<<"\n";
+        QStringList updValueList;
+        QString updValue;
 
-        QStringList valueList;
-        while(in.atEnd() == false)
-        {
-            in>>line;
-            valueList=line.split("%",QString::SkipEmptyParts);
-            valueList.removeAt(dropNum-1);
-            if(valueList.size()==1){
-                out << valueList[0]<< endl;
-            }
-            out << valueList.join("%")<< endl;
+        int tnum = 0;
+        foreach(QString s,tableFormList){
+            if(tnum == updateNum-1) {
+                updValueList=s.split("|",QString::SkipEmptyParts);
+                break;
+            }tnum++;
         }
+
+        updValueList.replace(2,newColumnName);
+        updValueList.replace(3,newColumnType);
+        int num=0;
+        foreach(QString s,updValueList){
+            if(num!=updValueList.size()-1) {
+                s.append("|");
+            }
+            updValue.append(s);
+            num++;
+        }
+        tableFormList.replace(updateNum-1, updValue);
+
+        int onum=0;
+        QString outValue;
+        foreach(QString s,tableFormList){
+            if(onum!=tableFormList.size()-1) {
+                s.append("%");
+            }
+            outValue.append(s);
+            onum++;
+        }
+        out << outValue << endl;
+        out << line2 << endl;
+        out << line3 << endl;
 
         writeFile.close();
         readFile.close();
         readFile.remove();
         writeFile.rename(rootAddress_+"\\"+DBName_+"\\"+tableName+".txt");
-        return "DROPOK";
+        return "RENAMEOK";
     }
 }
 
@@ -1529,7 +1679,7 @@ QString Function::OperateRights(QString operate,QString userName,QString tableNa
             k=strlist.at(i);                    //提取分割的信息，循环判断以支持同时授权或回收多个权限。
             if(k!="select" && k!="alter" && k!="update" && k!="delete" && k!="insert" ){//如果不是规定五个权限之中的，报错
                 l=1;
-                opp="Wrong in Right";
+                opp="WronginRight";
             }
         }
         if(l == 0){                              //如果在五个权限之中，循环将信息写入文件，并返回信息
@@ -1590,16 +1740,23 @@ QString Function::CreateTables(QString tableName,QString content){
     QString k;
     QStringList pKeyList;//存放主键
     QStringList fKeyList;//存放外键
-    QString fileName = rootAddress_+"\\"+DBName_+"\\"+tableName+".txt";//创建表
+
+    //创建表文件
+    QString fileName = rootAddress_+"\\"+DBName_+"\\"+tableName+".txt";
     QFile file(fileName);
-    QString fileName2 = rootAddress_+"\\relation.txt";//创建relation表
+
+    QString fileName2 = rootAddress_+"\\relation.txt";
     QFile fileR(fileName2);
+
+    //打开并读取relation表
     fileR.open(QIODevice::ReadWrite| QIODevice::Text);
     QByteArray array=fileR.readAll();
-    if(file.exists()){   //表存在就报错
-        k="TableCreateWrong";
+
+    if(file.exists()){//要创建的表存在就报错
+        k="TableAlreadyExists";
     }
     else{
+        //打开并读写创建的表文件
         bool openok=file.open(QIODevice::ReadWrite| QIODevice::Text);
         if(openok ){
             QTextStream wstream(&file);
@@ -1611,42 +1768,45 @@ QString Function::CreateTables(QString tableName,QString content){
             QString h="PK";
             QString z="FK";
             QStringList strlist = content.split(",\n");//以逗号加转行符作为分割
+            QStringList strlistfkr;
 
             for(int m =0;m<strlist.size();m++){
-                if(strlist.at(m).contains(h,Qt::CaseInsensitive)){//判断每一行是否包含不区分大小写的pk，是的话p为1，否则为0
+                //判断这一行是否包含不区分大小写的pk，是的话p为1，否则为0
+                if(strlist.at(m).contains(h,Qt::CaseInsensitive)){
                     p=1;
-                }
-                else{
-                    p=0;
-                }
-                if(strlist.at(m).contains(z,Qt::CaseInsensitive)){//判断每一行是否包含不区分大小写的fk，是的话u为1，否则为0
+                }else p=0;
+
+                //判断这一行是否包含不区分大小写的fk，是的话u为1，否则为0
+                if(strlist.at(m).contains(z,Qt::CaseInsensitive)){
                     u=1;
-                }
-                else{
-                    u=0;
-                }
+                }else u=0;
+
                 QString ac = strlist.at(m);
-                QStringList strlist1 = ac.split(" ");//以空格为区分进一步分割信息
-                if(!p && !u){//如果第一块不是PK或者FK（我也不知道为啥不用！）
-                    //0|0不是PK也不是FK
+                //以空格为区分进一步分割信息
+                QStringList strlist1 = ac.split(" ");
+
+                if(!p && !u){
+                    //0|0 如果不是PK也不是FK
                     wstream<<p<<'|'<<u; //将信息填入进去
+
                     for(int n =0;n<strlist1.size();n++){
-                        if(n==strlist1.size()-1&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
+                        if(n==strlist1.size()-1 && m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
                         }else if(n==strlist1.size()-1){
                             wstream<<'|'<<strlist1.at(n)<<'%';
                         }else{//如果此块儿信息是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
                         }
-
                     }
-
                 }
-                else if(p){
-                    //如果这一行的第一块儿信息是PK
+                else if(p&&!u){
+                    //如果这一行的第一块儿信息是PK，不是FK
                     w=1;
                     pKeyList.append(strlist1.at(0));
+                    strlist1.last().clear();//清除PK信息
+
                     wstream<<p<<'|'<<u; //将信息填入进去
+
                     for(int n =0;n<strlist1.size()-1;n++){
                         if(n==strlist1.size()-2&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
@@ -1655,20 +1815,24 @@ QString Function::CreateTables(QString tableName,QString content){
                         }else{//如果此块儿信息是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
                         }
-
                     }
                 }
 
-                else if(u){
-                    //如果这一行的第一块儿信息是FK
+                else if(u&&!p){
+                    //如果这一行的第一块儿信息是FK，不是PK
                     f=1;
                     fKeyList.append(strlist1.at(0));
                     wstream<<p<<'|'<<u; //将信息填入进去
-                    //wstream<<'\n';
-                    if(w==0){
-                        QString sdd= "NP";
-                        wstream<<sdd<<'\n';
-                    }
+
+                    QString fk = strlist1.last();
+                    QStringList strlistfk = fk.split("=");
+
+                    QString fkr = strlistfk.last();
+
+                    strlist1.last().clear();//清除FK信息
+
+                    strlistfkr = fkr.split(".");
+
                     for(int n =0;n<strlist1.size()-1;n++){
                         if(n==strlist1.size()-2&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
                             wstream<<'|'<<strlist1.at(n);
@@ -1679,16 +1843,50 @@ QString Function::CreateTables(QString tableName,QString content){
                         }
                     }
 
-                    int k = strlist1.size()-2;        //写入到relation文件中
-                    wstream2<<strlist1.at(k)<<'.';
-                    k = strlist1.size()-1;
-                    wstream2<<strlist1.at(k)<<'-';
+                    //写入到relation文件中
+                    wstream2<<strlistfkr[0] <<'.';
+                    wstream2<<strlistfkr[1]<<'-';
                     wstream2<<tableName<<'.';
-                    k = strlist1.size()-3;
-                    wstream2<<strlist1.at(k)<<'\n';
+                    wstream2<<strlist1[0]<<'\n';
 
                 }
+                else if(p&&u){
+                    //如果这一行的第一块儿信息是PK又是FK
+                    w=1;
+                    pKeyList.append(strlist1.at(0));
+                    f=1;
+                    fKeyList.append(strlist1.at(0));
+
+                    wstream<<p<<'|'<<u; //将信息填入进去
+
+                    QString fk = strlist1.last();
+                    QStringList strlistfk = fk.split("=");
+
+                    QString fkr = strlistfk.last();
+
+                    strlist1.last().clear();//清除FK信息
+                    strlist1[strlist1.size()-2].clear();//清除PK信息
+
+                    strlistfkr = fkr.split(".");
+
+                    for(int n =0;n<strlist1.size()-1;n++){
+                        if(n==strlist1.size()-2&&m==strlist.size()-1){ //如果此块儿信息不是一行得最后一块儿信息
+                            wstream<<'|'<<strlist1.at(n);
+                        }else if(n==strlist1.size()-2){
+                            wstream<<'|'<<strlist1.at(n)<<'%';
+                        }else{//如果此块儿信息是一行得最后一块儿信息
+                            wstream<<'|'<<strlist1.at(n);
+                        }
+                    }
+
+                    //写入到relation文件中
+                    wstream2<<strlistfkr[0] <<'.';
+                    wstream2<<strlistfkr[1]<<'-';
+                    wstream2<<tableName<<'.';
+                    wstream2<<strlist1[0]<<'\n';
+                }
             }
+
             //没有主键和外键，第二行添NP，第三行添NF
             if(w==0 && f==0){
                 wstream<<'\n';
@@ -1698,21 +1896,20 @@ QString Function::CreateTables(QString tableName,QString content){
                 wstream<<sdd<<'\n';
             }
             //有外键没有主键
-            if(w==0 && f==1){
+            else if(w==0 && f==1){
                 wstream<<'\n';
                 QString sdd= "NP";
                 wstream<<sdd<<'\n';
                 for(int i=0;i<fKeyList.size();++i){
                     if(i==fKeyList.size()-1){
-                        wstream<<fKeyList[i]<<'\n';
+                        wstream<<fKeyList[i]<<"|"<<strlistfkr[0]<<"|"<<strlistfkr[1]<<'\n';
                     }else{
                         wstream<<fKeyList[i]<<"%";
                     }
                 }
-
             }
             //有主键没有外键
-            if(w==1 && f==0){
+            else if(w==1 && f==0){
                 wstream<<'\n';
                 for(int i=0;i<pKeyList.size();++i){
                     if(i==pKeyList.size()-1){
@@ -1724,6 +1921,25 @@ QString Function::CreateTables(QString tableName,QString content){
                 QString sdd= "NF";
                 wstream<<sdd<<'\n';
             }
+            else if(w==1 && f==1){
+                wstream<<'\n';
+                for(int i=0;i<pKeyList.size();++i){
+                    if(i==pKeyList.size()-1){
+                        wstream<<pKeyList[i]<<'\n';
+                    }else{
+                        wstream<<pKeyList[i]<<"%";
+                    }
+                }
+
+                for(int i=0;i<fKeyList.size();++i){
+                    if(i==fKeyList.size()-1){
+                        wstream<<fKeyList[i]<<"|"<<strlistfkr[0]<<"|"<<strlistfkr[1]<<'\n';
+                    }else{
+                        wstream<<fKeyList[i]<<"%";
+                    }
+                }
+            }
+
             k="CreateOK";
         }
     }
@@ -1905,4 +2121,231 @@ bool Function::dropFloder(const QString strFilePath){
         }
     }
     return dir.rmpath(dir.absolutePath()); // 这时候文件夹已经空了，再删除文件夹本身
+}
+
+void Function::matchSqlType(QString text){
+    //smatch result;
+    QString text_no_n=text;
+    text_no_n.replace(QString("\n"),QString(" "));//将换行符替换成空格
+    string temp=text_no_n.toLower().toStdString();//全小写
+    /*
+     * ^ 表示字符串的开始，匹配输入字符串开始的位置,^表示字符串必须以后面的规则开头
+     * \ 表示将下一字符标记为特殊字符、转义字符
+     * $ 表示字符串的结尾，匹配输入字符串结尾的位置
+     * \s 表示任意空白符(tab也包含在内)
+     * \s* 表示若干个空格（可以是0个）
+     * \s+ 表示一个或多个空格
+     * \w 表示任意字母、数字、下划线
+     */
+
+    if(regex_search (temp, regex("^create\\s+database"))){
+        //新建数据库
+        //Create database <DBname>;
+        QStringList tempList=text.split(" ",QString::SkipEmptyParts);
+        QStringList name=tempList[2].split(";",QString::SkipEmptyParts);
+
+        sendData(CreateDB(name[0]));
+
+        //qDebug()<<" create database ok";
+    }else if(regex_search (temp, regex("^drop\\s+database"))){
+        //删除数据库
+        //Drop database <DBname>;
+        QStringList tempList=text.split(" ",QString::SkipEmptyParts);
+        QStringList name=tempList[2].split(";",QString::SkipEmptyParts);
+
+        sendData( DropDB(name[0]));
+
+        //qDebug()<<" drop database ok";
+    }else if(regex_search (temp, regex("^create\\s+table"))){
+        //新建表
+        /*
+         * Create table <tablename>(
+         * <fieldName>  <type>  [PK],
+         * <fieldName>  <type>  [FK=<tablename>.<field>],
+         * <fieldName>  <type>
+         * );
+         */
+        QStringList tempList=text.split("(\n",QString::SkipEmptyParts);
+        QStringList line1=tempList[0].split(" ",QString::SkipEmptyParts);
+        QStringList line2=tempList[1].split("\n);",QString::SkipEmptyParts);
+        sendData(CreateTables(line1[2],line2[0]));
+
+        //qDebug()<<" create table ok";
+    }else if(regex_search (temp, regex("^drop\\s+table"))){
+        //删除表
+        //Drop table <tablename>;
+        QStringList tempList=text.split(" ",QString::SkipEmptyParts);
+        QStringList name=tempList[2].split(";",QString::SkipEmptyParts);
+
+        sendData(DropTables(name[0]));
+
+        //qDebug()<<" drop table ok";
+    }else if(regex_search (temp,regex("^alter\\s+table"))){
+        //修改表
+        QStringList tempList=text.split("\n",QString::SkipEmptyParts);
+        QStringList name=tempList[0].split(" ",QString::SkipEmptyParts);
+
+        if(regex_search (temp, regex("^alter\\s+table\\s+(\\w+)\\s+add"))){
+            //添加字段
+            /*
+             * Alter table <tablename>
+             * Add <fieldname> <fieldtype>;
+             */
+            QStringList tempInfo=tempList[1].split(";",QString::SkipEmptyParts);
+            QStringList alterInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+            QString qstr=QString::fromStdString("");
+
+            sendData(AlterTable(alterInfo[0],name[2],alterInfo[1],alterInfo[2],qstr,qstr));
+            //sendData(fun_->AlterTable(operate,table,column,dataType,newcolum,newtype));
+
+           //qDebug()<<" alter table add ok";
+        }else if(regex_search (temp, regex("^alter\\s+table\\s+(\\w+)\\s+drop"))){
+            //删除字段
+            /*
+             * Alter table <tablename>
+             * Drop <fieldname> <fieldtype>;
+             */
+            QStringList tempInfo=tempList[1].split(";",QString::SkipEmptyParts);
+            QStringList alterInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+            QString qstr=QString::fromStdString("");
+
+            sendData(AlterTable(alterInfo[0],name[2],alterInfo[1],alterInfo[2],qstr,qstr));
+
+            //qDebug()<<" alter table drop ok";
+        }else if(regex_search (temp, regex("^alter\\s+table\\s+(\\w+)\\s+rename"))){
+            //重命名字段
+            /*
+             * Alter table <tablename>
+             * Rename <fieldname> <fieldtype>
+             * to <newfieldname> <newfieldtype>;
+             */
+            QStringList oldInfo=tempList[1].split(" ",QString::SkipEmptyParts);
+            QStringList alterInfo=tempList[2].split(";",QString::SkipEmptyParts);
+            QStringList newInfo=alterInfo[0].split(" ",QString::SkipEmptyParts);
+            QString command=QString::fromStdString("rename");
+
+            sendData(AlterTable(oldInfo[0],name[2],oldInfo[1],oldInfo[2],newInfo[1],newInfo[2]));
+
+           // qDebug()<<" alter table rename ok";
+        }
+    }else if(regex_search (temp, regex("^insert\\s+into\\s+"))){
+        //插入记录
+        /*
+         * Insert into <tablename>
+         * Values (<value1>,<value2>,...);
+         */
+        QStringList tempList=text.split("\n",QString::SkipEmptyParts);
+        QStringList name=tempList[0].split(" ",QString::SkipEmptyParts);
+        QStringList tempText=tempList[1].split("(",QString::SkipEmptyParts);
+        QStringList text1=tempText[1].split(");",QString::SkipEmptyParts);
+
+        sendData(insert(name[2],text1[0]));
+
+        //qDebug()<<" insert ok";
+    }else if(regex_search (temp, regex("^delete\\s+"))){
+        //删除记录
+        /*
+         * Delete <tablename>
+         * Where <condition>;
+         */
+        QStringList tempList=text.split("\n",QString::SkipEmptyParts);
+        QStringList name=tempList[0].split(" ",QString::SkipEmptyParts);
+        QStringList tempInfo=tempList[1].split(";",QString::SkipEmptyParts);
+        QStringList dropInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+
+        sendData(delete_function(name[1],dropInfo[1]));
+
+        //qDebug()<<" delete ok";
+    }else if(regex_search (temp, regex("^update\\s+"))){
+        //更新记录
+        /*
+         * Update <tablename>
+         * Set <updateinfo>
+         * Where <condition>;
+         */
+        QStringList tempList=text.split("\n",QString::SkipEmptyParts);
+        QStringList name=tempList[0].split(" ",QString::SkipEmptyParts);
+        QStringList setInfo=tempList[1].split(" ",QString::SkipEmptyParts);
+        QStringList tempInfo=tempList[2].split(";",QString::SkipEmptyParts);
+        QStringList updInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+
+        sendData(update_function(name[1],setInfo[1],updInfo[1]));
+
+        //qDebug()<<" update ok";
+    }else if(regex_search (temp, regex("^select\\s+"))){
+        //查询表
+        QStringList tempList=text.split("\n",QString::SkipEmptyParts);
+        QStringList name=tempList[0].split(" ",QString::SkipEmptyParts);
+        QString qstr=QString::fromStdString("");
+
+        if(regex_search (temp, regex("^select\\s+(.+)\\s+from\\s+(\\w+)\\s+where\\s+(\\w+)\\s+order"))){
+            /*
+             * Select <fieldname>
+             * From <tablename>
+             * Where <condition>
+             * Order by <order>;
+             */
+            QStringList fromInfo=tempList[1].split(" ",QString::SkipEmptyParts);
+            QStringList whereInfo=tempList[2].split(" ",QString::SkipEmptyParts);
+            QStringList tempInfo=tempList[3].split(";",QString::SkipEmptyParts);
+            QStringList orderInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+
+            sendTable((select(name[1],fromInfo[1],whereInfo[1],orderInfo[1])));
+
+            //qDebug()<<" select ok";
+        }else if(regex_search (temp, regex("^select\\s+(.+)\\s+from\\s+(\\w+)\\s+where"))){
+            /*
+             * Select <fieldname>
+             * From <tablename>
+             * Where <condition>;
+             */
+            QStringList fromInfo=tempList[1].split(" ",QString::SkipEmptyParts);
+            QStringList tempInfo=tempList[2].split(";",QString::SkipEmptyParts);
+            QStringList whereInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+
+            sendTable(select(name[1],fromInfo[1],whereInfo[1],qstr));
+        }else if(regex_search (temp, regex("^select\\s+(.+)\\s+from"))){
+            /*
+             * Select <fieldname>
+             * From <tablename>;
+             */
+            QStringList tempInfo=tempList[1].split(";",QString::SkipEmptyParts);
+            QStringList fromInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+            sendTable(select(name[1],fromInfo[1],qstr,qstr));
+        }
+    }else if(regex_search (temp, regex("^grant\\s+"))){
+        //授权
+        /*
+         * grant <priority>
+         * on <tablename>
+         * from <username>;
+         */
+        QStringList tempList=text.split("\n",QString::SkipEmptyParts);
+        QStringList name=tempList[0].split(" ",QString::SkipEmptyParts);
+        QStringList onInfo=tempList[1].split(" ",QString::SkipEmptyParts);
+        QStringList tempInfo=tempList[2].split(";",QString::SkipEmptyParts);
+        QStringList toInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+        QString command=QString::fromStdString("grant");
+
+        sendData(OperateRights(command,name[1],onInfo[1],toInfo[1]));
+
+        //qDebug()<<" grant ok";
+    }else if(regex_search (temp, regex("^revoke\\s+"))){
+        //回收
+        /*
+         * revoke <priority>
+         * on <tablename>
+         * from <username>;
+         */
+        QStringList tempList=text.split("\n",QString::SkipEmptyParts);
+        QStringList name=tempList[0].split(" ",QString::SkipEmptyParts);
+        QStringList onInfo=tempList[1].split(" ",QString::SkipEmptyParts);
+        QStringList tempInfo=tempList[2].split(";",QString::SkipEmptyParts);
+        QStringList toInfo=tempInfo[0].split(" ",QString::SkipEmptyParts);
+        QString command=QString::fromStdString("revoke");
+
+        sendData(OperateRights(command,name[1],onInfo[1],toInfo[1]));
+
+        //qDebug()<<" revoke ok";
+    }
 }
